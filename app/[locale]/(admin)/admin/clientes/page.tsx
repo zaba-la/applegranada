@@ -7,6 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Users } from 'lucide-react';
+import { CreateCustomerDialog } from '@/components/admin/create-customer-dialog';
 
 export const metadata = { title: 'Clientes' };
 
@@ -17,15 +18,13 @@ export default async function AdminCustomersPage({ params: { locale } }: { param
   const customers = await prisma.customer.findMany({
     include: {
       user: { select: { name: true, email: true, createdAt: true } },
-      plan: { select: { nameEs: true } },
-      subscription: { select: { status: true } },
       _count: { select: { tickets: true } },
     },
     orderBy: { createdAt: 'desc' },
   });
 
   const segmentLabel: Record<string, string> = {
-    STUDENT: 'Estudiante', HOME: 'Hogar', PROFESSIONAL: 'Profesional', BUSINESS: 'Empresa',
+    STUDENT: 'Estudiante', HOME: 'Hogar', PROFESSIONAL: 'Profesional', BUSINESS: 'Empresa', NONE: 'No disponible',
   };
 
   return (
@@ -35,6 +34,7 @@ export default async function AdminCustomersPage({ params: { locale } }: { param
           <h1 className="text-2xl font-bold">{t('title')}</h1>
           <p className="text-muted-foreground">{customers.length} clientes registrados</p>
         </div>
+        <CreateCustomerDialog />
       </div>
 
       {customers.length === 0 ? (
@@ -53,7 +53,6 @@ export default async function AdminCustomersPage({ params: { locale } }: { param
                   <TableHead>{t('name')}</TableHead>
                   <TableHead>{t('email')}</TableHead>
                   <TableHead>{t('segment')}</TableHead>
-                  <TableHead>{t('plan')}</TableHead>
                   <TableHead>Tickets</TableHead>
                   <TableHead>{t('createdAt')}</TableHead>
                   <TableHead className="w-[80px]"></TableHead>
@@ -69,7 +68,6 @@ export default async function AdminCustomersPage({ params: { locale } }: { param
                         <Badge variant="outline">{segmentLabel[customer.segment] ?? customer.segment}</Badge>
                       )}
                     </TableCell>
-                    <TableCell>{customer.plan?.nameEs ?? '—'}</TableCell>
                     <TableCell>{customer._count.tickets}</TableCell>
                     <TableCell className="text-muted-foreground text-sm">{formatDate(customer.createdAt)}</TableCell>
                     <TableCell>

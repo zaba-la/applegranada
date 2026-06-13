@@ -226,7 +226,10 @@ model Ticket {
   // Scheduling
   scheduledDate   DateTime?
   notes           String?
-  
+
+  // Attachments (JSON array of {name, url, size, type})
+  attachments     String?
+
   responses       TicketResponse[]
   notifications   Notification[]
   

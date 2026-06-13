@@ -3,35 +3,45 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations } from 'next-intl';
 import { z } from 'zod';
 import toast from 'react-hot-toast';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, MapPin, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { PhoneInput } from '@/components/ui/phone-input';
 
 const schema = z.object({
-  name: z.string().min(2, 'El nombre es requerido'),
-  email: z.string().email('Email inválido'),
+  name: z.string().min(2),
+  email: z.string().email(),
   phone: z.string().optional(),
-  message: z.string().min(10, 'El mensaje debe tener al menos 10 caracteres'),
+  message: z.string().min(10),
 });
 
 type FormData = z.infer<typeof schema>;
 
+const WA_NUMBER = '34644411252';
+const WA_LINK = `https://wa.me/${WA_NUMBER}`;
+const EMAIL = 'soporte@applegranada.com';
+
 export default function ContactPage() {
+  const t = useTranslations('contact');
   const [loading, setLoading] = useState(false);
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>({
+  const [phone, setPhone] = useState('');
+
+  const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
 
   const onSubmit = async (_data: FormData) => {
     setLoading(true);
     await new Promise((r) => setTimeout(r, 1000));
-    toast.success('Mensaje enviado. Te contactaremos pronto.');
+    toast.success(t('successMsg'));
     reset();
+    setPhone('');
     setLoading(false);
   };
 
@@ -39,77 +49,97 @@ export default function ContactPage() {
     <div className="container mx-auto px-4 py-16">
       <div className="max-w-5xl mx-auto">
         <div className="mb-12">
-          <h1 className="text-4xl font-bold mb-4">Contacto</h1>
-          <p className="text-lg text-muted-foreground">
-            Cuéntanos qué le pasa a tu equipo. Nos ponemos en marcha de inmediato.
-          </p>
+          <h1 className="text-4xl font-bold mb-4">{t('title')}</h1>
+          <p className="text-lg text-muted-foreground">{t('subtitle')}</p>
         </div>
 
         <div className="grid gap-8 lg:grid-cols-2">
-          {/* Contact form */}
+          {/* Formulario */}
           <Card>
             <CardHeader>
-              <CardTitle>Envíanos un mensaje</CardTitle>
+              <CardTitle>{t('formTitle')}</CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <div className="space-y-1">
-                  <Label htmlFor="name">Nombre completo</Label>
+                  <Label htmlFor="name">{t('fieldName')}</Label>
                   <Input id="name" {...register('name')} />
                   {errors.name && <p className="text-xs text-destructive">{errors.name.message}</p>}
                 </div>
                 <div className="space-y-1">
-                  <Label htmlFor="email">Correo electrónico</Label>
+                  <Label htmlFor="email">{t('fieldEmail')}</Label>
                   <Input id="email" type="email" {...register('email')} />
                   {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
                 </div>
                 <div className="space-y-1">
-                  <Label htmlFor="phone">Teléfono (opcional)</Label>
-                  <Input id="phone" type="tel" {...register('phone')} />
+                  <Label htmlFor="phone">{t('fieldPhone')}</Label>
+                  <PhoneInput
+                    id="phone"
+                    value={phone}
+                    onChange={(v) => { setPhone(v); setValue('phone', v); }}
+                  />
                 </div>
                 <div className="space-y-1">
-                  <Label htmlFor="message">¿Qué le pasa a tu equipo?</Label>
+                  <Label htmlFor="message">{t('fieldMessage')}</Label>
                   <Textarea id="message" rows={5} {...register('message')} />
                   {errors.message && <p className="text-xs text-destructive">{errors.message.message}</p>}
                 </div>
                 <Button type="submit" className="w-full" disabled={loading}>
-                  {loading ? 'Enviando...' : 'Enviar mensaje'}
+                  {loading ? t('submitting') : t('submit')}
                 </Button>
               </form>
             </CardContent>
           </Card>
 
-          {/* Contact info */}
+          {/* Información de contacto */}
           <div className="space-y-6">
-            <div className="flex items-start gap-4">
-              <Mail className="h-5 w-5 mt-0.5 text-muted-foreground" />
-              <div>
-                <p className="font-medium">Email</p>
-                <p className="text-muted-foreground">hola@applegranada.es</p>
+
+            {/* WhatsApp — destacado */}
+            <a
+              href={WA_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-start gap-4 p-4 rounded-xl border-2 border-green-500/30 bg-green-50/50 dark:bg-green-950/20 hover:border-green-500/60 transition-colors group"
+            >
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-green-500 text-white">
+                <MessageCircle className="h-5 w-5" />
               </div>
-            </div>
-            <div className="flex items-start gap-4">
-              <Phone className="h-5 w-5 mt-0.5 text-muted-foreground" />
               <div>
-                <p className="font-medium">Teléfono / WhatsApp</p>
-                <p className="text-muted-foreground">+34 600 000 000</p>
-                <p className="text-xs text-muted-foreground mt-1">Lunes a viernes, 9:00 – 19:00</p>
+                <p className="font-semibold text-green-700 dark:text-green-400 group-hover:underline">
+                  {t('infoWhatsapp')}
+                </p>
+                <p className="text-muted-foreground">+34 644 411 252</p>
+                <p className="text-xs text-muted-foreground mt-0.5">{t('infoHours')}</p>
               </div>
-            </div>
+            </a>
+
+            {/* Email */}
             <div className="flex items-start gap-4">
-              <MapPin className="h-5 w-5 mt-0.5 text-muted-foreground" />
+              <Mail className="h-5 w-5 mt-0.5 text-muted-foreground shrink-0" />
               <div>
-                <p className="font-medium">Zona de servicio presencial</p>
-                <p className="text-muted-foreground">Granada y área metropolitana</p>
+                <p className="font-medium">{t('infoEmail')}</p>
+                <a
+                  href={`mailto:${EMAIL}`}
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {EMAIL}
+                </a>
               </div>
             </div>
 
-            <div className="rounded-lg bg-muted/40 p-6 mt-8">
-              <h3 className="font-semibold mb-2">¿Cuándo te respondemos?</h3>
-              <p className="text-sm text-muted-foreground">
-                Respondemos todos los mensajes en menos de 24 horas en días laborables.
-                Para urgencias, llámanos directamente por teléfono.
-              </p>
+            {/* Zona de servicio */}
+            <div className="flex items-start gap-4">
+              <MapPin className="h-5 w-5 mt-0.5 text-muted-foreground shrink-0" />
+              <div>
+                <p className="font-medium">{t('infoLocation')}</p>
+                <p className="text-muted-foreground">{t('infoLocationValue')}</p>
+              </div>
+            </div>
+
+            {/* Respuesta */}
+            <div className="rounded-lg bg-muted/40 p-6 mt-2">
+              <h3 className="font-semibold mb-2">{t('responseTitle')}</h3>
+              <p className="text-sm text-muted-foreground">{t('responseText')}</p>
             </div>
           </div>
         </div>

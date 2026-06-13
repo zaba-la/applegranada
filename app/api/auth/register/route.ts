@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: parsed.error.errors[0].message }, { status: 400 });
   }
 
-  const { name, email, password, phone, segment } = parsed.data;
+  const { name, email, password, phone, segment, address, city, postalCode, country } = parsed.data;
 
   const existing = await prisma.user.findUnique({ where: { email } });
   if (existing) {
@@ -30,6 +30,10 @@ export async function POST(req: Request) {
         create: {
           phone: phone ?? null,
           segment: segment ?? null,
+          address: address ?? null,
+          city: city ?? null,
+          postalCode: postalCode ?? null,
+          country: country ?? null,
         },
       },
     },

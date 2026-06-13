@@ -40,7 +40,7 @@ export default async function PlanPage({ params: { locale } }: { params: { local
               Elige un plan para empezar a disfrutar del soporte AppleGranada
             </p>
             <Button asChild>
-              <Link href={`/${locale}/planes`}>
+              <Link href={`/${locale}/precios`}>
                 Ver planes <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
@@ -103,7 +103,7 @@ export default async function PlanPage({ params: { locale } }: { params: { local
 
           <div className="flex gap-3 pt-2">
             <Button variant="outline" asChild>
-              <Link href={`/${locale}/planes`}>{t('upgrade')}</Link>
+              <Link href={`/${locale}/precios`}>{t('upgrade')}</Link>
             </Button>
             <Button variant="ghost" className="text-destructive hover:text-destructive">
               {t('cancel')}

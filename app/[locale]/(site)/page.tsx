@@ -1,10 +1,12 @@
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getServerSession } from 'next-auth';
 import Link from 'next/link';
 import { ArrowRight, Shield, Wrench, Apple, GraduationCap, Home, Briefcase, Building2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { FadeIn } from '@/components/fade-in';
 import { TestimonialsSection } from '@/components/testimonials-section';
+import { authOptions } from '@/lib/auth';
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
   const t = await getTranslations({ locale, namespace: 'home' });
@@ -13,6 +15,8 @@ export async function generateMetadata({ params: { locale } }: { params: { local
 
 export default async function HomePage({ params: { locale } }: { params: { locale: string } }) {
   unstable_setRequestLocale(locale);
+  const session = await getServerSession(authOptions);
+  const ticketHref = session ? `/${locale}/panel/tickets/nuevo` : `/${locale}/register`;
   const t = await getTranslations('home');
   const tc = await getTranslations('common');
 
@@ -23,10 +27,10 @@ export default async function HomePage({ params: { locale } }: { params: { local
   ] as const;
 
   const segments = [
-    { key: 'student', icon: GraduationCap },
-    { key: 'home', icon: Home },
-    { key: 'professional', icon: Briefcase },
-    { key: 'business', icon: Building2 },
+    { key: 'student', icon: GraduationCap, href: `/${locale}/estudiantes` },
+    { key: 'home', icon: Home, href: `/${locale}/hogares` },
+    { key: 'professional', icon: Briefcase, href: `/${locale}/profesionales` },
+    { key: 'business', icon: Building2, href: `/${locale}/empresas` },
   ] as const;
 
   return (
@@ -42,12 +46,12 @@ export default async function HomePage({ params: { locale } }: { params: { local
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" asChild>
-              <Link href={`/${locale}/contacto`}>
+              <Link href={ticketHref}>
                 {tc('buttons.bookDiagnosis')} <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
             <Button size="lg" variant="outline" asChild>
-              <Link href={`/${locale}/planes`}>{tc('buttons.seePlans')}</Link>
+              <Link href={`/${locale}/precios`}>{tc('buttons.seePlans')}</Link>
             </Button>
           </div>
         </section>
@@ -82,19 +86,21 @@ export default async function HomePage({ params: { locale } }: { params: { local
           <h2 className="text-2xl font-semibold mb-8 max-w-2xl">{t('segments.title')}</h2>
         </FadeIn>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {segments.map(({ key, icon: Icon }, i) => (
+          {segments.map(({ key, icon: Icon, href }, i) => (
             <FadeIn key={key} delay={i * 80}>
-              <Card className="hover:shadow-md transition-shadow h-full">
-                <CardHeader className="pb-2">
-                  <Icon className="h-6 w-6 mb-2 text-muted-foreground" />
-                  <CardTitle className="text-base">
-                    {t(`segments.${key}`).split(' — ')[0]}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription>{t(`segments.${key}`).split(' — ')[1]}</CardDescription>
-                </CardContent>
-              </Card>
+              <Link href={href} className="block h-full group">
+                <Card className="hover:shadow-md transition-shadow h-full group-hover:border-foreground/20">
+                  <CardHeader className="pb-2">
+                    <Icon className="h-6 w-6 mb-2 text-muted-foreground" />
+                    <CardTitle className="text-base">
+                      {t(`segments.${key}`).split(' — ')[0]}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription>{t(`segments.${key}`).split(' — ')[1]}</CardDescription>
+                  </CardContent>
+                </Card>
+              </Link>
             </FadeIn>
           ))}
         </div>
@@ -110,7 +116,7 @@ export default async function HomePage({ params: { locale } }: { params: { local
             <h2 className="text-3xl font-bold mb-4">{t('cta.title')}</h2>
             <p className="text-lg opacity-80 mb-8 max-w-xl mx-auto">{t('cta.subtitle')}</p>
             <Button size="lg" variant="secondary" asChild>
-              <Link href={`/${locale}/contacto`}>
+              <Link href={ticketHref}>
                 {tc('buttons.talkWithUs')} <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>

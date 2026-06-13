@@ -5,18 +5,19 @@
     "nav": {
       "home": "Inicio",
       "services": "Servicios",
-      "plans": "Planes",
+      "plans": "Precios",
       "about": "Sobre nosotros",
       "contact": "Contacto",
       "blog": "Blog",
-      "login": "Acceder",
+      "login": "Ingresar",
       "logout": "Cerrar sesión",
       "dashboard": "Panel",
-      "admin": "Administración"
+      "admin": "Administración",
+      "faq": "FAQ"
     },
     "buttons": {
       "bookDiagnosis": "Solicitar soporte",
-      "seePlans": "Ver planes",
+      "seePlans": "Ver precios",
       "talkWithUs": "Habla con nosotros hoy",
       "save": "Guardar",
       "cancel": "Cancelar",
@@ -37,7 +38,7 @@
   },
   "home": {
     "hero": {
-      "title": "Tu Apple, sin dramas.",
+      "title": "Tu Apple, en manos expertas.",
       "subtitle": "Servicio técnico de software para Mac, iPad y iPhone en Granada. Prevenimos los problemas antes de que aparezcan y los resolvemos rápido cuando aparecen. Sin colas, sin tecnicismos y sin perder tus datos."
     },
     "values": {
@@ -94,24 +95,30 @@
         "Migración de datos"
       ]
     },
-    "modes": "En remoto, en tu domicilio u oficina, o en nuestro punto de servicio en Granada."
+    "modes": "En remoto, en tu domicilio u oficina, o en nuestro punto de servicio en Granada.",
+    "modeRemote": "Soporte remoto",
+    "modeRemoteDesc": "Vía TeamViewer, desde donde estés",
+    "modeOnsite": "Presencial",
+    "modeOnsiteDesc": "En tu domicilio u oficina en Granada"
   },
   "plans": {
-    "title": "Planes y precios",
-    "description": "Elige el plan que mejor se adapte a tus necesidades",
+    "title": "Precios",
+    "description": "Soporte técnico Apple facturado por hora",
     "monthly": "Mensual",
     "quarterly": "Trimestral",
     "annual": "Anual",
     "features": "Características incluidas",
-    "selectPlan": "Seleccionar plan",
-    "notLoggedIn": "Inicia sesión para contratar un plan"
+    "selectPlan": "Solicitar soporte",
+    "notLoggedIn": "Inicia sesión para solicitar soporte"
   },
   "auth": {
     "login": {
-      "title": "Acceder a tu cuenta",
+      "title": "Ingresar a tu cuenta",
+      "subtitle": "Introduce tus credenciales para ingresar",
+      "loading": "Ingresando...",
       "email": "Correo electrónico",
       "password": "Contraseña",
-      "button": "Acceder",
+      "button": "Ingresar",
       "noAccount": "¿No tienes cuenta?",
       "register": "Regístrate aquí",
       "forgotPassword": "¿Olvidaste la contraseña?"
@@ -178,7 +185,7 @@
     "nav": {
       "dashboard": "Dashboard",
       "customers": "Clientes",
-      "plans": "Planes",
+      "plans": "Precios",
       "invoices": "Facturas",
       "payments": "Pagos",
       "tickets": "Tickets",
@@ -215,7 +222,7 @@
       "supportRemote": "Soporte remoto disponible",
       "supportOnSite": "Soporte presencial disponible",
       "actions": "Acciones",
-      "empty": "No hay planes"
+      "empty": "No hay registros"
     },
     "invoices": {
       "title": "Facturas",
@@ -369,5 +376,39 @@
     "saved": "Guardado correctamente",
     "deleted": "Eliminado correctamente",
     "created": "Creado correctamente"
+  },
+  "about": {
+    "title": "Sobre AppleGranada",
+    "intro1": "Somos un servicio técnico de software especializado exclusivamente en el ecosistema Apple, con sede en Granada. Nació de la frustración de ver cómo usuarios de Mac, iPhone e iPad perdían horas (y datos) por no tener a nadie de confianza a quien llamar.",
+    "intro2": "No hacemos hardware, no reparamos pantallas, no vendemos accesorios. Solo software Apple, y lo hacemos muy bien. Eso significa que cuando nos llamas, estás hablando con alguien que conoce macOS, iOS e iPadOS de verdad, no con un técnico genérico que abre el ordenador e improvisa.",
+    "intro3": "Trabajamos en remoto con TeamViewer (sin necesidad de desplazarte) y de forma presencial en tu domicilio u oficina dentro de Granada y alrededores.",
+    "valuesTitle": "Nuestros valores",
+    "values": {
+      "honesty": { "title": "Honestidad", "description": "Te decimos la verdad aunque no sea lo que quieres oír. Sin sorpresas en la factura." },
+      "specialization": { "title": "Especialización", "description": "Solo Apple. Eso nos permite conocer el ecosistema a fondo y darte el mejor servicio." },
+      "punctuality": { "title": "Puntualidad", "description": "Respetamos tu tiempo. Confirmamos citas y cumplimos los plazos que prometemos." },
+      "personal": { "title": "Trato personal", "description": "Tienes un interlocutor fijo que conoce tu equipo y tu historial. Sin call centers." }
+    },
+    "locationTitle": "¿Dónde estamos?",
+    "locationText": "Atendemos principalmente en Granada y área metropolitana. El soporte remoto está disponible para cualquier lugar de España. Para soporte presencial fuera de Granada, consúltanos."
+  },
+  "contact": {
+    "title": "Contacto",
+    "subtitle": "Cuéntanos qué le pasa a tu equipo. Nos ponemos en marcha de inmediato.",
+    "formTitle": "Envíanos un mensaje",
+    "fieldName": "Nombre completo",
+    "fieldEmail": "Correo electrónico",
+    "fieldPhone": "Teléfono (opcional)",
+    "fieldMessage": "¿Qué le pasa a tu equipo?",
+    "submit": "Enviar mensaje",
+    "submitting": "Enviando...",
+    "successMsg": "Mensaje enviado. Te contactaremos pronto.",
+    "infoEmail": "Email",
+    "infoWhatsapp": "WhatsApp",
+    "infoHours": "Lunes a viernes, 9:00 – 19:00",
+    "infoLocation": "Zona de servicio presencial",
+    "infoLocationValue": "Granada y área metropolitana",
+    "responseTitle": "¿Cuándo te respondemos?",
+    "responseText": "Respondemos todos los mensajes en menos de 24 horas en días laborables. Para urgencias, escríbenos directamente por WhatsApp."
   }
 }

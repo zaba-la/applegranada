@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import { LayoutDashboard, Users, Ticket, FileText, Package, Settings } from 'lucide-react';
+import { LayoutDashboard, Users, Ticket, FileText, Package, CreditCard } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export function AdminSidebar() {
@@ -15,9 +15,9 @@ export function AdminSidebar() {
     { href: `/${locale}/admin`, label: t('nav.dashboard'), icon: LayoutDashboard },
     { href: `/${locale}/admin/clientes`, label: t('nav.customers'), icon: Users },
     { href: `/${locale}/admin/tickets`, label: t('nav.tickets'), icon: Ticket },
-    { href: `/${locale}/admin/planes`, label: t('nav.plans'), icon: Package },
+    { href: `/${locale}/admin/servicios`, label: 'Servicios', icon: Package },
     { href: `/${locale}/admin/facturas`, label: t('nav.invoices'), icon: FileText },
-    { href: `/${locale}/admin/configuracion`, label: t('nav.settings'), icon: Settings },
+    { href: `/${locale}/admin/pagos`, label: t('nav.payments'), icon: CreditCard },
   ];
 
   return (

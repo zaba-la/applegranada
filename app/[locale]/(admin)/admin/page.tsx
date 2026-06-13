@@ -10,21 +10,23 @@ export default async function AdminPage({ params: { locale } }: { params: { loca
   unstable_setRequestLocale(locale);
   const t = await getTranslations('admin');
 
-  const [customerCount, ticketCount, invoiceStats, activeSubscriptions] = await Promise.all([
+  const [customerCount, ticketCount, invoiceStats, paymentsTotal] = await Promise.all([
     prisma.customer.count(),
     prisma.ticket.count(),
     prisma.invoice.aggregate({ _sum: { amount: true }, where: { status: 'PAID' } }),
-    prisma.subscription.count({ where: { status: 'ACTIVE' } }),
+    prisma.payment.aggregate({ _sum: { amount: true }, where: { status: 'COMPLETED' } }),
   ]);
 
   const openTickets = await prisma.ticket.count({ where: { status: { in: ['OPEN', 'IN_PROGRESS'] } } });
   const pendingInvoices = await prisma.invoice.count({ where: { status: 'PENDING' } });
 
+  const totalCobrado = (invoiceStats._sum.amount ?? 0) + (paymentsTotal._sum.amount ?? 0);
+
   const stats = [
-    { label: 'Clientes totales', value: customerCount, icon: Users, sub: `${activeSubscriptions} con plan activo` },
-    { label: 'Tickets abiertos', value: openTickets, icon: Ticket, sub: `${ticketCount} en total` },
+    { label: 'Clientes totales', value: customerCount, icon: Users, sub: `${ticketCount} tickets en total` },
+    { label: 'Tickets abiertos', value: openTickets, icon: Ticket, sub: 'En curso o pendientes' },
     { label: 'Facturas pendientes', value: pendingInvoices, icon: FileText, sub: 'Pendientes de pago' },
-    { label: 'Ingresos cobrados', value: formatCurrency(invoiceStats._sum.amount ?? 0), icon: CreditCard, sub: 'Total cobrado' },
+    { label: 'Ingresos cobrados', value: formatCurrency(totalCobrado), icon: CreditCard, sub: 'Total cobrado' },
   ];
 
   return (

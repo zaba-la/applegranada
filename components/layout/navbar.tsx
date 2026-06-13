@@ -49,9 +49,10 @@ export function Navbar() {
   const nav = [
     { href: `/${locale}`, label: t('nav.home') },
     { href: `/${locale}/servicios`, label: t('nav.services') },
-    { href: `/${locale}/planes`, label: t('nav.plans') },
+    { href: `/${locale}/precios`, label: t('nav.plans') },
     { href: `/${locale}/sobre-nosotros`, label: t('nav.about') },
     { href: `/${locale}/blog`, label: t('nav.blog') },
+    { href: `/${locale}/faq`, label: t('nav.faq') },
     { href: `/${locale}/contacto`, label: t('nav.contact') },
   ];
 

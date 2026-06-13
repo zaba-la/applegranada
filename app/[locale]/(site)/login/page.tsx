@@ -3,12 +3,12 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useParams } from 'next/navigation';
-import { signIn } from 'next-auth/react';
+import { signIn, getSession } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
-import { Logo } from '@/components/logo';
+import { Eye, EyeOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -20,6 +20,7 @@ export default function LoginPage() {
   const router = useRouter();
   const { locale } = useParams<{ locale: string }>();
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const { register, handleSubmit, formState: { errors } } = useForm<LoginInput>({
     resolver: zodResolver(LoginSchema),
@@ -37,23 +38,21 @@ export default function LoginPage() {
       toast.error('Email o contraseña incorrectos');
       setLoading(false);
     } else {
+      const session = await getSession();
+      const role = (session?.user as { role?: string })?.role;
       toast.success('¡Bienvenido!');
-      router.push(`/${locale}/panel`);
+      router.push(role === 'ADMIN' ? `/${locale}/admin` : `/${locale}/panel`);
       router.refresh();
     }
   };
 
   return (
     <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-4 py-12">
-      <div className="w-full max-w-sm space-y-6">
-        <div className="flex flex-col items-center gap-2">
-          <Logo height={28} />
-        </div>
-
+      <div className="w-full max-w-sm">
         <Card>
           <CardHeader>
             <CardTitle>{t('title')}</CardTitle>
-            <CardDescription>Introduce tus credenciales para acceder</CardDescription>
+            <CardDescription>{t('subtitle')}</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -69,17 +68,33 @@ export default function LoginPage() {
                     {t('forgotPassword')}
                   </Link>
                 </div>
-                <Input id="password" type="password" autoComplete="current-password" {...register('password')} />
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? 'text' : 'password'}
+                    autoComplete="current-password"
+                    className="pr-10"
+                    {...register('password')}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((v) => !v)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                    aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                  >
+                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
                 {errors.password && <p className="text-xs text-destructive">{errors.password.message}</p>}
               </div>
               <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? 'Accediendo...' : t('button')}
+                {loading ? t('loading') : t('button')}
               </Button>
             </form>
           </CardContent>
         </Card>
 
-        <p className="text-center text-sm text-muted-foreground">
+        <p className="text-center text-sm text-muted-foreground mt-6">
           {t('noAccount')}{' '}
           <Link href={`/${locale}/register`} className="font-medium hover:underline">
             {t('register')}

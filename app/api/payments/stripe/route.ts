@@ -46,7 +46,7 @@ export async function POST(req: Request) {
       userId: (session.user as { id?: string }).id ?? '',
     },
     success_url: `${siteUrl}/es/panel/plan?success=true`,
-    cancel_url: `${siteUrl}/es/planes`,
+    cancel_url: `${siteUrl}/es/precios`,
     customer_email: session.user.email,
   });
 

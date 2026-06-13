@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { PhoneInput } from '@/components/ui/phone-input';
 import { RegisterSchema, type RegisterInput } from '@/lib/schemas';
 
 export default function RegisterPage() {
@@ -23,9 +24,10 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [segment, setSegment] = useState('');
 
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm<RegisterInput>({
+  const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<RegisterInput>({
     resolver: zodResolver(RegisterSchema),
   });
+  const phoneValue = watch('phone') ?? '';
 
   const onSubmit = async (data: RegisterInput) => {
     setLoading(true);
@@ -79,7 +81,11 @@ export default function RegisterPage() {
               </div>
               <div className="space-y-1">
                 <Label htmlFor="phone">{t('phone')}</Label>
-                <Input id="phone" type="tel" {...register('phone')} />
+                <PhoneInput
+                  id="phone"
+                  value={phoneValue}
+                  onChange={(v) => setValue('phone', v)}
+                />
               </div>
               <div className="space-y-1">
                 <Label>{t('segment')}</Label>

@@ -5,14 +5,15 @@
     "nav": {
       "home": "Home",
       "services": "Services",
-      "plans": "Plans",
+      "plans": "Prices",
       "about": "About us",
       "contact": "Contact",
       "blog": "Blog",
       "login": "Sign in",
       "logout": "Sign out",
       "dashboard": "Dashboard",
-      "admin": "Administration"
+      "admin": "Administration",
+      "faq": "FAQ"
     },
     "buttons": {
       "bookDiagnosis": "Request support",
@@ -37,7 +38,7 @@
   },
   "home": {
     "hero": {
-      "title": "Your Apple, drama-free.",
+      "title": "Your Apple, in expert hands.",
       "subtitle": "Software support for Mac, iPad and iPhone in Granada. We prevent problems before they appear and fix them fast when they do. No queues, no jargon, no lost data."
     },
     "values": {
@@ -94,11 +95,15 @@
         "Data migration when switching devices"
       ]
     },
-    "modes": "Remote, at your home or office, or at our service point in Granada."
+    "modes": "Remote, at your home or office, or at our service point in Granada.",
+    "modeRemote": "Remote support",
+    "modeRemoteDesc": "Via TeamViewer, from wherever you are",
+    "modeOnsite": "On-site",
+    "modeOnsiteDesc": "At your home or office in Granada"
   },
   "plans": {
-    "title": "Plans and pricing",
-    "description": "Choose the plan that best suits your needs",
+    "title": "Pricing",
+    "description": "Apple technical support billed by the hour",
     "monthly": "Monthly",
     "quarterly": "Quarterly",
     "annual": "Annual",
@@ -109,6 +114,8 @@
   "auth": {
     "login": {
       "title": "Sign in to your account",
+      "subtitle": "Enter your credentials to sign in",
+      "loading": "Signing in...",
       "email": "Email address",
       "password": "Password",
       "button": "Sign in",
@@ -178,7 +185,7 @@
     "nav": {
       "dashboard": "Dashboard",
       "customers": "Customers",
-      "plans": "Plans",
+      "plans": "Prices",
       "invoices": "Invoices",
       "payments": "Payments",
       "tickets": "Tickets",
@@ -369,5 +376,39 @@
     "saved": "Saved successfully",
     "deleted": "Deleted successfully",
     "created": "Created successfully"
+  },
+  "about": {
+    "title": "About AppleGranada",
+    "intro1": "We are a software technical service specialising exclusively in the Apple ecosystem, based in Granada. We were born out of the frustration of watching Mac, iPhone and iPad users lose hours (and data) because they had no trusted expert to call.",
+    "intro2": "We don't do hardware, don't repair screens, don't sell accessories. Just Apple software, and we do it very well. That means when you call us, you're speaking to someone who truly knows macOS, iOS and iPadOS — not a generic technician who opens the machine and improvises.",
+    "intro3": "We work remotely via TeamViewer (no need to travel) and on-site at your home or office within Granada and the surrounding area.",
+    "valuesTitle": "Our values",
+    "values": {
+      "honesty": { "title": "Honesty", "description": "We tell you the truth even if it's not what you want to hear. No surprise invoices." },
+      "specialization": { "title": "Specialisation", "description": "Apple only. That lets us know the ecosystem in depth and give you the best service." },
+      "punctuality": { "title": "Punctuality", "description": "We respect your time. We confirm appointments and meet the deadlines we promise." },
+      "personal": { "title": "Personal attention", "description": "You have a dedicated contact who knows your devices and your history. No call centres." }
+    },
+    "locationTitle": "Where are we?",
+    "locationText": "We primarily serve Granada and the metropolitan area. Remote support is available anywhere in Spain. For on-site support outside Granada, please ask us."
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Tell us what's wrong with your device. We'll get straight to work.",
+    "formTitle": "Send us a message",
+    "fieldName": "Full name",
+    "fieldEmail": "Email address",
+    "fieldPhone": "Phone (optional)",
+    "fieldMessage": "What's wrong with your device?",
+    "submit": "Send message",
+    "submitting": "Sending...",
+    "successMsg": "Message sent. We'll get back to you soon.",
+    "infoEmail": "Email",
+    "infoWhatsapp": "WhatsApp",
+    "infoHours": "Monday to Friday, 9:00 – 19:00",
+    "infoLocation": "On-site service area",
+    "infoLocationValue": "Granada and surrounding area",
+    "responseTitle": "When will we reply?",
+    "responseText": "We reply to all messages within 24 working hours. For urgent matters, message us directly on WhatsApp."
   }
 }

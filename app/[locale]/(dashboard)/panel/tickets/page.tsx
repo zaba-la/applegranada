@@ -3,13 +3,37 @@ import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import Link from 'next/link';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
-import { formatDate, getStatusColor } from '@/lib/utils';
-import { Plus } from 'lucide-react';
+import { formatDate } from '@/lib/utils';
+import { Plus, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 
 export const metadata = { title: 'Mis tickets' };
+
+const STATUS_LABEL: Record<string, string> = {
+  OPEN: 'Abierto',
+  IN_PROGRESS: 'En progreso',
+  WAITING_CUSTOMER: 'Esperando tu respuesta',
+  RESOLVED: 'Resuelto',
+  CLOSED: 'Cerrado',
+};
+
+const STATUS_COLOR: Record<string, string> = {
+  OPEN: 'bg-blue-100 text-blue-800',
+  IN_PROGRESS: 'bg-yellow-100 text-yellow-800',
+  WAITING_CUSTOMER: 'bg-orange-100 text-orange-800',
+  RESOLVED: 'bg-green-100 text-green-800',
+  CLOSED: 'bg-muted text-muted-foreground',
+};
+
+const PRIORITY_LABEL: Record<string, string> = {
+  LOW: 'Baja', MEDIUM: 'Media', HIGH: 'Alta', URGENT: 'Urgente',
+};
+
+const DEVICE_LABEL: Record<string, string> = {
+  MAC: 'Mac', IPAD: 'iPad', IPHONE: 'iPhone', APPLE_TV: 'Apple TV', MULTIPLE: 'Múltiples',
+};
 
 export default async function TicketsPage({ params: { locale } }: { params: { locale: string } }) {
   unstable_setRequestLocale(locale);
@@ -24,6 +48,7 @@ export default async function TicketsPage({ params: { locale } }: { params: { lo
     ? await prisma.ticket.findMany({
         where: { customerId: customer.id },
         orderBy: { createdAt: 'desc' },
+        include: { _count: { select: { responses: true } } },
       })
     : [];
 
@@ -54,28 +79,39 @@ export default async function TicketsPage({ params: { locale } }: { params: { lo
       ) : (
         <div className="space-y-3">
           {tickets.map((ticket) => (
-            <Card key={ticket.id} className="hover:shadow-sm transition-shadow">
-              <CardContent className="py-4">
-                <div className="flex items-center justify-between">
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <Badge variant="outline" className="text-xs font-mono">{ticket.ticketCode}</Badge>
-                      <Badge className={getStatusColor(ticket.status)}>{ticket.status}</Badge>
-                      <Badge className={`${getStatusColor(ticket.priority)} ml-1`}>{ticket.priority}</Badge>
-                    </div>
-                    <p className="font-medium truncate">{ticket.title}</p>
-                    <p className="text-xs text-muted-foreground">
-                      {ticket.deviceType} · {ticket.serviceMode} · {formatDate(ticket.createdAt)}
-                    </p>
-                    {ticket.teamviewerCode && (
-                      <p className="text-xs text-blue-600 mt-1">
-                        {t('trackYourTicket')}: <span className="font-mono">{ticket.ticketCode}</span>
+            <Link key={ticket.id} href={`/${locale}/panel/tickets/${ticket.id}`}>
+              <Card className="hover:shadow-md hover:border-primary/30 transition-all cursor-pointer">
+                <CardContent className="py-4">
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2 mb-1 flex-wrap">
+                        <span className="font-mono text-xs font-bold">{ticket.ticketCode}</span>
+                        <Badge className={STATUS_COLOR[ticket.status] ?? 'bg-muted text-muted-foreground'}>
+                          {STATUS_LABEL[ticket.status] ?? ticket.status}
+                        </Badge>
+                        <Badge variant="outline" className="text-xs">
+                          {PRIORITY_LABEL[ticket.priority] ?? ticket.priority}
+                        </Badge>
+                      </div>
+                      <p className="font-medium truncate">{ticket.title}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        {DEVICE_LABEL[ticket.deviceType ?? ''] ?? ticket.deviceType}
+                        {' · '}
+                        {ticket.serviceMode === 'REMOTE' ? 'Remoto' : 'Presencial'}
+                        {' · '}
+                        {formatDate(ticket.createdAt)}
+                        {ticket._count.responses > 0 && (
+                          <span className="ml-2 font-medium text-foreground">
+                            {ticket._count.responses} {ticket._count.responses === 1 ? 'mensaje' : 'mensajes'}
+                          </span>
+                        )}
                       </p>
-                    )}
+                    </div>
+                    <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" />
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
       )}

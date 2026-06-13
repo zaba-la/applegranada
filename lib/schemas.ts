@@ -14,13 +14,17 @@ export const RegisterSchema = z.object({
   name: z.string().min(2, 'El nombre debe tener al menos 2 caracteres'),
   email: z.string().email('Email inválido'),
   password: z.string().min(8, 'La contraseña debe tener al menos 8 caracteres'),
-  confirmPassword: z.string(),
+  confirmPassword: z.string().optional(),
   phone: z.string().optional(),
-  segment: z.enum(['STUDENT', 'HOME', 'PROFESSIONAL', 'BUSINESS']).optional(),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: 'Las contraseñas no coinciden',
-  path: ['confirmPassword'],
-});
+  segment: z.enum(['STUDENT', 'HOME', 'PROFESSIONAL', 'BUSINESS', 'NONE']).optional(),
+  address: z.string().optional(),
+  city: z.string().optional(),
+  postalCode: z.string().optional(),
+  country: z.string().optional(),
+}).refine(
+  (data) => !data.confirmPassword || data.password === data.confirmPassword,
+  { message: 'Las contraseñas no coinciden', path: ['confirmPassword'] }
+);
 
 // Ticket schemas
 export const CreateTicketSchema = z.object({

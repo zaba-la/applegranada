@@ -2,7 +2,7 @@ import { getServerSession } from 'next-auth';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
-import { Ticket, FileText, CreditCard, Clock } from 'lucide-react';
+import { Ticket, FileText, Clock } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { formatCurrency, formatDate, getStatusColor } from '@/lib/utils';
@@ -17,8 +17,6 @@ export default async function PanelPage({ params: { locale } }: { params: { loca
   const customer = await prisma.customer.findFirst({
     where: { user: { email: session!.user.email } },
     include: {
-      plan: true,
-      subscription: true,
       tickets: { orderBy: { createdAt: 'desc' }, take: 5 },
       invoices: { orderBy: { createdAt: 'desc' }, take: 3 },
     },
@@ -39,11 +37,6 @@ export default async function PanelPage({ params: { locale } }: { params: { loca
       label: 'Facturas pendientes',
       value: customer?.invoices.filter((i) => i.status === 'PENDING').length ?? 0,
       icon: FileText,
-    },
-    {
-      label: 'Plan activo',
-      value: customer?.plan ? (locale === 'es' ? customer.plan.nameEs : customer.plan.nameEn) : 'Sin plan',
-      icon: CreditCard,
     },
   ];
 
@@ -122,7 +115,7 @@ export default async function PanelPage({ params: { locale } }: { params: { loca
         <Card>
           <CardContent className="py-8 text-center">
             <p className="text-muted-foreground">
-              Tu cuenta aún no tiene perfil de cliente asociado. Contacta con nosotros para activar tu plan.
+              Tu cuenta está lista. Abre un ticket de soporte cuando lo necesites.
             </p>
           </CardContent>
         </Card>

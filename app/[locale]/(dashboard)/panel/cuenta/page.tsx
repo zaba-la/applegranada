@@ -9,6 +9,7 @@ import toast from 'react-hot-toast';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { PhoneInput } from '@/components/ui/phone-input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
@@ -20,9 +21,10 @@ export default function AccountPage() {
   const [loading, setLoading] = useState(false);
   const [customer, setCustomer] = useState<Record<string, string> | null>(null);
 
-  const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm<UpdateCustomerInput>({
+  const { register, handleSubmit, reset, setValue, watch, formState: { errors } } = useForm<UpdateCustomerInput>({
     resolver: zodResolver(UpdateCustomerSchema),
   });
+  const phoneValue = watch('phone') ?? '';
 
   useEffect(() => {
     fetch('/api/customers/me')
@@ -80,7 +82,11 @@ export default function AccountPage() {
               </div>
               <div className="space-y-1">
                 <Label htmlFor="phone">Teléfono</Label>
-                <Input id="phone" type="tel" {...register('phone')} />
+                <PhoneInput
+                  id="phone"
+                  value={phoneValue}
+                  onChange={(v) => setValue('phone', v)}
+                />
               </div>
             </div>
 

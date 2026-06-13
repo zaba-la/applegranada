@@ -13,24 +13,8 @@ export default async function ServicesPage({ params: { locale } }: { params: { l
   unstable_setRequestLocale(locale);
   const t = await getTranslations('services');
 
-  const preventiveItems = [
-    'Actualizaciones seguras de macOS, iPadOS e iOS',
-    'Configuración y verificación de copias de seguridad',
-    'Optimización del rendimiento y almacenamiento',
-    'Limpieza de archivos basura y apps duplicadas',
-    'Revisión de seguridad y privacidad',
-    'Informe de salud del equipo',
-  ];
-
-  const correctiveItems = [
-    'Mac lento, se calienta o se reinicia solo',
-    'Eliminación de malware y adware',
-    'Recuperación de cuentas y contraseñas',
-    'Recuperación de datos y fotos',
-    'Errores al actualizar o pantalla negra',
-    'Configuración de correo e iCloud',
-    'Migración de datos',
-  ];
+  const preventiveItems = t.raw('preventive.items') as string[];
+  const correctiveItems = t.raw('corrective.items') as string[];
 
   return (
     <div className="container mx-auto px-4 py-16">
@@ -91,16 +75,16 @@ export default async function ServicesPage({ params: { locale } }: { params: { l
                 <div className="flex items-center gap-3">
                   <Wifi className="h-6 w-6 text-muted-foreground" />
                   <div>
-                    <p className="font-medium">Soporte remoto</p>
-                    <p className="text-sm text-muted-foreground">Vía TeamViewer, desde donde estés</p>
+                    <p className="font-medium">{t('modeRemote')}</p>
+                    <p className="text-sm text-muted-foreground">{t('modeRemoteDesc')}</p>
                   </div>
                 </div>
                 <div className="hidden sm:block text-muted-foreground">·</div>
                 <div className="flex items-center gap-3">
                   <MapPin className="h-6 w-6 text-muted-foreground" />
                   <div>
-                    <p className="font-medium">Presencial</p>
-                    <p className="text-sm text-muted-foreground">En tu domicilio u oficina en Granada</p>
+                    <p className="font-medium">{t('modeOnsite')}</p>
+                    <p className="text-sm text-muted-foreground">{t('modeOnsiteDesc')}</p>
                   </div>
                 </div>
               </div>
