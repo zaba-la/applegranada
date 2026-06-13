@@ -72,7 +72,7 @@ export default async function PlansPage({ params: { locale } }: { params: { loca
               </div>
             </CardHeader>
 
-            <CardContent className="flex flex-col gap-6 flex-1">
+            <CardContent className="flex flex-col flex-1 pt-0">
               <ul className="space-y-2.5">
                 {remoteFeatures.map((f) => (
                   <li key={f} className="flex items-start gap-2.5 text-sm">
@@ -82,17 +82,19 @@ export default async function PlansPage({ params: { locale } }: { params: { loca
                 ))}
               </ul>
 
-              <Button className="w-full" asChild>
-                <Link href={ticketHref}>
-                  Solicitar soporte remoto <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              {!session && (
-                <p className="text-xs text-center text-muted-foreground -mt-3">
-                  Necesitas una cuenta para solicitar soporte.{' '}
-                  <Link href={`/${locale}/register`} className="underline underline-offset-2">Regístrate aquí.</Link>
-                </p>
-              )}
+              <div className="mt-auto pt-6 space-y-3">
+                <Button className="w-full" asChild>
+                  <Link href={ticketHref}>
+                    Solicitar soporte remoto <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+                {!session && (
+                  <p className="text-xs text-center text-muted-foreground">
+                    Necesitas una cuenta para solicitar soporte.{' '}
+                    <Link href={`/${locale}/register`} className="underline underline-offset-2">Regístrate aquí.</Link>
+                  </p>
+                )}
+              </div>
             </CardContent>
           </Card>
         </FadeIn>
@@ -121,7 +123,7 @@ export default async function PlansPage({ params: { locale } }: { params: { loca
                 </div>
               </CardHeader>
 
-              <CardContent className="flex flex-col gap-6 flex-1">
+              <CardContent className="flex flex-col flex-1 pt-0">
                 <ul className="space-y-2.5">
                   {onsiteFeatures.map((f) => (
                     <li key={f} className="flex items-start gap-2.5 text-sm">
@@ -131,17 +133,19 @@ export default async function PlansPage({ params: { locale } }: { params: { loca
                   ))}
                 </ul>
 
-                <Button className="w-full" asChild>
-                  <Link href={ticketHref}>
-                    Solicitar soporte presencial <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-                {!session && (
-                  <p className="text-xs text-center text-muted-foreground -mt-3">
-                    Necesitas una cuenta para solicitar soporte.{' '}
-                    <Link href={`/${locale}/register`} className="underline underline-offset-2">Regístrate aquí.</Link>
-                  </p>
-                )}
+                <div className="mt-auto pt-6 space-y-3">
+                  <Button className="w-full" asChild>
+                    <Link href={ticketHref}>
+                      Solicitar soporte presencial <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                  {!session && (
+                    <p className="text-xs text-center text-muted-foreground">
+                      Necesitas una cuenta para solicitar soporte.{' '}
+                      <Link href={`/${locale}/register`} className="underline underline-offset-2">Regístrate aquí.</Link>
+                    </p>
+                  )}
+                </div>
               </CardContent>
             </Card>
           </div>

@@ -40,9 +40,7 @@ export default function LoginPage() {
     } else {
       const session = await getSession();
       const role = (session?.user as { role?: string })?.role;
-      toast.success('¡Bienvenido!');
       router.push(role === 'ADMIN' ? `/${locale}/admin` : `/${locale}/panel`);
-      router.refresh();
     }
   };
 

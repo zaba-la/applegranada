@@ -129,7 +129,7 @@ export function Navbar() {
                 <Link href={`/${locale}/login`}>{t('nav.login')}</Link>
               </Button>
               <Button size="sm" asChild className="ml-1">
-                <Link href={`/${locale}/contacto`}>{t('buttons.bookDiagnosis')}</Link>
+                <Link href={session ? `/${locale}/panel/tickets/nuevo` : `/${locale}/register`}>{t('buttons.bookDiagnosis')}</Link>
               </Button>
             </>
           )}
@@ -176,7 +176,7 @@ export function Navbar() {
                 <Link href={`/${locale}/login`} className="block text-sm py-1" onClick={() => setMenuOpen(false)}>
                   {t('nav.login')}
                 </Link>
-                <Link href={`/${locale}/contacto`} className="block text-sm py-1 font-medium" onClick={() => setMenuOpen(false)}>
+                <Link href={`/${locale}/register`} className="block text-sm py-1 font-medium" onClick={() => setMenuOpen(false)}>
                   {t('buttons.bookDiagnosis')}
                 </Link>
               </>

@@ -168,12 +168,25 @@ export function PhoneInput({ value = '', onChange, placeholder, className, id }:
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
+  const [dropdownPos, setDropdownPos] = useState({ top: 0, left: 0, width: 288 });
+
+  // Compute fixed position from trigger so it's never clipped by overflow:hidden parents
+  useEffect(() => {
+    if (open && triggerRef.current) {
+      const rect = triggerRef.current.getBoundingClientRect();
+      setDropdownPos({ top: rect.bottom + 4, left: rect.left, width: 288 });
+    }
+  }, [open]);
 
   // Close dropdown on outside click
   useEffect(() => {
     function handler(e: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+      if (
+        dropdownRef.current && !dropdownRef.current.contains(e.target as Node) &&
+        triggerRef.current && !triggerRef.current.contains(e.target as Node)
+      ) {
         setOpen(false);
       }
     }
@@ -227,9 +240,10 @@ export function PhoneInput({ value = '', onChange, placeholder, className, id }:
   addGroup('world');
 
   return (
-    <div className={cn('relative flex', className)} ref={dropdownRef}>
+    <div className={cn('relative flex', className)}>
       {/* Country selector button */}
       <button
+        ref={triggerRef}
         type="button"
         onClick={() => setOpen((v) => !v)}
         className={cn(
@@ -260,13 +274,12 @@ export function PhoneInput({ value = '', onChange, placeholder, className, id }:
         )}
       />
 
-      {/* Dropdown */}
+      {/* Dropdown — fixed so it's never clipped by overflow:hidden/auto parents (e.g. modals) */}
       {open && (
         <div
-          className={cn(
-            'absolute left-0 top-full z-[9999] mt-1 w-72 overflow-hidden',
-            'rounded-lg border bg-popover shadow-lg',
-          )}
+          ref={dropdownRef}
+          style={{ position: 'fixed', top: dropdownPos.top, left: dropdownPos.left, width: dropdownPos.width, zIndex: 9999 }}
+          className="overflow-hidden rounded-lg border bg-popover shadow-lg"
         >
           {/* Search */}
           <div className="flex items-center border-b px-3 py-2 gap-2">
