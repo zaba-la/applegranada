@@ -1,0 +1,373 @@
+{
+  "common": {
+    "appName": "AppleGranada",
+    "tagline": "Servicio Técnico de Software para el mundo Apple",
+    "nav": {
+      "home": "Inicio",
+      "services": "Servicios",
+      "plans": "Planes",
+      "about": "Sobre nosotros",
+      "contact": "Contacto",
+      "blog": "Blog",
+      "login": "Acceder",
+      "logout": "Cerrar sesión",
+      "dashboard": "Panel",
+      "admin": "Administración"
+    },
+    "buttons": {
+      "bookDiagnosis": "Reservar diagnóstico gratis",
+      "seePlans": "Ver planes",
+      "talkWithUs": "Habla con nosotros hoy",
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "delete": "Eliminar",
+      "edit": "Editar",
+      "create": "Crear",
+      "submit": "Enviar",
+      "back": "Atrás",
+      "next": "Siguiente"
+    },
+    "footer": {
+      "rights": "Todos los derechos reservados",
+      "privacy": "Política de privacidad",
+      "legal": "Aviso legal",
+      "cookies": "Política de cookies",
+      "contact": "Contacto"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Tu Apple, sin dramas.",
+      "subtitle": "Servicio técnico de software para Mac, iPad y iPhone en Granada. Prevenimos los problemas antes de que aparezcan y los resolvemos rápido cuando aparecen. Sin colas, sin tecnicismos y sin perder tus datos."
+    },
+    "values": {
+      "preventive": {
+        "title": "Preventivo de verdad",
+        "description": "No esperamos a que tu equipo falle. Lo mantenemos a punto: actualizaciones seguras, copias de seguridad, rendimiento y limpieza. Menos sustos, más años de vida útil."
+      },
+      "corrective": {
+        "title": "Correctivo sin estrés",
+        "description": "¿Algo no va? Lo diagnosticamos, te explicamos qué pasa en cristiano y lo arreglamos. En remoto o presencial, contigo informado en cada paso."
+      },
+      "specialist": {
+        "title": "Solo software, 100% Apple",
+        "description": "Somos especialistas en el ecosistema Apple: macOS, iPadOS e iOS. Nada de listas de espera genéricas: hablamos tu idioma y el de tus dispositivos."
+      }
+    },
+    "segments": {
+      "title": "Tengas un solo MacBook o una flota de 50 equipos, tenemos un plan a tu medida:",
+      "student": "Estudiantes — que tu Mac no te falle en plena entrega ni en los exámenes.",
+      "home": "Hogares — un experto Apple para toda la familia, sin líos.",
+      "professional": "Profesionales — tu equipo es tu herramienta de trabajo; lo mantenemos siempre a punto.",
+      "business": "Empresas — soporte gestionado para tu parque de dispositivos Apple."
+    },
+    "cta": {
+      "title": "El diagnóstico es gratis y sin compromiso.",
+      "subtitle": "Cuéntanos qué le pasa a tu equipo y te decimos cómo lo dejamos como nuevo."
+    }
+  },
+  "services": {
+    "title": "Servicios",
+    "intro": "En AppleGranada solo hacemos una cosa, pero la hacemos muy bien: cuidar el software de tus dispositivos Apple.",
+    "preventive": {
+      "title": "Soporte preventivo",
+      "description": "Mantenimiento periódico para evitar problemas antes de que ocurran.",
+      "items": [
+        "Actualizaciones seguras de macOS, iPadOS e iOS",
+        "Configuración y verificación de copias de seguridad",
+        "Optimización del rendimiento y almacenamiento",
+        "Limpieza de archivos basura y apps duplicadas",
+        "Revisión de seguridad y privacidad",
+        "Informe de salud del equipo"
+      ]
+    },
+    "corrective": {
+      "title": "Soporte correctivo",
+      "description": "Cuando algo ya falla, lo resolvemos sin perder tus datos.",
+      "items": [
+        "Mac lento, se calienta o se reinicia solo",
+        "Eliminación de malware y adware",
+        "Recuperación de cuentas y contraseñas",
+        "Recuperación de datos y fotos",
+        "Errores al actualizar o pantalla negra",
+        "Configuración de correo e iCloud",
+        "Migración de datos"
+      ]
+    },
+    "modes": "En remoto, en tu domicilio u oficina, o en nuestro punto de servicio en Granada."
+  },
+  "plans": {
+    "title": "Planes y precios",
+    "description": "Elige el plan que mejor se adapte a tus necesidades",
+    "monthly": "Mensual",
+    "quarterly": "Trimestral",
+    "annual": "Anual",
+    "features": "Características incluidas",
+    "selectPlan": "Seleccionar plan",
+    "notLoggedIn": "Inicia sesión para contratar un plan"
+  },
+  "auth": {
+    "login": {
+      "title": "Acceder a tu cuenta",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "button": "Acceder",
+      "noAccount": "¿No tienes cuenta?",
+      "register": "Regístrate aquí",
+      "forgotPassword": "¿Olvidaste la contraseña?"
+    },
+    "register": {
+      "title": "Crear una nueva cuenta",
+      "name": "Nombre completo",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "confirmPassword": "Confirmar contraseña",
+      "phone": "Teléfono (opcional)",
+      "segment": "Tipo de usuario",
+      "button": "Registrarse",
+      "haveAccount": "¿Ya tienes cuenta?",
+      "login": "Inicia sesión aquí",
+      "agreeTerms": "Acepto los términos y condiciones"
+    }
+  },
+  "dashboard": {
+    "title": "Mi panel",
+    "tickets": {
+      "title": "Tickets de soporte",
+      "new": "Nuevo ticket",
+      "description": "Gestiona tus solicitudes de soporte",
+      "empty": "No hay tickets",
+      "code": "Código de ticket",
+      "status": "Estado",
+      "priority": "Prioridad",
+      "device": "Dispositivo",
+      "created": "Creado",
+      "actions": "Acciones",
+      "trackYourTicket": "Puedes hacer seguimiento de tu ticket con el código"
+    },
+    "account": {
+      "title": "Mi cuenta",
+      "profile": "Perfil",
+      "settings": "Configuración",
+      "changePassword": "Cambiar contraseña",
+      "preferences": "Preferencias"
+    },
+    "plan": {
+      "title": "Mi plan",
+      "current": "Plan actual",
+      "upgrade": "Mejorar plan",
+      "downgrade": "Bajar de plan",
+      "cancel": "Cancelar plan",
+      "features": "Características de tu plan"
+    },
+    "invoices": {
+      "title": "Mis facturas",
+      "description": "Historial de facturas y pagos",
+      "empty": "No hay facturas",
+      "number": "Número de factura",
+      "amount": "Monto",
+      "status": "Estado",
+      "date": "Fecha",
+      "dueDate": "Vencimiento",
+      "download": "Descargar",
+      "actions": "Acciones"
+    }
+  },
+  "admin": {
+    "title": "Panel de administrador",
+    "nav": {
+      "dashboard": "Dashboard",
+      "customers": "Clientes",
+      "plans": "Planes",
+      "invoices": "Facturas",
+      "payments": "Pagos",
+      "tickets": "Tickets",
+      "settings": "Configuración"
+    },
+    "customers": {
+      "title": "Clientes",
+      "new": "Nuevo cliente",
+      "edit": "Editar cliente",
+      "delete": "Eliminar cliente",
+      "name": "Nombre",
+      "email": "Correo",
+      "plan": "Plan",
+      "segment": "Segmento",
+      "status": "Estado",
+      "createdAt": "Creado",
+      "actions": "Acciones",
+      "empty": "No hay clientes",
+      "assignPlan": "Asignar plan",
+      "details": "Detalles del cliente"
+    },
+    "plans": {
+      "title": "Planes",
+      "new": "Nuevo plan",
+      "edit": "Editar plan",
+      "delete": "Eliminar plan",
+      "nameEs": "Nombre (ES)",
+      "nameEn": "Nombre (EN)",
+      "priceRemote": "Precio Remoto (EUR)",
+      "priceOnSite": "Precio Presencial (EUR)",
+      "cycle": "Ciclo de facturación",
+      "segment": "Segmento",
+      "features": "Características",
+      "supportRemote": "Soporte remoto disponible",
+      "supportOnSite": "Soporte presencial disponible",
+      "actions": "Acciones",
+      "empty": "No hay planes"
+    },
+    "invoices": {
+      "title": "Facturas",
+      "number": "Número",
+      "customer": "Cliente",
+      "amount": "Monto",
+      "status": "Estado",
+      "date": "Fecha",
+      "actions": "Acciones"
+    },
+    "tickets": {
+      "title": "Tickets de soporte",
+      "customer": "Cliente",
+      "code": "Código",
+      "priority": "Prioridad",
+      "status": "Estado",
+      "device": "Dispositivo",
+      "created": "Creado",
+      "respond": "Responder",
+      "close": "Cerrar"
+    }
+  },
+  "serviceMode": {
+    "remote": "Remoto",
+    "onSite": "Presencial"
+  },
+  "deviceType": {
+    "mac": "Mac",
+    "ipad": "iPad",
+    "iphone": "iPhone",
+    "appleTV": "Apple TV",
+    "multiple": "Múltiples"
+  },
+  "validation": {
+    "required": "Este campo es requerido",
+    "email": "Correo electrónico inválido",
+    "password": "La contraseña debe tener al menos 8 caracteres",
+    "passwordMismatch": "Las contraseñas no coinciden",
+    "unique": "Este valor ya está en uso"
+  },
+  "teamviewer": {
+    "title": "Soporte remoto con TeamViewer",
+    "description": "Para soporte remoto, usamos TeamViewer de forma gratuita. Aquí te explicamos cómo instalar y conectarte.",
+    "installation": {
+      "title": "Cómo instalar TeamViewer",
+      "steps": [
+        {
+          "step": 1,
+          "title": "Descargar TeamViewer",
+          "description": "Ve a teamviewer.com/es/descargar/ y descarga la versión gratuita para Mac/Windows/Linux."
+        },
+        {
+          "step": 2,
+          "title": "Ejecutar el instalador",
+          "description": "Abre el archivo descargado y sigue el asistente de instalación. No necesitas ingresar datos personales."
+        },
+        {
+          "step": 3,
+          "title": "Aceptar términos",
+          "description": "Acepta los términos de uso. La versión gratuita es válida para uso personal y soporte remoto."
+        },
+        {
+          "step": 4,
+          "title": "Listo",
+          "description": "Una vez instalado, verás una ventana de TeamViewer con tu ID único (9 dígitos) y contraseña."
+        }
+      ]
+    },
+    "connection": {
+      "title": "Cómo conectarse en una sesión de soporte",
+      "steps": [
+        {
+          "step": 1,
+          "title": "Abre TeamViewer",
+          "description": "Haz clic en el icono de TeamViewer en tu escritorio o en el menú de aplicaciones."
+        },
+        {
+          "step": 2,
+          "title": "Comunica tu ID",
+          "description": "En la sección 'Soporte remoto', verás tu ID de 9 dígitos y una contraseña temporal. Comparte estos con nosotros."
+        },
+        {
+          "step": 3,
+          "title": "Recibe la conexión",
+          "description": "Cuando nos conectemos, TeamViewer te mostrará una notificación. Haz clic en 'Aceptar' para permitir el acceso."
+        },
+        {
+          "step": 4,
+          "title": "Tu privacidad está segura",
+          "description": "Puedes ver exactamente qué estamos haciendo en tu pantalla. La sesión termina cuando cierres TeamViewer o haga clic en 'Desconectar'."
+        }
+      ]
+    },
+    "security": {
+      "title": "Información de seguridad",
+      "points": [
+        "TeamViewer es software de confianza mundial, usado por millones.",
+        "La conexión está cifrada de extremo a extremo.",
+        "Tu ID y contraseña cambian cada vez que reinicia TeamViewer.",
+        "Solo nosotros podremos acceder; no podemos ver tu equipo sin tu consentimiento.",
+        "Desinstalar TeamViewer después del soporte es totalmente seguro."
+      ]
+    },
+    "troubleshooting": {
+      "title": "Solución de problemas",
+      "issues": [
+        {
+          "problem": "No puedo ver el ID o la contraseña",
+          "solution": "Asegúrate de que TeamViewer está completamente abierto y visible. Si no aparecen, reinicia la aplicación."
+        },
+        {
+          "problem": "Me pide contraseña cuando se conectan",
+          "solution": "Esto es normal. Es una medida de seguridad. La contraseña te la proporcionaremos cuando sea momento de la sesión."
+        },
+        {
+          "problem": "Mi antivirus bloquea TeamViewer",
+          "solution": "Es común. Añade TeamViewer a la lista de excepciones de tu antivirus o contacta con nosotros para otra opción."
+        },
+        {
+          "problem": "No sé si estoy usando la versión gratuita correcta",
+          "solution": "Si descargaste desde teamviewer.com/es/descargar/ con la opción 'Soporte remoto', es la correcta."
+        }
+      ]
+    }
+  },
+  "notifications": {
+    "title": "Notificaciones",
+    "settings": "Configuración de notificaciones",
+    "email": "Email",
+    "sms": "SMS",
+    "both": "Email y SMS",
+    "ticketCreated": "Nuevo ticket creado",
+    "ticketUpdated": "Ticket actualizado",
+    "ticketResponse": "Respuesta en ticket",
+    "invoiceCreated": "Nueva factura",
+    "invoiceDueSoon": "Factura próxima a vencer",
+    "invoiceOverdue": "Factura vencida",
+    "paymentReceived": "Pago recibido",
+    "paymentFailed": "Fallo en pago",
+    "planAssigned": "Plan asignado",
+    "supportScheduled": "Soporte presencial programado",
+    "supportReminder": "Recordatorio de cita",
+    "enable": "Habilitar",
+    "disable": "Deshabilitar",
+    "preferences": "Mis preferencias de notificación"
+  },
+  "toasts": {
+    "success": "Operación completada exitosamente",
+    "error": "Ocurrió un error",
+    "loading": "Cargando...",
+    "saved": "Guardado correctamente",
+    "deleted": "Eliminado correctamente",
+    "created": "Creado correctamente"
+  }
+}

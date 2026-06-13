@@ -1,0 +1,373 @@
+{
+  "common": {
+    "appName": "AppleGranada",
+    "tagline": "Software Support Service for the Apple World",
+    "nav": {
+      "home": "Home",
+      "services": "Services",
+      "plans": "Plans",
+      "about": "About us",
+      "contact": "Contact",
+      "blog": "Blog",
+      "login": "Sign in",
+      "logout": "Sign out",
+      "dashboard": "Dashboard",
+      "admin": "Administration"
+    },
+    "buttons": {
+      "bookDiagnosis": "Book a free diagnosis",
+      "seePlans": "See plans",
+      "talkWithUs": "Talk to us today",
+      "save": "Save",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "edit": "Edit",
+      "create": "Create",
+      "submit": "Submit",
+      "back": "Back",
+      "next": "Next"
+    },
+    "footer": {
+      "rights": "All rights reserved",
+      "privacy": "Privacy Policy",
+      "legal": "Legal Notice",
+      "cookies": "Cookie Policy",
+      "contact": "Contact"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Your Apple, drama-free.",
+      "subtitle": "Software support for Mac, iPad and iPhone in Granada. We prevent problems before they appear and fix them fast when they do. No queues, no jargon, no lost data."
+    },
+    "values": {
+      "preventive": {
+        "title": "Truly preventive",
+        "description": "We don't wait for your device to fail. We keep it in shape: safe updates, backups, performance and clean-ups. Fewer scares, more years of useful life."
+      },
+      "corrective": {
+        "title": "Stress-free fixes",
+        "description": "Something off? We diagnose it, explain what's going on in plain language and fix it. Remote or on-site, keeping you informed every step."
+      },
+      "specialist": {
+        "title": "Software only, 100% Apple",
+        "description": "We specialise in the Apple ecosystem: macOS, iPadOS and iOS. No generic waiting lists: we speak your language and your devices'."
+      }
+    },
+    "segments": {
+      "title": "Whether you have a single MacBook or a fleet of 50 devices, we have a plan for you:",
+      "student": "Students — so your Mac never fails you on deadline or exam day.",
+      "home": "Homes — one Apple expert for the whole family, hassle-free.",
+      "professional": "Professionals — your device is your work tool; we keep it ready to go.",
+      "business": "Businesses — managed support for your Apple device fleet."
+    },
+    "cta": {
+      "title": "The diagnosis is free and with no commitment.",
+      "subtitle": "Tell us what's wrong with your device and we'll tell you how we make it good as new."
+    }
+  },
+  "services": {
+    "title": "Services",
+    "intro": "At AppleGranada we do just one thing, but we do it really well: take care of the software on your Apple devices.",
+    "preventive": {
+      "title": "Preventive support",
+      "description": "Routine maintenance to stop problems before they start.",
+      "items": [
+        "Safe macOS, iPadOS and iOS updates",
+        "Backup setup and verification",
+        "Performance and storage optimisation",
+        "Clean-up of junk files and duplicate apps",
+        "Security and privacy review",
+        "Device health report"
+      ]
+    },
+    "corrective": {
+      "title": "Corrective support",
+      "description": "When something already fails, we fix it without losing your data.",
+      "items": [
+        "Mac running slow, overheating or restarting on its own",
+        "Malware and adware removal",
+        "Account and password recovery",
+        "Data and photo recovery",
+        "Update errors or black screen",
+        "Mail, iCloud and sync setup",
+        "Data migration when switching devices"
+      ]
+    },
+    "modes": "Remote, at your home or office, or at our service point in Granada."
+  },
+  "plans": {
+    "title": "Plans and pricing",
+    "description": "Choose the plan that best suits your needs",
+    "monthly": "Monthly",
+    "quarterly": "Quarterly",
+    "annual": "Annual",
+    "features": "Included features",
+    "selectPlan": "Select plan",
+    "notLoggedIn": "Sign in to select a plan"
+  },
+  "auth": {
+    "login": {
+      "title": "Sign in to your account",
+      "email": "Email address",
+      "password": "Password",
+      "button": "Sign in",
+      "noAccount": "Don't have an account?",
+      "register": "Register here",
+      "forgotPassword": "Forgot your password?"
+    },
+    "register": {
+      "title": "Create a new account",
+      "name": "Full name",
+      "email": "Email address",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "phone": "Phone (optional)",
+      "segment": "User type",
+      "button": "Register",
+      "haveAccount": "Already have an account?",
+      "login": "Sign in here",
+      "agreeTerms": "I agree to the terms and conditions"
+    }
+  },
+  "dashboard": {
+    "title": "My dashboard",
+    "tickets": {
+      "title": "Support tickets",
+      "new": "New ticket",
+      "description": "Manage your support requests",
+      "empty": "No tickets",
+      "code": "Ticket code",
+      "status": "Status",
+      "priority": "Priority",
+      "device": "Device",
+      "created": "Created",
+      "actions": "Actions",
+      "trackYourTicket": "You can track your ticket using the code"
+    },
+    "account": {
+      "title": "My account",
+      "profile": "Profile",
+      "settings": "Settings",
+      "changePassword": "Change password",
+      "preferences": "Preferences"
+    },
+    "plan": {
+      "title": "My plan",
+      "current": "Current plan",
+      "upgrade": "Upgrade plan",
+      "downgrade": "Downgrade plan",
+      "cancel": "Cancel plan",
+      "features": "Your plan features"
+    },
+    "invoices": {
+      "title": "My invoices",
+      "description": "Invoice and payment history",
+      "empty": "No invoices",
+      "number": "Invoice number",
+      "amount": "Amount",
+      "status": "Status",
+      "date": "Date",
+      "dueDate": "Due date",
+      "download": "Download",
+      "actions": "Actions"
+    }
+  },
+  "admin": {
+    "title": "Administrator dashboard",
+    "nav": {
+      "dashboard": "Dashboard",
+      "customers": "Customers",
+      "plans": "Plans",
+      "invoices": "Invoices",
+      "payments": "Payments",
+      "tickets": "Tickets",
+      "settings": "Settings"
+    },
+    "customers": {
+      "title": "Customers",
+      "new": "New customer",
+      "edit": "Edit customer",
+      "delete": "Delete customer",
+      "name": "Name",
+      "email": "Email",
+      "plan": "Plan",
+      "segment": "Segment",
+      "status": "Status",
+      "createdAt": "Created",
+      "actions": "Actions",
+      "empty": "No customers",
+      "assignPlan": "Assign plan",
+      "details": "Customer details"
+    },
+    "plans": {
+      "title": "Plans",
+      "new": "New plan",
+      "edit": "Edit plan",
+      "delete": "Delete plan",
+      "nameEs": "Name (ES)",
+      "nameEn": "Name (EN)",
+      "priceRemote": "Remote Price (EUR)",
+      "priceOnSite": "On-site Price (EUR)",
+      "cycle": "Billing cycle",
+      "segment": "Segment",
+      "features": "Features",
+      "supportRemote": "Remote support available",
+      "supportOnSite": "On-site support available",
+      "actions": "Actions",
+      "empty": "No plans"
+    },
+    "invoices": {
+      "title": "Invoices",
+      "number": "Number",
+      "customer": "Customer",
+      "amount": "Amount",
+      "status": "Status",
+      "date": "Date",
+      "actions": "Actions"
+    },
+    "tickets": {
+      "title": "Support tickets",
+      "customer": "Customer",
+      "code": "Code",
+      "priority": "Priority",
+      "status": "Status",
+      "device": "Device",
+      "created": "Created",
+      "respond": "Reply",
+      "close": "Close"
+    }
+  },
+  "serviceMode": {
+    "remote": "Remote",
+    "onSite": "On-site"
+  },
+  "deviceType": {
+    "mac": "Mac",
+    "ipad": "iPad",
+    "iphone": "iPhone",
+    "appleTV": "Apple TV",
+    "multiple": "Multiple"
+  },
+  "validation": {
+    "required": "This field is required",
+    "email": "Invalid email address",
+    "password": "Password must be at least 8 characters",
+    "passwordMismatch": "Passwords do not match",
+    "unique": "This value is already in use"
+  },
+  "teamviewer": {
+    "title": "Remote support with TeamViewer",
+    "description": "For remote support, we use TeamViewer for free. Here's how to install and connect.",
+    "installation": {
+      "title": "How to install TeamViewer",
+      "steps": [
+        {
+          "step": 1,
+          "title": "Download TeamViewer",
+          "description": "Go to teamviewer.com/en/download/ and download the free version for Mac/Windows/Linux."
+        },
+        {
+          "step": 2,
+          "title": "Run the installer",
+          "description": "Open the downloaded file and follow the installation wizard. You don't need to enter personal information."
+        },
+        {
+          "step": 3,
+          "title": "Accept terms",
+          "description": "Accept the terms of use. The free version is valid for personal use and remote support."
+        },
+        {
+          "step": 4,
+          "title": "All set",
+          "description": "Once installed, you'll see a TeamViewer window with your unique ID (9 digits) and password."
+        }
+      ]
+    },
+    "connection": {
+      "title": "How to connect during a support session",
+      "steps": [
+        {
+          "step": 1,
+          "title": "Open TeamViewer",
+          "description": "Click the TeamViewer icon on your desktop or in the applications menu."
+        },
+        {
+          "step": 2,
+          "title": "Share your ID",
+          "description": "In the 'Remote Support' section, you'll see your 9-digit ID and a temporary password. Share these with us."
+        },
+        {
+          "step": 3,
+          "title": "Accept the connection",
+          "description": "When we connect, TeamViewer will show you a notification. Click 'Accept' to allow access."
+        },
+        {
+          "step": 4,
+          "title": "Your privacy is safe",
+          "description": "You can see exactly what we're doing on your screen. The session ends when you close TeamViewer or click 'Disconnect'."
+        }
+      ]
+    },
+    "security": {
+      "title": "Security information",
+      "points": [
+        "TeamViewer is trusted software used by millions worldwide.",
+        "The connection is end-to-end encrypted.",
+        "Your ID and password change every time TeamViewer restarts.",
+        "Only we can access your device; we can't see your screen without your permission.",
+        "Uninstalling TeamViewer after support is completely safe."
+      ]
+    },
+    "troubleshooting": {
+      "title": "Troubleshooting",
+      "issues": [
+        {
+          "problem": "I can't see the ID or password",
+          "solution": "Make sure TeamViewer is fully open and visible. If they don't appear, restart the application."
+        },
+        {
+          "problem": "It asks for a password when connecting",
+          "solution": "This is normal. It's a security measure. We'll provide the password when it's time for the session."
+        },
+        {
+          "problem": "My antivirus is blocking TeamViewer",
+          "solution": "This is common. Add TeamViewer to your antivirus exceptions list or contact us for another option."
+        },
+        {
+          "problem": "I'm not sure if I'm using the correct free version",
+          "solution": "If you downloaded from teamviewer.com/en/download/ with the 'Remote Support' option, it's correct."
+        }
+      ]
+    }
+  },
+  "notifications": {
+    "title": "Notifications",
+    "settings": "Notification settings",
+    "email": "Email",
+    "sms": "SMS",
+    "both": "Email and SMS",
+    "ticketCreated": "New ticket created",
+    "ticketUpdated": "Ticket updated",
+    "ticketResponse": "Response in ticket",
+    "invoiceCreated": "New invoice",
+    "invoiceDueSoon": "Invoice due soon",
+    "invoiceOverdue": "Invoice overdue",
+    "paymentReceived": "Payment received",
+    "paymentFailed": "Payment failed",
+    "planAssigned": "Plan assigned",
+    "supportScheduled": "On-site support scheduled",
+    "supportReminder": "Appointment reminder",
+    "enable": "Enable",
+    "disable": "Disable",
+    "preferences": "My notification preferences"
+  },
+  "toasts": {
+    "success": "Operation completed successfully",
+    "error": "An error occurred",
+    "loading": "Loading...",
+    "saved": "Saved successfully",
+    "deleted": "Deleted successfully",
+    "created": "Created successfully"
+  }
+}

@@ -1,0 +1,297 @@
+// This is your Prisma schema file for SQLite
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// User (for both admin and customers)
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  password      String
+  name          String
+  role          String    @default("CUSTOMER") // ADMIN or CUSTOMER
+  locale        String    @default("es")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  // Customer relations
+  customer      Customer?
+  sessions      Session[]
+  
+  @@map("users")
+}
+
+model Session {
+  id             String   @id @default(cuid())
+  sessionToken   String   @unique
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expires        DateTime
+  createdAt      DateTime @default(now())
+  
+  @@map("sessions")
+}
+
+// Customer
+model Customer {
+  id              String    @id @default(cuid())
+  userId          String    @unique
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Customer info
+  phone           String?
+  address         String?
+  city            String?
+  postalCode      String?
+  country         String?
+  company         String?
+  segment         String?   // STUDENT, HOME, PROFESSIONAL, BUSINESS
+  
+  // Plan & Subscription
+  planId          String?
+  plan            Plan?     @relation(fields: [planId], references: [id], onDelete: SetNull)
+  subscriptionId  String?
+  subscription    Subscription?
+  
+  // Relations
+  invoices        Invoice[]
+  tickets         Ticket[]
+  payments        Payment[]
+  notifications   Notification[]
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("customers")
+}
+
+// Plans
+model Plan {
+  id              String    @id @default(cuid())
+  nameEs          String
+  nameEn          String
+  descriptionEs   String
+  descriptionEn   String
+  
+  // Pricing by service mode
+  priceRemote     Float?    // in EUR
+  priceOnSite     Float?    // in EUR
+  billingCycle    String    @default("MONTHLY") // MONTHLY, QUARTERLY, ANNUAL
+  
+  // Features (stored as JSON)
+  features        String    // JSON array
+  
+  segment         String    // STUDENT, HOME, PROFESSIONAL, BUSINESS
+  
+  // Service modes available
+  supportRemote   Boolean   @default(true)
+  supportOnSite   Boolean   @default(true)
+  
+  // Relations
+  customers       Customer[]
+  subscriptions   Subscription[]
+  
+  isActive        Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("plans")
+}
+
+// Subscription
+model Subscription {
+  id              String    @id @default(cuid())
+  customerId      String    @unique
+  customer        Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  
+  planId          String
+  plan            Plan      @relation(fields: [planId], references: [id])
+  
+  // Service mode selected for this subscription
+  serviceMode     String    @default("REMOTE") // REMOTE, ON_SITE
+  
+  status          String    @default("ACTIVE") // ACTIVE, PAUSED, CANCELLED, EXPIRED
+  startDate       DateTime  @default(now())
+  endDate         DateTime?
+  
+  stripeSubscriptionId String?
+  paypalSubscriptionId String?
+  
+  invoices        Invoice[]
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("subscriptions")
+}
+
+// Invoice
+model Invoice {
+  id              String    @id @default(cuid())
+  invoiceNumber   String    @unique // INV-YYYY-XXXXXX format
+  
+  customerId      String
+  customer        Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  
+  subscriptionId  String?
+  subscription    Subscription? @relation(fields: [subscriptionId], references: [id], onDelete: SetNull)
+  
+  amount          Float
+  currency        String    @default("EUR")
+  status          String    @default("PENDING") // DRAFT, PENDING, PAID, OVERDUE, CANCELLED
+  
+  // Invoice details
+  itemDescription String
+  dueDate         DateTime
+  paidDate        DateTime?
+  
+  // File storage
+  pdfUrl          String?
+  
+  payments        Payment[]
+  notifications   Notification[]
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("invoices")
+}
+
+// Payment
+model Payment {
+  id              String    @id @default(cuid())
+  paymentMethod   String    // STRIPE, PAYPAL, BANK_TRANSFER
+  
+  customerId      String
+  customer        Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  
+  invoiceId       String?
+  invoice         Invoice?  @relation(fields: [invoiceId], references: [id], onDelete: SetNull)
+  
+  amount          Float
+  currency        String    @default("EUR")
+  status          String    @default("PENDING") // PENDING, PROCESSING, COMPLETED, FAILED, REFUNDED
+  
+  // Payment Provider IDs
+  stripePaymentId String?
+  paypalOrderId   String?
+  
+  description     String?
+  notes           String?
+  
+  notifications   Notification[]
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("payments")
+}
+
+// Support Tickets
+model Ticket {
+  id              String    @id @default(cuid())
+  ticketNumber    String    @unique // TKT-YYYY-XXXXXX format
+  ticketCode      String    @unique // 6-digit random code (e.g., "AB5K7Q")
+  
+  customerId      String
+  customer        Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  
+  title           String
+  description     String
+  
+  status          String    @default("OPEN") // OPEN, IN_PROGRESS, WAITING_CUSTOMER, RESOLVED, CLOSED
+  priority        String    @default("MEDIUM") // LOW, MEDIUM, HIGH, URGENT
+  deviceType      String?   // MAC, IPAD, IPHONE, APPLE_TV, MULTIPLE
+  
+  // Support mode
+  serviceMode     String    @default("REMOTE") // REMOTE, ON_SITE
+  
+  // For remote support (TeamViewer)
+  teamviewerSessionId String?
+  teamviewerCode  String?   // 9-digit code
+  teamviewerPassword String? // temporary password
+  
+  // For on-site support
+  address         String?
+  city            String?
+  postalCode      String?
+  latitude        Float?
+  longitude       Float?
+  mapPlaceId      String?   // Google Places ID
+  
+  // Scheduling
+  scheduledDate   DateTime?
+  notes           String?
+  
+  responses       TicketResponse[]
+  notifications   Notification[]
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  closedAt        DateTime?
+  
+  @@map("tickets")
+}
+
+// Ticket Responses
+model TicketResponse {
+  id              String    @id @default(cuid())
+  
+  ticketId        String
+  ticket          Ticket    @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  
+  message         String
+  attachments     String?   // JSON array of URLs
+  
+  isFromAdmin     Boolean   @default(false)
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("ticket_responses")
+}
+
+// Notifications (Email & SMS)
+model Notification {
+  id              String    @id @default(cuid())
+  
+  customerId      String
+  customer        Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  
+  type            String    // TICKET_CREATED, TICKET_UPDATED, TICKET_RESPONSE, etc.
+  channel         String    // EMAIL, SMS, BOTH
+  
+  // Related entity
+  ticketId        String?
+  ticket          Ticket?   @relation(fields: [ticketId], references: [id], onDelete: SetNull)
+  
+  invoiceId       String?
+  invoice         Invoice?  @relation(fields: [invoiceId], references: [id], onDelete: SetNull)
+  
+  paymentId       String?
+  payment         Payment?  @relation(fields: [paymentId], references: [id], onDelete: SetNull)
+  
+  // Content
+  subject         String?
+  message         String
+  
+  // Status tracking
+  status          String    @default("PENDING") // PENDING, SENT, FAILED, DELIVERED, READ
+  sentAt          DateTime?
+  readAt          DateTime?
+  failureReason   String?
+  
+  // External IDs
+  emailMessageId  String?   // For email service tracking
+  smsMessageId    String?   // For SMS service tracking
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("notifications")
+}
