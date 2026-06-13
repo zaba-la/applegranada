@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
-import { Monitor } from 'lucide-react';
+import { Logo } from '@/components/logo';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -57,8 +57,7 @@ export default function RegisterPage() {
     <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-4 py-12">
       <div className="w-full max-w-sm space-y-6">
         <div className="flex flex-col items-center gap-2">
-          <Monitor className="h-8 w-8" />
-          <h1 className="text-2xl font-bold">AppleGranada</h1>
+          <Logo height={28} />
         </div>
 
         <Card>
