@@ -28,11 +28,17 @@ export async function POST(_req: Request, { params }: { params: { id: string } }
   const siteUrl = process.env.NEXTAUTH_URL ?? 'https://applegranada.com';
   const link = `${siteUrl}/es/establecer-password?token=${token}`;
 
-  await sendEmail(
-    customer.user.email,
-    'Activa tu cuenta en AppleGranada',
-    inviteEmailHtml({ name: customer.user.name ?? 'Cliente', link })
-  );
+  try {
+    await sendEmail(
+      customer.user.email,
+      'Activa tu cuenta en AppleGranada',
+      inviteEmailHtml({ name: customer.user.name ?? 'Cliente', link })
+    );
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Error desconocido';
+    console.error('[resend-invite] Email error:', msg);
+    return NextResponse.json({ error: `Email no enviado: ${msg}`, link }, { status: 500 });
+  }
 
   return NextResponse.json({ ok: true });
 }

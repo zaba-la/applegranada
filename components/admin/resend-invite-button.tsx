@@ -20,11 +20,17 @@ export function ResendInviteButton({ customerId }: { customerId: string }) {
     setLoading(true);
     try {
       const res = await fetch(`/api/admin/customers/${customerId}/resend-invite`, { method: 'POST' });
+      const data = await res.json();
       if (res.ok) {
         toast.success('Invitación enviada por email');
       } else {
-        const data = await res.json();
-        toast.error(data.error ?? 'Error al enviar');
+        // If email failed but we got a link back, show it so admin can send manually
+        if (data.link) {
+          setLink(data.link);
+          toast.error('Email no enviado — copia el enlace y envíalo manualmente');
+        } else {
+          toast.error(data.error ?? 'Error al enviar');
+        }
       }
     } catch {
       toast.error('Error de conexión');
