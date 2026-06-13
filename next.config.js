@@ -4,16 +4,12 @@ const withNextIntl = createNextIntlPlugin('./i18n.ts');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
-  
-  // Performance optimizations
+
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
 
-  // Image optimization
   images: {
-    minimumCacheTTL: 60000,
     remotePatterns: [
       {
         protocol: 'https',
@@ -22,7 +18,6 @@ const nextConfig = {
     ],
   },
 
-  // Headers for security
   async headers() {
     return [
       {
@@ -77,22 +72,6 @@ const nextConfig = {
     };
   },
 
-  // Build output analysis
-  webpackDevMiddleware: (config) => {
-    config.watchOptions = {
-      poll: 1000,
-      aggregateTimeout: 300,
-    };
-    return config;
-  },
-
-  // Experimental features
-  experimental: {
-    esmExternals: true,
-    isrMemoryCacheSize: 52 * 1024 * 1024, // 52MB
-  },
-
-  // Environment variables
   env: {
     NEXT_PUBLIC_APP_NAME: 'AppleGranada',
   },

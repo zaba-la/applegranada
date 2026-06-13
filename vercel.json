@@ -1,25 +1,8 @@
 {
-  "buildCommand": "prisma generate && prisma migrate deploy && next build",
+  "buildCommand": "prisma generate && next build",
   "devCommand": "next dev",
   "installCommand": "npm install",
   "framework": "nextjs",
-  "env": [
-    "DATABASE_URL",
-    "NEXTAUTH_SECRET",
-    "NEXTAUTH_URL",
-    "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY",
-    "STRIPE_SECRET_KEY",
-    "STRIPE_WEBHOOK_SECRET",
-    "NEXT_PUBLIC_PAYPAL_CLIENT_ID",
-    "PAYPAL_SECRET_ID",
-    "NEXT_PUBLIC_GOOGLE_MAPS_API_KEY",
-    "SENDGRID_API_KEY",
-    "SENDGRID_FROM_EMAIL",
-    "TWILIO_ACCOUNT_SID",
-    "TWILIO_AUTH_TOKEN",
-    "TWILIO_PHONE_NUMBER",
-    "NEXT_PUBLIC_SITE_URL"
-  ],
   "regions": ["iad1"],
   "functions": {
     "api/**/*.ts": {
