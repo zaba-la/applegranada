@@ -1,137 +1,167 @@
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-import { prisma } from '@/lib/prisma';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { formatCurrency } from '@/lib/utils';
-import { CheckCircle } from 'lucide-react';
+import { Wifi, MapPin, CheckCircle, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
 
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
-  const t = await getTranslations({ locale, namespace: 'plans' });
-  return { title: t('title') };
+export async function generateMetadata() {
+  return { title: 'Planes y precios | AppleGranada' };
 }
+
+const remoteFeatures = [
+  'Conexión segura vía TeamViewer o FaceTime',
+  'Sin desplazamientos ni tiempos de espera',
+  'Disponible para cualquier problema de software',
+  'Primera consulta sin coste',
+  'Pago solo si se resuelve el problema',
+  'Informe detallado de lo realizado',
+];
+
+const onsiteFeatures = [
+  'Técnico en tu domicilio u oficina',
+  'Granada capital y área metropolitana',
+  'Mínimo 2 horas por visita',
+  'Ideal para configuraciones o formación',
+  'Atención completamente personalizada',
+  'Informe detallado de lo realizado',
+];
 
 export default async function PlansPage({ params: { locale } }: { params: { locale: string } }) {
   unstable_setRequestLocale(locale);
-  const t = await getTranslations('plans');
   const session = await getServerSession(authOptions);
 
-  let plans: Awaited<ReturnType<typeof prisma.plan.findMany>> = [];
-  try {
-    plans = await prisma.plan.findMany({
-      where: { isActive: true },
-      orderBy: [{ segment: 'asc' }, { priceRemote: 'asc' }],
-    });
-  } catch {
-    // DB not yet available (e.g. first build before migrate deploy completes)
-  }
-
-  const segmentLabel: Record<string, string> = {
-    STUDENT: 'Estudiantes',
-    HOME: 'Hogar',
-    PROFESSIONAL: 'Profesionales',
-    BUSINESS: 'Empresas',
-  };
-
-  if (plans.length === 0) {
-    return (
-      <div className="container mx-auto px-4 py-16 text-center">
-        <h1 className="text-4xl font-bold mb-4">{t('title')}</h1>
-        <p className="text-muted-foreground mb-8">{t('description')}</p>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 max-w-5xl mx-auto">
-          {(['STUDENT', 'HOME', 'PROFESSIONAL', 'BUSINESS'] as const).map((seg) => (
-            <Card key={seg} className="relative">
-              <CardHeader>
-                <Badge variant="outline" className="w-fit mb-2">{segmentLabel[seg]}</Badge>
-                <CardTitle>Plan {segmentLabel[seg]}</CardTitle>
-                <div className="mt-2">
-                  <span className="text-3xl font-bold">Desde 19€</span>
-                  <span className="text-muted-foreground">/mes</span>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                {['Soporte preventivo mensual', 'Soporte correctivo incluido', 'Respuesta en 24h'].map((f) => (
-                  <div key={f} className="flex items-center gap-2 text-sm">
-                    <CheckCircle className="h-4 w-4 text-green-600 shrink-0" />
-                    <span>{f}</span>
-                  </div>
-                ))}
-              </CardContent>
-              <CardFooter>
-                <Button className="w-full" asChild>
-                  <Link href={session ? `/${locale}/panel/plan` : `/${locale}/register`}>
-                    {t('selectPlan')}
-                  </Link>
-                </Button>
-              </CardFooter>
-            </Card>
-          ))}
-        </div>
-        <p className="mt-8 text-sm text-muted-foreground">
-          Los planes reales se cargarán cuando añadas datos desde el panel de administración.
-        </p>
-      </div>
-    );
-  }
+  const contactHref = session ? `/${locale}/panel/tickets/nuevo` : `/${locale}/contacto`;
 
   return (
     <div className="container mx-auto px-4 py-16">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold mb-4">{t('title')}</h1>
-        <p className="text-lg text-muted-foreground">{t('description')}</p>
+
+      {/* Header */}
+      <div className="text-center mb-14">
+        <h1 className="text-4xl font-bold mb-4">Planes y precios</h1>
+        <p className="text-lg text-muted-foreground max-w-xl mx-auto">
+          Soporte técnico Apple facturado por hora. Sin suscripciones ni letra pequeña.
+          Pagas exactamente por el tiempo que usas.
+        </p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 max-w-6xl mx-auto">
-        {plans.map((plan) => {
-          const features = JSON.parse(plan.features) as string[];
-          const name = locale === 'es' ? plan.nameEs : plan.nameEn;
-          const description = locale === 'es' ? plan.descriptionEs : plan.descriptionEn;
+      {/* Plan cards */}
+      <div className="grid gap-8 md:grid-cols-2 max-w-4xl mx-auto items-start">
 
-          return (
-            <Card key={plan.id} className="flex flex-col">
-              <CardHeader>
-                <Badge variant="outline" className="w-fit mb-2">{segmentLabel[plan.segment]}</Badge>
-                <CardTitle>{name}</CardTitle>
-                <CardDescription>{description}</CardDescription>
-                <div className="mt-3">
-                  {plan.priceRemote && (
-                    <div>
-                      <span className="text-3xl font-bold">{formatCurrency(plan.priceRemote)}</span>
-                      <span className="text-muted-foreground text-sm">/mes (remoto)</span>
-                    </div>
-                  )}
-                  {plan.priceOnSite && (
-                    <div className="text-sm text-muted-foreground">
-                      {formatCurrency(plan.priceOnSite)}/mes presencial
-                    </div>
-                  )}
-                </div>
-              </CardHeader>
-              <CardContent className="flex-1 space-y-2">
-                {features.map((feature: string) => (
-                  <div key={feature} className="flex items-start gap-2 text-sm">
+        {/* Remoto */}
+        <Card className="flex flex-col">
+          <CardHeader className="pb-4">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary text-primary-foreground mb-4">
+              <Wifi className="h-5 w-5" />
+            </div>
+            <CardTitle className="text-2xl">Hora Remoto</CardTitle>
+            <CardDescription className="text-base">
+              Resolvemos tu problema desde cualquier lugar, en minutos.
+            </CardDescription>
+            <div className="pt-5 pb-1">
+              <div className="text-sm text-muted-foreground">Precio por hora · Sin mínimo de horas</div>
+              <div className="text-xs text-muted-foreground mt-0.5">Sin coste de desplazamiento</div>
+            </div>
+          </CardHeader>
+
+          <CardContent className="flex flex-col gap-6 flex-1">
+            <ul className="space-y-2.5">
+              {remoteFeatures.map((f) => (
+                <li key={f} className="flex items-start gap-2.5 text-sm">
+                  <CheckCircle className="h-4 w-4 text-green-600 shrink-0 mt-0.5" />
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ul>
+
+            <Button className="w-full" asChild>
+              <Link href={contactHref}>
+                Solicitar soporte remoto <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* Presencial */}
+        <div className="relative">
+          <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10">
+            <Badge className="bg-foreground text-background px-3 py-0.5">Más completo</Badge>
+          </div>
+          <Card className="flex flex-col border-2 border-foreground">
+            <CardHeader className="pb-4">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary text-primary-foreground mb-4">
+                <MapPin className="h-5 w-5" />
+              </div>
+              <CardTitle className="text-2xl">Hora Presencial</CardTitle>
+              <CardDescription className="text-base">
+                Un técnico Apple en tu casa u oficina. Atención totalmente personal.
+              </CardDescription>
+              <div className="pt-5 pb-1">
+                <div className="text-sm text-muted-foreground">Precio por hora · Mínimo 2 horas</div>
+                <div className="text-xs text-muted-foreground mt-0.5">Desplazamiento incluido en Granada y área metro</div>
+              </div>
+            </CardHeader>
+
+            <CardContent className="flex flex-col gap-6 flex-1">
+              <ul className="space-y-2.5">
+                {onsiteFeatures.map((f) => (
+                  <li key={f} className="flex items-start gap-2.5 text-sm">
                     <CheckCircle className="h-4 w-4 text-green-600 shrink-0 mt-0.5" />
-                    <span>{feature}</span>
-                  </div>
+                    <span>{f}</span>
+                  </li>
                 ))}
-              </CardContent>
-              <CardFooter>
-                {session ? (
-                  <Button className="w-full" asChild>
-                    <Link href={`/${locale}/panel/plan?planId=${plan.id}`}>{t('selectPlan')}</Link>
-                  </Button>
-                ) : (
-                  <Button className="w-full" variant="outline" asChild>
-                    <Link href={`/${locale}/register`}>{t('notLoggedIn')}</Link>
-                  </Button>
-                )}
-              </CardFooter>
-            </Card>
-          );
-        })}
+              </ul>
+
+              <Button className="w-full" asChild>
+                <Link href={contactHref}>
+                  Solicitar soporte presencial <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+
+      {/* ¿Cuál elegir? */}
+      <div className="mt-20 max-w-3xl mx-auto">
+        <Separator className="mb-12" />
+        <h2 className="text-2xl font-semibold text-center mb-8">¿Cuál modalidad necesito?</h2>
+        <div className="grid gap-5 sm:grid-cols-2">
+          <div className="bg-muted/40 rounded-xl p-5">
+            <div className="flex items-center gap-2 mb-3">
+              <Wifi className="h-4 w-4" />
+              <p className="font-semibold text-sm">Elige Remoto si…</p>
+            </div>
+            <ul className="space-y-1.5 text-sm text-muted-foreground">
+              <li>· El Mac arranca y puedes conectarte a internet</li>
+              <li>· Tienes un problema de software, velocidad o configuración</li>
+              <li>· Estás fuera de Granada o prefieres no recibir visitas</li>
+              <li>· Necesitas ayuda rápida sin esperar cita presencial</li>
+            </ul>
+          </div>
+          <div className="bg-muted/40 rounded-xl p-5">
+            <div className="flex items-center gap-2 mb-3">
+              <MapPin className="h-4 w-4" />
+              <p className="font-semibold text-sm">Elige Presencial si…</p>
+            </div>
+            <ul className="space-y-1.5 text-sm text-muted-foreground">
+              <li>· El equipo no arranca o no se puede conectar</li>
+              <li>· Quieres formación o configuración inicial completa</li>
+              <li>· Tienes varios equipos en una empresa u oficina</li>
+              <li>· Prefieres que el técnico esté contigo en persona</li>
+            </ul>
+          </div>
+        </div>
+
+        <p className="text-center text-sm text-muted-foreground mt-8">
+          ¿No sabes cuál elegir?{' '}
+          <Link href={`/${locale}/contacto`} className="underline underline-offset-4 hover:text-foreground transition-colors">
+            Cuéntanos tu caso y te orientamos sin compromiso.
+          </Link>
+        </p>
       </div>
     </div>
   );
