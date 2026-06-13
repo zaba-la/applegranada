@@ -47,19 +47,12 @@ jobs:
       - name: Run tests (si están configurados)
         run: npm run test --if-present
 
+      # Build de validación: solo comprueba que el proyecto COMPILA.
+      # No requiere las variables de la app (el código usa fallbacks seguros).
+      # La build real de producción se hace en el job 'deploy', tomando las
+      # variables directamente desde Vercel vía 'vercel pull'.
       - name: Build
         run: npm run build
-        env:
-          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
-          NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
-          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
-          STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
-          NEXT_PUBLIC_PAYPAL_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_PAYPAL_CLIENT_ID }}
-          PAYPAL_SECRET_ID: ${{ secrets.PAYPAL_SECRET_ID }}
-          NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: ${{ secrets.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY }}
-          NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
 
   # --------------------------------------------------------------------------
   # Deploy a Vercel (producción) — solo en push a main y si todo pasó.
