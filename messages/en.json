@@ -15,7 +15,7 @@
       "admin": "Administration"
     },
     "buttons": {
-      "bookDiagnosis": "Book a free diagnosis",
+      "bookDiagnosis": "Request support",
       "seePlans": "See plans",
       "talkWithUs": "Talk to us today",
       "save": "Save",
@@ -62,8 +62,8 @@
       "business": "Businesses — managed support for your Apple device fleet."
     },
     "cta": {
-      "title": "The diagnosis is free and with no commitment.",
-      "subtitle": "Tell us what's wrong with your device and we'll tell you how we make it good as new."
+      "title": "Real support, no hassle.",
+      "subtitle": "Tell us what's wrong with your device and we'll get straight to work."
     }
   },
   "services": {

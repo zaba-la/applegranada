@@ -15,7 +15,7 @@
       "admin": "Administración"
     },
     "buttons": {
-      "bookDiagnosis": "Reservar diagnóstico gratis",
+      "bookDiagnosis": "Solicitar soporte",
       "seePlans": "Ver planes",
       "talkWithUs": "Habla con nosotros hoy",
       "save": "Guardar",
@@ -62,8 +62,8 @@
       "business": "Empresas — soporte gestionado para tu parque de dispositivos Apple."
     },
     "cta": {
-      "title": "El diagnóstico es gratis y sin compromiso.",
-      "subtitle": "Cuéntanos qué le pasa a tu equipo y te decimos cómo lo dejamos como nuevo."
+      "title": "Soporte real, sin complicaciones.",
+      "subtitle": "Cuéntanos qué le pasa a tu equipo y nos ponemos en marcha de inmediato."
     }
   },
   "services": {

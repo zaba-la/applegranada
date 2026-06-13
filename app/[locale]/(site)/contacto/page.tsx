@@ -41,7 +41,7 @@ export default function ContactPage() {
         <div className="mb-12">
           <h1 className="text-4xl font-bold mb-4">Contacto</h1>
           <p className="text-lg text-muted-foreground">
-            Cuéntanos qué le pasa a tu equipo. El diagnóstico es gratis y sin compromiso.
+            Cuéntanos qué le pasa a tu equipo. Nos ponemos en marcha de inmediato.
           </p>
         </div>
 
