@@ -1,26 +1,31 @@
-import nodemailer from 'nodemailer';
-
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT ?? 587),
-  secure: false,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASSWORD,
-  },
-});
+const SENDGRID_FROM = 'soporte@applegranada.com';
 
 export async function sendEmail(to: string, subject: string, html: string) {
-  if (!process.env.SMTP_HOST || !process.env.SMTP_USER) {
-    console.warn('[email] SMTP no configurado — email no enviado:', { to, subject });
+  const apiKey = process.env.SENDGRID_API_KEY;
+  if (!apiKey) {
+    console.warn('[email] SENDGRID_API_KEY no configurado — email no enviado:', { to, subject });
     return;
   }
-  await transporter.sendMail({
-    from: `"AppleGranada Soporte" <${process.env.SMTP_USER}>`,
-    to,
-    subject,
-    html,
+
+  const res = await fetch('https://api.sendgrid.com/v3/mail/send', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      personalizations: [{ to: [{ email: to }] }],
+      from: { email: SENDGRID_FROM, name: 'AppleGranada Soporte' },
+      subject,
+      content: [{ type: 'text/html', value: html }],
+    }),
   });
+
+  if (!res.ok) {
+    const body = await res.text();
+    console.error('[email] SendGrid error:', res.status, body);
+    throw new Error(`SendGrid error ${res.status}`);
+  }
 }
 
 export function inviteEmailHtml(params: { name: string; link: string }) {
