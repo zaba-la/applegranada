@@ -10,7 +10,7 @@ import { FadeIn } from '@/components/fade-in';
 import Link from 'next/link';
 
 export async function generateMetadata() {
-  return { title: 'Planes y precios | AppleGranada' };
+  return { title: 'Precios | AppleGranada' };
 }
 
 const remoteFeatures = [
@@ -41,7 +41,7 @@ export default async function PlansPage({ params: { locale } }: { params: { loca
       {/* Header */}
       <FadeIn>
         <div className="text-center mb-14">
-          <h1 className="text-4xl font-bold mb-4">Planes y precios</h1>
+          <h1 className="text-4xl font-bold mb-4">Precios</h1>
           <p className="text-lg text-muted-foreground max-w-xl mx-auto">
             Soporte técnico Apple facturado por hora. Sin suscripciones ni letra pequeña.
             Pagas exactamente por el tiempo que usas.
@@ -166,7 +166,7 @@ export default async function PlansPage({ params: { locale } }: { params: { loca
 
       {/* ¿Cuál elegir? */}
       <FadeIn delay={100}>
-        <div className="mt-20 max-w-3xl mx-auto">
+        <div className="mt-20 max-w-4xl mx-auto">
           <Separator className="mb-12" />
           <h2 className="text-2xl font-semibold text-center mb-8">¿Cuál modalidad necesito?</h2>
           <div className="grid gap-5 sm:grid-cols-2">
