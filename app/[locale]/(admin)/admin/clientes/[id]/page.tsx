@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
+import { ResendInviteButton } from '@/components/admin/resend-invite-button';
 
 type Props = { params: { locale: string; id: string } };
 
@@ -78,14 +79,17 @@ export default async function AdminCustomerDetailPage({ params: { locale, id } }
       </Link>
 
       {/* Header */}
-      <div className="flex items-start justify-between">
+      <div className="flex items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold">{customer.user.name}</h1>
           <p className="text-muted-foreground text-sm mt-0.5">{customer.user.email}</p>
         </div>
-        {customer.segment && (
-          <Badge variant="outline">{SEGMENT_LABEL[customer.segment] ?? customer.segment}</Badge>
-        )}
+        <div className="flex items-center gap-2 shrink-0">
+          {customer.segment && (
+            <Badge variant="outline">{SEGMENT_LABEL[customer.segment] ?? customer.segment}</Badge>
+          )}
+          <ResendInviteButton customerId={customer.id} />
+        </div>
       </div>
 
       {/* Info cards */}
