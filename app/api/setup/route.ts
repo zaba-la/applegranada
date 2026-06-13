@@ -16,21 +16,27 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
   }
 
-  // Check if admin already exists
-  const existing = await prisma.user.findFirst({ where: { role: 'ADMIN' } });
-  if (existing) {
-    return NextResponse.json({ message: 'Admin ya existe', email: existing.email });
-  }
-
   const body = await req.json().catch(() => ({}));
   const email = body.email ?? 'miguel@zaba.la';
   const name = body.name ?? 'Miguel Zabala';
   const password = body.password ?? 'Espanoles@2027';
 
-  const hashed = await bcrypt.hash(password, 12);
-  const admin = await prisma.user.create({
-    data: { email, name, password: hashed, role: 'ADMIN', locale: 'es' },
-  });
+  try {
+    // Check if admin already exists
+    const existing = await prisma.user.findFirst({ where: { role: 'ADMIN' } });
+    if (existing) {
+      return NextResponse.json({ message: 'Admin ya existe', email: existing.email });
+    }
 
-  return NextResponse.json({ message: 'Admin creado', email: admin.email }, { status: 201 });
+    const hashed = await bcrypt.hash(password, 12);
+    const admin = await prisma.user.create({
+      data: { email, name, password: hashed, role: 'ADMIN', locale: 'es' },
+    });
+
+    return NextResponse.json({ message: 'Admin creado', email: admin.email }, { status: 201 });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : String(err);
+    const code = (err as { code?: string }).code;
+    return NextResponse.json({ error: message, code }, { status: 500 });
+  }
 }
