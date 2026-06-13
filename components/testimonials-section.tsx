@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Star } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { FadeIn } from '@/components/fade-in';
 
 const testimonials = [
   // ESTUDIANTES
@@ -156,8 +157,9 @@ export function TestimonialsSection() {
 
         {/* Cards */}
         <div className="grid gap-6 md:grid-cols-3 max-w-5xl mx-auto">
-          {visible.map((t) => (
-            <Card key={t.name} className="flex flex-col">
+          {visible.map((t, i) => (
+            <FadeIn key={t.name} delay={i * 90}>
+            <Card className="flex flex-col h-full">
               <CardContent className="pt-6 flex flex-col gap-4 flex-1">
                 <Stars />
                 <p className="text-sm leading-relaxed flex-1 text-muted-foreground">
@@ -176,6 +178,7 @@ export function TestimonialsSection() {
                 </div>
               </CardContent>
             </Card>
+            </FadeIn>
           ))}
         </div>
       </div>

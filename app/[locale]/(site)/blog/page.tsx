@@ -1,10 +1,10 @@
 import { unstable_setRequestLocale } from 'next-intl/server';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { FadeIn } from '@/components/fade-in';
 
-export const metadata = { title: 'Blog' };
+export const metadata = { title: 'Blog | AppleGranada' };
 
 const posts = [
   {
@@ -42,35 +42,35 @@ export default function BlogPage({ params: { locale } }: { params: { locale: str
 
   return (
     <div className="container mx-auto px-4 py-16">
-      <div className="max-w-3xl mx-auto mb-12">
-        <h1 className="text-4xl font-bold mb-4">Blog</h1>
-        <p className="text-lg text-muted-foreground">
-          Consejos prácticos sobre el cuidado de tus dispositivos Apple. Sin tecnicismos, en cristiano.
-        </p>
-      </div>
+      <FadeIn>
+        <div className="max-w-3xl mx-auto mb-12">
+          <h1 className="text-4xl font-bold mb-4">Blog</h1>
+          <p className="text-lg text-muted-foreground">
+            Consejos prácticos sobre el cuidado de tus dispositivos Apple. Sin tecnicismos, en cristiano.
+          </p>
+        </div>
+      </FadeIn>
 
-      <div className="max-w-3xl mx-auto grid gap-6">
-        {posts.map((post) => (
-          <Card key={post.slug} className="hover:shadow-md transition-shadow">
-            <CardHeader>
-              <div className="flex items-center justify-between mb-2">
-                <Badge variant="outline">{post.category}</Badge>
-                <span className="text-xs text-muted-foreground">
-                  {new Date(post.date).toLocaleDateString('es-ES', { dateStyle: 'medium' })}
-                </span>
-              </div>
-              <CardTitle className="text-xl">{post.title}</CardTitle>
-              <CardDescription>{post.description}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Link
-                href={`/${locale}/blog/${post.slug}`}
-                className="inline-flex items-center gap-1 text-sm font-medium hover:underline"
-              >
-                Leer más <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-            </CardContent>
-          </Card>
+      <div className="max-w-3xl mx-auto grid gap-5">
+        {posts.map((post, i) => (
+          <FadeIn key={post.slug} delay={i * 80}>
+            <Link href={`/${locale}/blog/${post.slug}`} className="block group">
+              <Card className="transition-shadow hover:shadow-md cursor-pointer">
+                <CardHeader>
+                  <div className="flex items-center justify-between mb-2">
+                    <Badge variant="outline">{post.category}</Badge>
+                    <span className="text-xs text-muted-foreground">
+                      {new Date(post.date).toLocaleDateString('es-ES', { dateStyle: 'medium' })}
+                    </span>
+                  </div>
+                  <CardTitle className="text-xl group-hover:underline underline-offset-2">
+                    {post.title}
+                  </CardTitle>
+                  <CardDescription>{post.description}</CardDescription>
+                </CardHeader>
+              </Card>
+            </Link>
+          </FadeIn>
         ))}
       </div>
     </div>
