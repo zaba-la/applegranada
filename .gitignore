@@ -19,9 +19,7 @@ coverage
 .nyc_output
 
 # Prisma
-.env
-.env.*.local
-prisma/migrations/
+prisma/prisma/
 *.db
 *.sqlite
 
@@ -56,3 +54,4 @@ pnpm-debug.log*
 .env.local
 .env.*.local
 
+.vercel

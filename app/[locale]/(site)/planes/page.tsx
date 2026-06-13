@@ -19,10 +19,15 @@ export default async function PlansPage({ params: { locale } }: { params: { loca
   const t = await getTranslations('plans');
   const session = await getServerSession(authOptions);
 
-  const plans = await prisma.plan.findMany({
-    where: { isActive: true },
-    orderBy: [{ segment: 'asc' }, { priceRemote: 'asc' }],
-  });
+  let plans: Awaited<ReturnType<typeof prisma.plan.findMany>> = [];
+  try {
+    plans = await prisma.plan.findMany({
+      where: { isActive: true },
+      orderBy: [{ segment: 'asc' }, { priceRemote: 'asc' }],
+    });
+  } catch {
+    // DB not yet available (e.g. first build before migrate deploy completes)
+  }
 
   const segmentLabel: Record<string, string> = {
     STUDENT: 'Estudiantes',
