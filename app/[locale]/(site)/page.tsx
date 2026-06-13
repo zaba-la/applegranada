@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowRight, Shield, Wrench, Apple, GraduationCap, Home, Briefcase, Building2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { TestimonialsSection } from '@/components/testimonials-section';
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
   const t = await getTranslations({ locale, namespace: 'home' });
@@ -89,6 +90,9 @@ export default async function HomePage({ params: { locale } }: { params: { local
           ))}
         </div>
       </section>
+
+      {/* Testimonials */}
+      <TestimonialsSection />
 
       {/* CTA */}
       <section className="bg-primary text-primary-foreground py-20">
