@@ -175,18 +175,22 @@ model Payment {
   
   invoiceId       String?
   invoice         Invoice?  @relation(fields: [invoiceId], references: [id], onDelete: SetNull)
-  
+
+  ticketId        String?
+  ticket          Ticket?   @relation(fields: [ticketId], references: [id], onDelete: SetNull)
+
   amount          Float
   currency        String    @default("EUR")
   status          String    @default("PENDING") // PENDING, PROCESSING, COMPLETED, FAILED, REFUNDED
-  
+
   // Payment Provider IDs
   stripePaymentId String?
   paypalOrderId   String?
-  
+  bizumReference  String?
+
   description     String?
   notes           String?
-  
+
   notifications   Notification[]
   
   createdAt       DateTime  @default(now())
@@ -235,6 +239,7 @@ model Ticket {
   attachments     String?
 
   responses       TicketResponse[]
+  payments        Payment[]
   notifications   Notification[]
   
   createdAt       DateTime  @default(now())

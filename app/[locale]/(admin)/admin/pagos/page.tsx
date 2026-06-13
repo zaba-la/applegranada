@@ -9,10 +9,19 @@ import { CreditCard, TrendingUp, Clock, AlertCircle } from 'lucide-react';
 export const metadata = { title: 'Pagos — Admin' };
 
 const METHOD_LABEL: Record<string, string> = {
-  STRIPE: 'Stripe',
+  STRIPE: 'Stripe (tarjeta)',
   PAYPAL: 'PayPal',
+  BIZUM: 'Bizum',
   BANK_TRANSFER: 'Transferencia',
   CASH: 'Efectivo',
+};
+
+const STATUS_LABEL_ES: Record<string, string> = {
+  PENDING: 'Pendiente',
+  PROCESSING: 'Notificado',
+  COMPLETED: 'Completado',
+  FAILED: 'Fallido',
+  REFUNDED: 'Reembolsado',
 };
 
 export default async function AdminPagosPage({ params: { locale } }: { params: { locale: string } }) {
@@ -117,7 +126,7 @@ export default async function AdminPagosPage({ params: { locale } }: { params: {
                     </TableCell>
                     <TableCell className="font-medium">{formatCurrency(payment.amount)}</TableCell>
                     <TableCell>
-                      <Badge className={getStatusColor(payment.status)}>{payment.status}</Badge>
+                      <Badge className={getStatusColor(payment.status)}>{STATUS_LABEL_ES[payment.status] ?? payment.status}</Badge>
                     </TableCell>
                     <TableCell className="font-mono text-xs text-muted-foreground">
                       {payment.invoice?.invoiceNumber ?? '—'}

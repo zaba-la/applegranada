@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { Send, Loader2, Paperclip, ShieldCheck, User, Laptop, MapPin, Smartphone, Tablet, Tv, Layers } from 'lucide-react';
+import { PayTicketButton } from '@/components/panel/pay-ticket-button';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -38,6 +39,7 @@ type Ticket = {
   city: string | null;
   postalCode: string | null;
   attachments: string | null;
+  isPaid: boolean;
   createdAt: Date | string;
   responses: Response[];
 };
@@ -209,6 +211,16 @@ export function CustomerTicketDetail({ ticket: initial }: { ticket: Ticket }) {
             {STATUS_LABEL[initial.status] ?? initial.status}
           </Badge>
           <Badge variant="outline">{PRIORITY_LABEL[initial.priority] ?? initial.priority}</Badge>
+          {(initial.status === 'OPEN' || initial.status === 'IN_PROGRESS') && !initial.isPaid && (
+            <PayTicketButton
+              ticketId={initial.id}
+              ticketCode={initial.ticketCode}
+              serviceMode={initial.serviceMode}
+            />
+          )}
+          {initial.isPaid && (
+            <Badge className="bg-green-100 text-green-800">Pago confirmado</Badge>
+          )}
         </div>
         <h1 className="text-xl font-semibold">{initial.title}</h1>
         <p className="text-sm text-muted-foreground">
