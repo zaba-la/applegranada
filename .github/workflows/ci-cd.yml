@@ -6,23 +6,33 @@ on:
   pull_request:
     branches: [main, develop]
 
+# Evita ejecuciones duplicadas: cancela runs en curso de la misma rama/PR.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# Mínimo privilegio por defecto para el GITHUB_TOKEN.
+permissions:
+  contents: read
+
 env:
-  NODE_VERSION: 18
+  NODE_VERSION: '20'
 
 jobs:
-  setup:
+  # --------------------------------------------------------------------------
+  # Calidad de código: instala dependencias, type-check, lint, tests y build.
+  # --------------------------------------------------------------------------
+  quality:
+    name: Quality (lint, type-check, build)
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18.x]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
 
       - name: Install dependencies
@@ -34,52 +44,59 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Run tests (si están configurados)
+        run: npm run test --if-present
+
       - name: Build
         run: npm run build
         env:
           NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
           NEXT_PUBLIC_PAYPAL_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_PAYPAL_CLIENT_ID }}
           PAYPAL_SECRET_ID: ${{ secrets.PAYPAL_SECRET_ID }}
           NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: ${{ secrets.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY }}
+          NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
 
-  test:
+  # --------------------------------------------------------------------------
+  # Deploy a Vercel (producción) — solo en push a main y si todo pasó.
+  # Usa el Vercel CLI oficial en lugar de una action de terceros.
+  # --------------------------------------------------------------------------
+  deploy:
+    name: Deploy to Vercel (production)
     runs-on: ubuntu-latest
-    needs: setup
+    needs: [quality]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    environment:
+      name: production
+      url: ${{ steps.deploy.outputs.url }}
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
 
-      - name: Run tests
-        run: npm run test -- --coverage || true
+      - name: Pull Vercel environment information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
-      - name: Upload coverage
-        uses: codecov/codecov-action@v3
-        if: always()
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: [setup, test]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Build project artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy to Vercel
-        uses: vercel/action@master
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          production: true
+        id: deploy
+        run: |
+          url=$(vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }})
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          echo "Deployed to: $url"
