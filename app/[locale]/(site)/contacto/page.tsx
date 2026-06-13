@@ -108,7 +108,7 @@ export default function ContactPage() {
                 <p className="font-semibold text-green-700 dark:text-green-400 group-hover:underline">
                   {t('infoWhatsapp')}
                 </p>
-                <p className="text-muted-foreground">+34 644 411 252</p>
+                <p className="text-muted-foreground">+34 644 41 12 52</p>
                 <p className="text-xs text-muted-foreground mt-0.5">{t('infoHours')}</p>
               </div>
             </a>

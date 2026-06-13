@@ -16,7 +16,7 @@ export function StripeSuccessHandler({ ticketId, sessionId }: Props) {
       const res = await fetch('/api/payments/ticket/confirm', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ticketId, sessionId, method: 'STRIPE' }),
+        body: JSON.stringify({ ticketId, sessionId }),
       });
       if (res.ok) {
         setDone(true);

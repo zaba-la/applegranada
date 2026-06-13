@@ -66,7 +66,7 @@ export function inviteEmailHtml(params: { name: string; link: string }) {
         <tr>
           <td style="padding:20px 32px;border-top:1px solid #f0f0f0;">
             <p style="margin:0;color:#999;font-size:12px;">
-              soporte@applegranada.com · +34 644 411 252 · Granada<br>
+              soporte@applegranada.com · <a href="tel:+34644411252" style="color:#999;text-decoration:none;">+34 644 41 12 52</a> · Granada<br>
               © ${new Date().getFullYear()} AppleGranada. Todos los derechos reservados.
             </p>
           </td>
@@ -159,7 +159,7 @@ export function ticketCreatedEmailHtml(params: {
         <tr>
           <td style="padding:20px 32px;border-top:1px solid #f0f0f0;">
             <p style="margin:0;color:#999;font-size:12px;">
-              soporte@applegranada.com · +34 644 411 252 · Granada<br>
+              soporte@applegranada.com · <a href="tel:+34644411252" style="color:#999;text-decoration:none;">+34 644 41 12 52</a> · Granada<br>
               © ${new Date().getFullYear()} AppleGranada. Todos los derechos reservados.
             </p>
           </td>
@@ -249,7 +249,7 @@ export function ticketResponseEmailHtml(params: {
         <tr>
           <td style="padding:20px 32px;border-top:1px solid #f0f0f0;">
             <p style="margin:0;color:#999;font-size:12px;">
-              soporte@applegranada.com · +34 644 411 252 · Granada<br>
+              soporte@applegranada.com · <a href="tel:+34644411252" style="color:#999;text-decoration:none;">+34 644 41 12 52</a> · Granada<br>
               © ${new Date().getFullYear()} AppleGranada. Todos los derechos reservados.
             </p>
           </td>

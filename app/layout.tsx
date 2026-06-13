@@ -9,6 +9,10 @@ export const metadata: Metadata = {
   description:
     'Servicio técnico de software para Mac, iPad e iPhone en Granada. Soporte preventivo y correctivo. Sin colas, sin perder tus datos.',
   keywords: ['apple', 'mac', 'iphone', 'ipad', 'soporte técnico', 'granada', 'software'],
+  icons: {
+    icon: '/favicon.png',
+    apple: '/favicon.png',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
