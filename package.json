@@ -46,6 +46,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.79.0",
     "react-hot-toast": "^2",
+    "resend": "^6.12.4",
     "stripe": "^14",
     "tailwind-merge": "^2",
     "tailwindcss-animate": "^1",
