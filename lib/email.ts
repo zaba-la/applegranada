@@ -1,21 +1,27 @@
 import { Resend } from 'resend';
 
-const FROM = 'AppleGranada Soporte <soporte@applegranada.com>';
-
 export async function sendEmail(to: string, subject: string, html: string) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
-    console.warn('[email] RESEND_API_KEY no configurado — email no enviado:', { to, subject });
+    console.warn('[email] RESEND_API_KEY no configurado');
     return;
   }
 
   const resend = new Resend(apiKey);
-  const { error } = await resend.emails.send({ from: FROM, to, subject, html });
+
+  const { data, error } = await resend.emails.send({
+    from: 'AppleGranada <soporte@applegranada.com>',
+    to: [to],
+    subject,
+    html,
+  });
 
   if (error) {
-    console.error('[email] Resend error:', error);
-    throw new Error(error.message);
+    console.error('[email] Error Resend:', JSON.stringify(error));
+    throw new Error(typeof error === 'object' && 'message' in error ? (error as { message: string }).message : JSON.stringify(error));
   }
+
+  console.log('[email] Enviado OK, id:', data?.id);
 }
 
 export function inviteEmailHtml(params: { name: string; link: string }) {

@@ -1,8 +1,8 @@
 'use client';
 
-import { Suspense, useState } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { useRouter, useSearchParams, useParams } from 'next/navigation';
-import { Eye, EyeOff, CheckCircle } from 'lucide-react';
+import { Eye, EyeOff, CheckCircle, Mail } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -20,6 +20,15 @@ function SetPasswordForm() {
   const [showPw, setShowPw] = useState(false);
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!token) return;
+    fetch(`/api/auth/token-info?token=${token}`)
+      .then(r => r.ok ? r.json() : null)
+      .then(data => { if (data?.email) setUserEmail(data.email); })
+      .catch(() => {});
+  }, [token]);
 
   if (!token) {
     return (
@@ -76,6 +85,12 @@ function SetPasswordForm() {
         <CardDescription>
           Elige una contraseña segura para acceder a tu cuenta de AppleGranada.
         </CardDescription>
+        {userEmail && (
+          <div className="flex items-center gap-2 rounded-lg bg-muted/50 border px-3 py-2 mt-2">
+            <Mail className="h-4 w-4 text-muted-foreground shrink-0" />
+            <span className="text-sm text-muted-foreground">{userEmail}</span>
+          </div>
+        )}
       </CardHeader>
       <CardContent>
         <form onSubmit={onSubmit} className="space-y-4">

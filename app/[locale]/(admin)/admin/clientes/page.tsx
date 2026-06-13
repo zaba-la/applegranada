@@ -60,7 +60,11 @@ export default async function AdminCustomersPage({ params: { locale } }: { param
               </TableHeader>
               <TableBody>
                 {customers.map((customer) => (
-                  <TableRow key={customer.id}>
+                  <TableRow
+                    key={customer.id}
+                    className="cursor-pointer hover:bg-muted/50"
+                    onClick={() => { window.location.href = `/${locale}/admin/clientes/${customer.id}`; }}
+                  >
                     <TableCell className="font-medium">{customer.user.name}</TableCell>
                     <TableCell className="text-muted-foreground text-sm">{customer.user.email}</TableCell>
                     <TableCell>
@@ -70,11 +74,7 @@ export default async function AdminCustomersPage({ params: { locale } }: { param
                     </TableCell>
                     <TableCell>{customer._count.tickets}</TableCell>
                     <TableCell className="text-muted-foreground text-sm">{formatDate(customer.createdAt)}</TableCell>
-                    <TableCell>
-                      <Button variant="ghost" size="sm" asChild>
-                        <Link href={`/${locale}/admin/clientes/${customer.id}`}>Ver</Link>
-                      </Button>
-                    </TableCell>
+                    <TableCell className="text-muted-foreground text-sm">Ver →</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
