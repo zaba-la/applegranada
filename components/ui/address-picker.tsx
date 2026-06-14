@@ -99,9 +99,15 @@ export function AddressPicker({ value, onChange, onRawChange, placeholder, class
       return;
     }
     setLoading(true);
+    const timeout = setTimeout(() => {
+      setLoading(false);
+      setApiError('TIMEOUT — la API key puede tener restricciones de IP en lugar de HTTP referrer. Revisa Google Cloud Console → Credentials');
+    }, 5000);
+
     serviceRef.current.getPlacePredictions(
       { input: query, types: ['address'], componentRestrictions: { country: 'es' } },
       (results: Prediction[] | null, status: string) => {
+        clearTimeout(timeout);
         setLoading(false);
         console.log('[AddressPicker] status:', status, 'results:', results?.length ?? 0);
         if (status === 'OK' && results) {
@@ -112,7 +118,7 @@ export function AddressPicker({ value, onChange, onRawChange, placeholder, class
         } else {
           setPredictions([]);
           setOpen(false);
-          if (status !== 'ZERO_RESULTS') setApiError(status);
+          setApiError(`Google Places: ${status}`);
         }
       }
     );
