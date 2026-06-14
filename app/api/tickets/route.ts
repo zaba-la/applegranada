@@ -32,39 +32,44 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  const session = await getServerSession(authOptions);
-  if (!session) return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session) return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
 
-  const body = await req.json();
-  const parsed = CreateTicketSchema.safeParse(body);
+    const body = await req.json();
+    const parsed = CreateTicketSchema.safeParse(body);
 
-  if (!parsed.success) {
-    return NextResponse.json({ error: parsed.error.errors[0].message }, { status: 400 });
+    if (!parsed.success) {
+      return NextResponse.json({ error: parsed.error.errors[0].message }, { status: 400 });
+    }
+
+    const customer = await prisma.customer.findFirst({ where: { user: { email: session.user.email } } });
+    if (!customer) return NextResponse.json({ error: 'Perfil de cliente no encontrado' }, { status: 404 });
+
+    const ticketCount = await prisma.ticket.count();
+
+    const ticket = await prisma.ticket.create({
+      data: {
+        ticketNumber: generateTicketNumber(ticketCount + 1),
+        ticketCode: generateTicketCode(),
+        customerId: customer.id,
+        title: parsed.data.title,
+        description: parsed.data.description,
+        deviceType: parsed.data.deviceType,
+        priority: parsed.data.priority ?? 'MEDIUM',
+        serviceMode: parsed.data.serviceMode ?? 'REMOTE',
+        address: parsed.data.address,
+        city: parsed.data.city,
+        postalCode: parsed.data.postalCode,
+        estimatedHours: parsed.data.estimatedHours,
+        scheduledDate: parsed.data.scheduledDate,
+        attachments: body.attachments ? JSON.stringify(body.attachments) : null,
+      },
+    });
+
+    return NextResponse.json(ticket, { status: 201 });
+  } catch (err) {
+    console.error('[POST /api/tickets]', err);
+    return NextResponse.json({ error: 'Error interno al crear el ticket' }, { status: 500 });
   }
-
-  const customer = await prisma.customer.findFirst({ where: { user: { email: session.user.email } } });
-  if (!customer) return NextResponse.json({ error: 'Perfil de cliente no encontrado' }, { status: 404 });
-
-  const ticketCount = await prisma.ticket.count();
-
-  const ticket = await prisma.ticket.create({
-    data: {
-      ticketNumber: generateTicketNumber(ticketCount + 1),
-      ticketCode: generateTicketCode(),
-      customerId: customer.id,
-      title: parsed.data.title,
-      description: parsed.data.description,
-      deviceType: parsed.data.deviceType,
-      priority: parsed.data.priority ?? 'MEDIUM',
-      serviceMode: parsed.data.serviceMode ?? 'REMOTE',
-      address: parsed.data.address,
-      city: parsed.data.city,
-      postalCode: parsed.data.postalCode,
-      estimatedHours: parsed.data.estimatedHours,
-      scheduledDate: parsed.data.scheduledDate,
-      attachments: body.attachments ? JSON.stringify(body.attachments) : null,
-    },
-  });
-
-  return NextResponse.json(ticket, { status: 201 });
 }

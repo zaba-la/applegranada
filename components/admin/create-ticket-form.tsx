@@ -287,8 +287,8 @@ export function CreateTicketForm({ customers: initial, locale }: Props) {
         body: JSON.stringify({ ...form, attachments }),
       });
       if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error ?? 'Error al crear el ticket');
+        const data = await res.json().catch(() => ({}));
+        throw new Error((data as { error?: string }).error ?? 'Error al crear el ticket');
       }
       const data = await res.json();
       setSuccess({
@@ -505,7 +505,21 @@ export function CreateTicketForm({ customers: initial, locale }: Props) {
             </div>
           </div>
 
-          {/* Horas a contratar */}
+        </section>
+
+        {/* Adjuntos */}
+        <section className="space-y-3">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+            Archivos adjuntos
+          </h2>
+          <FileDropzone files={files} onChange={setFiles} />
+        </section>
+
+        {/* Horas a contratar */}
+        <section className="space-y-3">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+            Horas a contratar
+          </h2>
           <div className="rounded-lg border bg-muted/30 p-4 space-y-3">
             <div className="flex items-center justify-between">
               <div>
@@ -535,14 +549,6 @@ export function CreateTicketForm({ customers: initial, locale }: Props) {
               </span>
             </div>
           </div>
-        </section>
-
-        {/* Adjuntos */}
-        <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-            Archivos adjuntos
-          </h2>
-          <FileDropzone files={files} onChange={setFiles} />
         </section>
 
         {/* Actions */}

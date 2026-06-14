@@ -255,7 +255,24 @@ export default function NewTicketPage() {
             </div>
           </div>
 
-          {/* Horas a contratar */}
+        </section>
+
+        {/* Adjuntos */}
+        <section className="space-y-3">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+            Archivos adjuntos <span className="text-muted-foreground font-normal normal-case">(opcional)</span>
+          </h2>
+          <p className="text-xs text-muted-foreground">
+            Capturas de pantalla, fotos del error, logs... Cualquier cosa que ayude a entender el problema.
+          </p>
+          <FileDropzone files={files} onChange={setFiles} />
+        </section>
+
+        {/* Horas a contratar */}
+        <section className="space-y-3">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+            Horas a contratar
+          </h2>
           <div className="rounded-lg border bg-muted/30 p-4 space-y-3">
             <div className="flex items-center justify-between">
               <div>
@@ -285,17 +302,6 @@ export default function NewTicketPage() {
               </span>
             </div>
           </div>
-        </section>
-
-        {/* Adjuntos */}
-        <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-            Archivos adjuntos <span className="text-muted-foreground font-normal normal-case">(opcional)</span>
-          </h2>
-          <p className="text-xs text-muted-foreground">
-            Capturas de pantalla, fotos del error, logs... Cualquier cosa que ayude a entender el problema.
-          </p>
-          <FileDropzone files={files} onChange={setFiles} />
         </section>
 
         {/* Acciones */}
