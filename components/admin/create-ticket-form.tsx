@@ -366,7 +366,7 @@ export function CreateTicketForm({ customers: initial, locale }: Props) {
                 ))}
                 <SelectSeparator />
                 <SelectItem value="__create__">
-                  <span className="flex items-center gap-2 text-primary">
+                  <span className="flex items-center gap-2">
                     <UserPlus className="h-3.5 w-3.5" />
                     Crear nuevo cliente
                   </span>
