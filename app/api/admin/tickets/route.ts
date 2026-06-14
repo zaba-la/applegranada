@@ -16,6 +16,7 @@ const AdminCreateTicketSchema = z.object({
   address: z.string().optional(),
   city: z.string().optional(),
   postalCode: z.string().optional(),
+  estimatedHours: z.number().min(1).optional(),
   attachments: z
     .array(
       z.object({
@@ -65,6 +66,7 @@ export async function POST(req: Request) {
       address: parsed.data.address,
       city: parsed.data.city,
       postalCode: parsed.data.postalCode,
+      estimatedHours: parsed.data.estimatedHours,
       attachments: parsed.data.attachments
         ? JSON.stringify(parsed.data.attachments)
         : undefined,

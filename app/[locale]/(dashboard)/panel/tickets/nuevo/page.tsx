@@ -20,6 +20,7 @@ type FormState = {
   deviceType: string;
   priority: string;
   serviceMode: 'REMOTE' | 'ON_SITE';
+  estimatedHours: number;
   address: string;
   city: string;
   postalCode: string;
@@ -31,6 +32,7 @@ const EMPTY: FormState = {
   deviceType: 'MAC',
   priority: 'MEDIUM',
   serviceMode: 'REMOTE',
+  estimatedHours: 1,
   address: '',
   city: 'Granada',
   postalCode: '',
@@ -177,7 +179,11 @@ export default function NewTicketPage() {
               <button
                 key={value}
                 type="button"
-                onClick={() => set('serviceMode')(value)}
+                onClick={() => {
+                  set('serviceMode')(value);
+                  if (value === 'ON_SITE') setForm((f) => ({ ...f, serviceMode: value, estimatedHours: Math.max(2, f.estimatedHours) }));
+                  else setForm((f) => ({ ...f, serviceMode: value }));
+                }}
                 className={`flex-1 rounded-lg border px-4 py-3 text-left transition-colors ${
                   form.serviceMode === value
                     ? 'border-primary bg-primary/5 ring-1 ring-primary'
@@ -246,6 +252,37 @@ export default function NewTicketPage() {
                   <SelectItem value="URGENT">Crítica — lo antes posible</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+          </div>
+
+          {/* Horas a contratar */}
+          <div className="rounded-lg border bg-muted/30 p-4 space-y-3">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium">Horas a contratar *</p>
+                <p className="text-xs text-muted-foreground">
+                  {form.serviceMode === 'REMOTE' ? 'Mínimo 1 hora · 19 €/hora' : 'Mínimo 2 horas · 39 €/hora'}
+                </p>
+              </div>
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => setForm((f) => ({ ...f, estimatedHours: Math.max(form.serviceMode === 'ON_SITE' ? 2 : 1, f.estimatedHours - 1) }))}
+                  className="flex h-8 w-8 items-center justify-center rounded-full border text-lg font-medium hover:bg-muted transition-colors"
+                >−</button>
+                <span className="w-8 text-center text-lg font-bold">{form.estimatedHours}</span>
+                <button
+                  type="button"
+                  onClick={() => setForm((f) => ({ ...f, estimatedHours: f.estimatedHours + 1 }))}
+                  className="flex h-8 w-8 items-center justify-center rounded-full border text-lg font-medium hover:bg-muted transition-colors"
+                >+</button>
+              </div>
+            </div>
+            <div className="flex items-center justify-between rounded-md bg-background px-4 py-2 text-sm">
+              <span className="text-muted-foreground">Total estimado</span>
+              <span className="font-bold">
+                {(form.estimatedHours * (form.serviceMode === 'REMOTE' ? 19 : 39)).toFixed(0)} €
+              </span>
             </div>
           </div>
         </section>

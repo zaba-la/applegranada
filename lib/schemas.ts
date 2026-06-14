@@ -41,6 +41,9 @@ export const CreateTicketSchema = z.object({
   latitude: z.number().optional(),
   longitude: z.number().optional(),
   
+  // Hours contracted
+  estimatedHours: z.number().min(1).optional(),
+
   // Scheduling
   scheduledDate: z.date().optional(),
 });

@@ -60,6 +60,7 @@ export async function POST(req: Request) {
       address: parsed.data.address,
       city: parsed.data.city,
       postalCode: parsed.data.postalCode,
+      estimatedHours: parsed.data.estimatedHours,
       scheduledDate: parsed.data.scheduledDate,
       attachments: body.attachments ? JSON.stringify(body.attachments) : null,
     },

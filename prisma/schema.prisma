@@ -231,6 +231,9 @@ model Ticket {
   longitude       Float?
   mapPlaceId      String?   // Google Places ID
   
+  // Hours contracted
+  estimatedHours  Float?    // hours requested by customer
+
   // Scheduling
   scheduledDate   DateTime?
   notes           String?
