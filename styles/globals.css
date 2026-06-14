@@ -223,3 +223,33 @@
     display: none !important;
   }
 }
+
+/* Google Maps autocomplete dropdown */
+.pac-container {
+  z-index: 99999 !important;
+  border-radius: 8px;
+  border: 1px solid hsl(var(--border));
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  margin-top: 4px;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+}
+.pac-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-top: 1px solid hsl(var(--border));
+}
+.pac-item:first-child {
+  border-top: none;
+}
+.pac-item:hover,
+.pac-item-selected {
+  background-color: hsl(var(--muted));
+}
+.pac-item-query {
+  font-size: 14px;
+  color: hsl(var(--foreground));
+}
+.pac-matched {
+  font-weight: 600;
+}

@@ -84,8 +84,12 @@ export function AddressPicker({ value, onChange, onRawChange, placeholder, class
         fields: ['address_components', 'formatted_address', 'geometry', 'place_id'],
       });
 
-      // Fix: prevent pac-container from being clipped inside a dialog
-      autocomplete.setOptions({ bounds: undefined });
+      // Move pac-container to body so it's never clipped by overflow:hidden parents
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (google.maps as any).event.addListener(autocomplete, 'place_changed', () => {});
+      document.querySelectorAll('.pac-container').forEach((el) => {
+        document.body.appendChild(el);
+      });
 
       autocomplete.addListener('place_changed', () => {
         const place = autocomplete.getPlace();
