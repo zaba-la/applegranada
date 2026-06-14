@@ -83,6 +83,7 @@ export async function POST(req: Request) {
         ticketTitle: parsed.data.title,
         serviceMode: parsed.data.serviceMode,
         hourlyRate,
+        ticketId: ticket.id,
       })
     );
   } catch (err) {

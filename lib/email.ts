@@ -85,13 +85,15 @@ export function ticketCreatedEmailHtml(params: {
   ticketTitle: string;
   serviceMode: 'REMOTE' | 'ON_SITE';
   hourlyRate: number;
+  ticketId: string;
 }) {
-  const { customerName, ticketCode, ticketTitle, serviceMode, hourlyRate } = params;
+  const { customerName, ticketCode, ticketTitle, serviceMode, hourlyRate, ticketId } = params;
   const modeLabel = serviceMode === 'REMOTE' ? 'Soporte Remoto' : 'Soporte Presencial';
   const minLabel =
     serviceMode === 'REMOTE'
       ? `${hourlyRate}€/hora · mínimo 1 hora`
       : `${hourlyRate}€/hora · mínimo 2 horas (${hourlyRate * 2}€)`;
+  const payUrl = `https://applegranada.com/es/panel/tickets/${ticketId}`;
 
   return `
 <!DOCTYPE html>
@@ -146,11 +148,29 @@ export function ticketCreatedEmailHtml(params: {
             <!-- CTA -->
             <table cellpadding="0" cellspacing="0">
               <tr>
-                <td style="background:#000;border-radius:8px;padding:12px 24px;">
-                  <a href="https://wa.me/34644411252?text=Hola%2C+tengo+el+ticket+${ticketCode}"
-                     style="color:#fff;text-decoration:none;font-size:15px;font-weight:600;">
-                    Contactar por WhatsApp
-                  </a>
+                <td style="padding-right:12px;">
+                  <table cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td style="background:#000;border-radius:8px;padding:12px 28px;">
+                        <a href="${payUrl}"
+                           style="color:#fff;text-decoration:none;font-size:15px;font-weight:700;">
+                          Pagar ahora
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td>
+                  <table cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td style="border:1px solid #d0d0d0;border-radius:8px;padding:11px 24px;">
+                        <a href="https://wa.me/34644411252?text=Hola%2C+tengo+el+ticket+${ticketCode}"
+                           style="color:#111;text-decoration:none;font-size:15px;font-weight:600;">
+                          WhatsApp
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
                 </td>
               </tr>
             </table>
