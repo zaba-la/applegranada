@@ -1,12 +1,10 @@
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { prisma } from '@/lib/prisma';
-import { formatDate, getStatusColor } from '@/lib/utils';
-import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Plus } from 'lucide-react';
+import { TicketsTable } from '@/components/admin/tickets-table';
 
 export const metadata = { title: 'Tickets' };
 
@@ -20,6 +18,15 @@ export default async function AdminTicketsPage({ params: { locale } }: { params:
     },
     orderBy: { createdAt: 'desc' },
   });
+
+  const labels = {
+    code: t('code'),
+    customer: t('customer'),
+    priority: t('priority'),
+    status: t('status'),
+    device: t('device'),
+    created: t('created'),
+  };
 
   return (
     <div className="space-y-6">
@@ -37,42 +44,7 @@ export default async function AdminTicketsPage({ params: { locale } }: { params:
 
       <Card>
         <CardContent className="p-0">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>{t('code')}</TableHead>
-                <TableHead>{t('customer')}</TableHead>
-                <TableHead>Título</TableHead>
-                <TableHead>{t('priority')}</TableHead>
-                <TableHead>{t('status')}</TableHead>
-                <TableHead>{t('device')}</TableHead>
-                <TableHead>{t('created')}</TableHead>
-                <TableHead className="w-[80px]"></TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {tickets.map((ticket) => (
-                <TableRow
-                  key={ticket.id}
-                  className="cursor-pointer hover:bg-muted/50"
-                  onClick={() => { window.location.href = `/${locale}/admin/tickets/${ticket.id}`; }}
-                >
-                  <TableCell className="font-mono text-xs">{ticket.ticketCode}</TableCell>
-                  <TableCell className="text-sm">{ticket.customer.user.name}</TableCell>
-                  <TableCell className="max-w-[200px] truncate text-sm">{ticket.title}</TableCell>
-                  <TableCell>
-                    <Badge className={getStatusColor(ticket.priority)}>{ticket.priority}</Badge>
-                  </TableCell>
-                  <TableCell>
-                    <Badge className={getStatusColor(ticket.status)}>{ticket.status}</Badge>
-                  </TableCell>
-                  <TableCell className="text-muted-foreground text-sm">{ticket.deviceType}</TableCell>
-                  <TableCell className="text-muted-foreground text-sm">{formatDate(ticket.createdAt)}</TableCell>
-                  <TableCell className="text-muted-foreground text-sm">Ver →</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+          <TicketsTable tickets={tickets} locale={locale} labels={labels} />
         </CardContent>
       </Card>
     </div>
