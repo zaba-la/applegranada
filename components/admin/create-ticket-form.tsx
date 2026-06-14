@@ -374,17 +374,21 @@ export function CreateTicketForm({ customers: initial, locale }: Props) {
               </SelectContent>
             </Select>
             {selectedCustomer && (
-              <div className="mt-1 flex flex-wrap gap-3 text-xs text-muted-foreground">
-                <span className="flex items-center gap-1">
-                  <Mail className="h-3 w-3" />
-                  {selectedCustomer.email}
-                </span>
-                {selectedCustomer.phone && (
-                  <span className="flex items-center gap-1">
-                    <Phone className="h-3 w-3" />
-                    {selectedCustomer.phone}
-                  </span>
-                )}
+              <div className="mt-3 grid grid-cols-2 gap-2">
+                <div className="flex items-center gap-2.5 rounded-lg border bg-muted/40 px-4 py-3">
+                  <Mail className="h-4 w-4 shrink-0 text-muted-foreground" />
+                  <div className="min-w-0">
+                    <p className="text-[10px] uppercase tracking-wide text-muted-foreground">Email</p>
+                    <p className="truncate text-sm font-medium">{selectedCustomer.email}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2.5 rounded-lg border bg-muted/40 px-4 py-3">
+                  <Phone className="h-4 w-4 shrink-0 text-muted-foreground" />
+                  <div>
+                    <p className="text-[10px] uppercase tracking-wide text-muted-foreground">Teléfono</p>
+                    <p className="text-sm font-medium">{selectedCustomer.phone ?? <span className="text-muted-foreground">—</span>}</p>
+                  </div>
+                </div>
               </div>
             )}
           </div>
