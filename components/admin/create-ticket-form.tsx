@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
-import { CheckCircle2, Loader2, Mail, UserPlus } from 'lucide-react';
+import { CheckCircle2, Loader2, Mail, Phone, UserPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -28,7 +28,7 @@ import { FileDropzone, type AttachedFile } from '@/components/ui/file-dropzone';
 import { AddressPicker, type AddressResult } from '@/components/ui/address-picker';
 import { PhoneInput } from '@/components/ui/phone-input';
 
-type Customer = { id: string; name: string; email: string };
+type Customer = { id: string; name: string; email: string; phone?: string | null };
 
 type Props = {
   customers: Customer[];
@@ -374,10 +374,18 @@ export function CreateTicketForm({ customers: initial, locale }: Props) {
               </SelectContent>
             </Select>
             {selectedCustomer && (
-              <p className="pt-0.5 text-xs text-muted-foreground">
-                Se enviará un correo de confirmación a{' '}
-                <strong>{selectedCustomer.email}</strong>
-              </p>
+              <div className="mt-1 flex flex-wrap gap-3 text-xs text-muted-foreground">
+                <span className="flex items-center gap-1">
+                  <Mail className="h-3 w-3" />
+                  {selectedCustomer.email}
+                </span>
+                {selectedCustomer.phone && (
+                  <span className="flex items-center gap-1">
+                    <Phone className="h-3 w-3" />
+                    {selectedCustomer.phone}
+                  </span>
+                )}
+              </div>
             )}
           </div>
         </section>

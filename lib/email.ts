@@ -35,10 +35,9 @@ export function inviteEmailHtml(params: { name: string; link: string }) {
     <tr><td align="center">
       <table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);">
         <tr>
-          <td style="background:#000;padding:24px 32px;">
-            <p style="margin:0;color:#ffffff;font-size:18px;font-weight:700;letter-spacing:-0.3px;">
-              <strong>Apple</strong>Granada
-            </p>
+          <td style="background:#000;padding:20px 32px;text-align:center;">
+            <img src="https://res.cloudinary.com/ddagvoaq2/image/upload/v1781447490/Apple-Granada-logo-white_vq3c81.png"
+                 alt="AppleGranada" height="48" style="display:block;margin:0 auto;height:48px;width:auto;" />
           </td>
         </tr>
         <tr>
@@ -105,10 +104,9 @@ export function ticketCreatedEmailHtml(params: {
       <table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);">
         <!-- Header -->
         <tr>
-          <td style="background:#000;padding:24px 32px;">
-            <p style="margin:0;color:#ffffff;font-size:18px;font-weight:700;letter-spacing:-0.3px;">
-              <strong>Apple</strong>Granada
-            </p>
+          <td style="background:#000;padding:20px 32px;text-align:center;">
+            <img src="https://res.cloudinary.com/ddagvoaq2/image/upload/v1781447490/Apple-Granada-logo-white_vq3c81.png"
+                 alt="AppleGranada" height="48" style="display:block;margin:0 auto;height:48px;width:auto;" />
           </td>
         </tr>
         <!-- Body -->
@@ -203,10 +201,9 @@ export function resetPasswordEmailHtml(params: { name: string; link: string }) {
     <tr><td align="center">
       <table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);">
         <tr>
-          <td style="background:#000;padding:24px 32px;">
-            <p style="margin:0;color:#ffffff;font-size:18px;font-weight:700;letter-spacing:-0.3px;">
-              <strong>Apple</strong>Granada
-            </p>
+          <td style="background:#000;padding:20px 32px;text-align:center;">
+            <img src="https://res.cloudinary.com/ddagvoaq2/image/upload/v1781447490/Apple-Granada-logo-white_vq3c81.png"
+                 alt="AppleGranada" height="48" style="display:block;margin:0 auto;height:48px;width:auto;" />
           </td>
         </tr>
         <tr>
@@ -273,10 +270,9 @@ export function ticketResponseEmailHtml(params: {
     <tr><td align="center">
       <table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);">
         <tr>
-          <td style="background:#000;padding:24px 32px;">
-            <p style="margin:0;color:#ffffff;font-size:18px;font-weight:700;letter-spacing:-0.3px;">
-              <strong>Apple</strong>Granada
-            </p>
+          <td style="background:#000;padding:20px 32px;text-align:center;">
+            <img src="https://res.cloudinary.com/ddagvoaq2/image/upload/v1781447490/Apple-Granada-logo-white_vq3c81.png"
+                 alt="AppleGranada" height="48" style="display:block;margin:0 auto;height:48px;width:auto;" />
           </td>
         </tr>
         <tr>

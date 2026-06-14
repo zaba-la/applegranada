@@ -10,7 +10,7 @@ export default async function NuevoTicketPage({ params: { locale } }: { params: 
   unstable_setRequestLocale(locale);
 
   const customers = await prisma.customer.findMany({
-    include: { user: { select: { name: true, email: true } } },
+    select: { id: true, phone: true, user: { select: { name: true, email: true } } },
     orderBy: { createdAt: 'desc' },
   });
 
@@ -18,6 +18,7 @@ export default async function NuevoTicketPage({ params: { locale } }: { params: 
     id: c.id,
     name: c.user.name,
     email: c.user.email,
+    phone: c.phone,
   }));
 
   return (
