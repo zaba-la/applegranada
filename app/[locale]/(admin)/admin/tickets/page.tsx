@@ -52,7 +52,11 @@ export default async function AdminTicketsPage({ params: { locale } }: { params:
             </TableHeader>
             <TableBody>
               {tickets.map((ticket) => (
-                <TableRow key={ticket.id}>
+                <TableRow
+                  key={ticket.id}
+                  className="cursor-pointer hover:bg-muted/50"
+                  onClick={() => { window.location.href = `/${locale}/admin/tickets/${ticket.id}`; }}
+                >
                   <TableCell className="font-mono text-xs">{ticket.ticketCode}</TableCell>
                   <TableCell className="text-sm">{ticket.customer.user.name}</TableCell>
                   <TableCell className="max-w-[200px] truncate text-sm">{ticket.title}</TableCell>
@@ -64,11 +68,7 @@ export default async function AdminTicketsPage({ params: { locale } }: { params:
                   </TableCell>
                   <TableCell className="text-muted-foreground text-sm">{ticket.deviceType}</TableCell>
                   <TableCell className="text-muted-foreground text-sm">{formatDate(ticket.createdAt)}</TableCell>
-                  <TableCell>
-                    <Button variant="ghost" size="sm" asChild>
-                      <Link href={`/${locale}/admin/tickets/${ticket.id}`}>{t('respond')}</Link>
-                    </Button>
-                  </TableCell>
+                  <TableCell className="text-muted-foreground text-sm">Ver →</TableCell>
                 </TableRow>
               ))}
             </TableBody>
