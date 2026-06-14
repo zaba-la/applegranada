@@ -3,10 +3,16 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import { LayoutDashboard, Users, Ticket, FileText, Package, CreditCard } from 'lucide-react';
+import { LayoutDashboard, Users, Ticket, FileText, Package, CreditCard, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
-export function AdminSidebar() {
+interface AdminSidebarProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+}
+
+export function AdminSidebar({ isOpen = false, onClose }: AdminSidebarProps) {
   const pathname = usePathname();
   const locale = useLocale();
   const t = useTranslations('admin');
@@ -21,11 +27,27 @@ export function AdminSidebar() {
   ];
 
   return (
-    <aside className="w-64 shrink-0 border-r bg-background">
-      <div className="p-4 border-b">
+    <aside
+      className={cn(
+        'w-64 shrink-0 border-r bg-background',
+        // Mobile: fixed overlay, only visible when isOpen
+        'fixed inset-y-0 left-0 z-30 transition-transform duration-300 lg:relative lg:translate-x-0 lg:z-auto',
+        isOpen ? 'translate-x-0' : '-translate-x-full'
+      )}
+    >
+      <div className="flex items-center justify-between p-4 border-b">
         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
           {t('title')}
         </p>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="lg:hidden h-7 w-7"
+          onClick={onClose}
+          aria-label="Cerrar menú"
+        >
+          <X className="h-4 w-4" />
+        </Button>
       </div>
       <nav className="flex flex-col gap-1 p-4">
         {links.map(({ href, label, icon: Icon }) => {
