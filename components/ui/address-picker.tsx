@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { MapPin, AlertCircle } from 'lucide-react';
+import { useEffect, useRef, useState, useCallback } from 'react';
+import { MapPin, AlertCircle, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export type AddressResult = {
@@ -14,45 +14,30 @@ export type AddressResult = {
   placeId?: string;
 };
 
-// ─── Singleton loader ─────────────────────────────────────────────────────────
-let gmapsState: 'idle' | 'loading' | 'ready' | 'error' = 'idle';
-const gmapsQueue: Array<() => void> = [];
+// ─── Script loader singleton ──────────────────────────────────────────────────
+let loaderPromise: Promise<void> | null = null;
 
 function loadGoogleMaps(apiKey: string): Promise<void> {
-  return new Promise((resolve, reject) => {
-    if (gmapsState === 'ready') { resolve(); return; }
-    if (gmapsState === 'error') { reject(new Error('Google Maps failed to load')); return; }
-    gmapsQueue.push(resolve);
-    if (gmapsState === 'loading') return;
-    gmapsState = 'loading';
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (window as any).__gmapsReady = () => {
-      gmapsState = 'ready';
-      gmapsQueue.forEach((cb) => cb());
-      gmapsQueue.length = 0;
-    };
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (window as any).__gmapsError = () => {
-      gmapsState = 'error';
-      gmapsQueue.forEach((cb) => cb()); // resolve anyway so callers handle missing google
-      gmapsQueue.length = 0;
-    };
-
-    const s = document.createElement('script');
-    s.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&callback=__gmapsReady&loading=async`;
-    s.async = true;
-    s.onerror = () => {
-      gmapsState = 'error';
-      gmapsQueue.forEach((cb) => cb());
-      gmapsQueue.length = 0;
-    };
-    document.head.appendChild(s);
+  if (loaderPromise) return loaderPromise;
+  loaderPromise = new Promise((resolve, reject) => {
+    if ((window as any).google?.maps?.places) { resolve(); return; }
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&loading=async`;
+    script.async = true;
+    script.onload = () => resolve();
+    script.onerror = () => { loaderPromise = null; reject(new Error('Failed to load Google Maps')); };
+    document.head.appendChild(script);
   });
+  return loaderPromise;
 }
 
-// ─── Component ────────────────────────────────────────────────────────────────
+// ─── Types ────────────────────────────────────────────────────────────────────
+interface Prediction {
+  place_id: string;
+  description: string;
+  structured_formatting: { main_text: string; secondary_text: string };
+}
+
 interface AddressPickerProps {
   value: string;
   onChange: (result: AddressResult) => void;
@@ -61,66 +46,128 @@ interface AddressPickerProps {
   className?: string;
 }
 
+// ─── Component ────────────────────────────────────────────────────────────────
 export function AddressPicker({ value, onChange, onRawChange, placeholder, className }: AddressPickerProps) {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const hasKey = !!apiKey;
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [mapPreview, setMapPreview] = useState<{ lat: number; lng: number } | null>(null);
+
+  const [inputValue, setInputValue] = useState(value);
+  const [predictions, setPredictions] = useState<Prediction[]>([]);
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [mapsReady, setMapsReady] = useState(false);
+  const [mapPreview, setMapPreview] = useState<{ lat: number; lng: number } | null>(null);
+  const [activeIndex, setActiveIndex] = useState(-1);
 
+  const serviceRef = useRef<any>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Load Google Maps once
   useEffect(() => {
-    if (!hasKey || !inputRef.current) return;
-
-    loadGoogleMaps(apiKey).then(() => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (!hasKey) return;
+    loadGoogleMaps(apiKey!).then(() => {
       const google = (window as any).google;
-      if (!google?.maps?.places || !inputRef.current) return;
-
+      serviceRef.current = new google.maps.places.AutocompleteService();
       setMapsReady(true);
+    }).catch(() => {});
+  }, [hasKey, apiKey]);
 
-      const autocomplete = new google.maps.places.Autocomplete(inputRef.current, {
-        types: ['address'],
-        componentRestrictions: { country: 'es' },
-        fields: ['address_components', 'formatted_address', 'geometry', 'place_id'],
-      });
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (!containerRef.current?.contains(e.target as Node)) {
+        setOpen(false);
+        setActiveIndex(-1);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
 
-      // Move pac-container to body so it's never clipped by overflow:hidden parents
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (google.maps as any).event.addListener(autocomplete, 'place_changed', () => {});
-      document.querySelectorAll('.pac-container').forEach((el) => {
-        document.body.appendChild(el);
-      });
+  const fetchPredictions = useCallback((query: string) => {
+    if (!serviceRef.current || query.length < 2) {
+      setPredictions([]);
+      setOpen(false);
+      return;
+    }
+    setLoading(true);
+    serviceRef.current.getPlacePredictions(
+      { input: query, types: ['address'], componentRestrictions: { country: 'es' } },
+      (results: Prediction[] | null, status: string) => {
+        setLoading(false);
+        if (status === 'OK' && results) {
+          setPredictions(results);
+          setOpen(true);
+          setActiveIndex(-1);
+        } else {
+          setPredictions([]);
+          setOpen(false);
+        }
+      }
+    );
+  }, []);
 
-      autocomplete.addListener('place_changed', () => {
-        const place = autocomplete.getPlace();
-        if (!place.geometry) return;
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value;
+    setInputValue(raw);
+    onRawChange?.(raw);
+    if (!hasKey) {
+      onChange({ address: raw, city: '', postalCode: '', country: '' });
+      return;
+    }
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => fetchPredictions(raw), 280);
+  };
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const selectPrediction = (prediction: Prediction) => {
+    setInputValue(prediction.description);
+    setPredictions([]);
+    setOpen(false);
+    setActiveIndex(-1);
+
+    // Get place details
+    const google = (window as any).google;
+    const placesService = new google.maps.places.PlacesService(document.createElement('div'));
+    placesService.getDetails(
+      { placeId: prediction.place_id, fields: ['address_components', 'geometry', 'formatted_address'] },
+      (place: any, status: string) => {
+        if (status !== 'OK' || !place) return;
+
         const get = (type: string) =>
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (place.address_components as any[])?.find((c: any) =>
-            c.types.includes(type)
-          )?.long_name ?? '';
+          place.address_components?.find((c: any) => c.types.includes(type))?.long_name ?? '';
 
         const streetNumber = get('street_number');
         const route = get('route');
         const address = streetNumber ? `${route}, ${streetNumber}` : route || place.formatted_address || '';
-        const city =
-          get('locality') ||
-          get('administrative_area_level_2') ||
-          get('administrative_area_level_1');
+        const city = get('locality') || get('administrative_area_level_2') || get('administrative_area_level_1');
         const postalCode = get('postal_code');
         const country = get('country');
         const lat: number = place.geometry.location.lat();
         const lng: number = place.geometry.location.lng();
-        const placeId: string = place.place_id;
 
         setMapPreview({ lat, lng });
-        onChange({ address, city, postalCode, country, lat, lng, placeId });
-      });
-    });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hasKey]);
+        onChange({ address, city, postalCode, country, lat, lng, placeId: prediction.place_id });
+      }
+    );
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (!open || !predictions.length) return;
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setActiveIndex((i) => Math.min(i + 1, predictions.length - 1));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setActiveIndex((i) => Math.max(i - 1, 0));
+    } else if (e.key === 'Enter' && activeIndex >= 0) {
+      e.preventDefault();
+      selectPrediction(predictions[activeIndex]);
+    } else if (e.key === 'Escape') {
+      setOpen(false);
+      setActiveIndex(-1);
+    }
+  };
 
   const inputClass = cn(
     'flex h-10 w-full rounded-md border border-input bg-background py-2 text-sm',
@@ -133,34 +180,56 @@ export function AddressPicker({ value, onChange, onRawChange, placeholder, class
 
   return (
     <div className="space-y-2">
-      {/* No API key warning */}
       {!hasKey && (
-        <div className="flex items-center gap-2 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-700 dark:border-amber-900/50 dark:bg-amber-900/20 dark:text-amber-400">
+        <div className="flex items-center gap-2 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-700">
           <AlertCircle className="h-3.5 w-3.5 shrink-0" />
-          Google Maps no configurado — añade <code className="mx-1 font-mono font-bold">NEXT_PUBLIC_GOOGLE_MAPS_API_KEY</code> en <code className="font-mono">.env.local</code>
+          Google Maps no configurado — añade <code className="mx-1 font-mono font-bold">NEXT_PUBLIC_GOOGLE_MAPS_API_KEY</code>
         </div>
       )}
 
-      <div className="relative">
+      <div className="relative" ref={containerRef}>
         {hasKey && (
-          <MapPin className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground pointer-events-none" />
+          <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
+            {loading
+              ? <Loader2 className="h-4 w-4 text-muted-foreground animate-spin" />
+              : <MapPin className="h-4 w-4 text-muted-foreground" />
+            }
+          </div>
         )}
         <input
-          ref={inputRef}
-          defaultValue={value}
+          value={inputValue}
+          onChange={handleInput}
+          onKeyDown={handleKeyDown}
           placeholder={placeholder ?? (hasKey ? 'Escribe la dirección para buscar...' : 'Calle y número')}
           className={inputClass}
-          onChange={(e) => {
-            const raw = e.target.value;
-            onRawChange?.(raw);
-            // Without API: propagate changes immediately
-            if (!hasKey) onChange({ address: raw, city: '', postalCode: '', country: '' });
-          }}
           autoComplete="off"
+          role="combobox"
+          aria-expanded={open}
+          aria-autocomplete="list"
         />
+
+        {/* Custom dropdown */}
+        {open && predictions.length > 0 && (
+          <div className="absolute left-0 right-0 top-full z-50 mt-1 overflow-hidden rounded-md border bg-popover shadow-lg">
+            {predictions.map((p, i) => (
+              <button
+                key={p.place_id}
+                type="button"
+                onMouseDown={(e) => { e.preventDefault(); selectPrediction(p); }}
+                className={cn(
+                  'flex w-full flex-col gap-0.5 px-3 py-2.5 text-left text-sm transition-colors',
+                  i === activeIndex ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/50'
+                )}
+              >
+                <span className="font-medium">{p.structured_formatting.main_text}</span>
+                <span className="text-xs text-muted-foreground">{p.structured_formatting.secondary_text}</span>
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Static map preview after a place is selected */}
+      {/* Static map preview */}
       {hasKey && mapPreview && (
         <div className="overflow-hidden rounded-md border">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -173,8 +242,7 @@ export function AddressPicker({ value, onChange, onRawChange, placeholder, class
         </div>
       )}
 
-      {/* Helper text when Maps is ready */}
-      {hasKey && mapsReady && !mapPreview && (
+      {hasKey && mapsReady && !mapPreview && !open && (
         <p className="text-xs text-muted-foreground">
           Escribe para buscar y selecciona una opción de la lista.
         </p>
