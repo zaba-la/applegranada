@@ -148,14 +148,14 @@ export function AttachmentGallery({ raw }: { raw: string | null }) {
 
   return (
     <>
-      <div className="mt-3 flex flex-wrap gap-2">
+      <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
         {list.map((a, i) => {
           if (isImage(a)) {
             return (
               <button
                 key={a.url}
                 onClick={() => setLightbox(i)}
-                className="group relative h-20 w-20 overflow-hidden rounded-lg border bg-muted shadow-sm hover:shadow-md transition-shadow"
+                className="group relative aspect-[4/3] overflow-hidden rounded-xl border bg-muted shadow-sm hover:shadow-md transition-shadow"
                 title={a.name}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -165,6 +165,9 @@ export function AttachmentGallery({ raw }: { raw: string | null }) {
                   className="h-full w-full object-cover transition-transform group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent px-2 py-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <p className="truncate text-[11px] text-white">{a.name}</p>
+                </div>
               </button>
             );
           }
@@ -174,16 +177,16 @@ export function AttachmentGallery({ raw }: { raw: string | null }) {
               <button
                 key={a.url}
                 onClick={() => setLightbox(i)}
-                className="group flex h-20 w-20 flex-col items-center justify-center gap-1 rounded-lg border bg-red-50 shadow-sm hover:shadow-md transition-shadow"
+                className="group flex aspect-[4/3] flex-col items-center justify-center gap-2 rounded-xl border bg-red-50 shadow-sm hover:shadow-md transition-shadow px-3"
                 title={a.name}
               >
-                <FileText className="h-7 w-7 text-red-500" />
-                <span className="max-w-[72px] truncate px-1 text-[10px] text-red-700 font-medium">
-                  {a.name}
-                </span>
-                {!!a.size && (
-                  <span className="text-[9px] text-red-400">{formatSize(a.size)}</span>
-                )}
+                <FileText className="h-10 w-10 text-red-500" />
+                <div className="text-center">
+                  <p className="line-clamp-2 text-xs text-red-700 font-medium leading-tight">{a.name}</p>
+                  {!!a.size && (
+                    <p className="mt-0.5 text-[11px] text-red-400">{formatSize(a.size)}</p>
+                  )}
+                </div>
               </button>
             );
           }
@@ -192,16 +195,16 @@ export function AttachmentGallery({ raw }: { raw: string | null }) {
             <button
               key={a.url}
               onClick={() => setLightbox(i)}
-              className="group flex h-20 w-20 flex-col items-center justify-center gap-1 rounded-lg border bg-muted shadow-sm hover:shadow-md transition-shadow"
+              className="group flex aspect-[4/3] flex-col items-center justify-center gap-2 rounded-xl border bg-muted shadow-sm hover:shadow-md transition-shadow px-3"
               title={a.name}
             >
-              <FileIcon className="h-7 w-7 text-muted-foreground" />
-              <span className="max-w-[72px] truncate px-1 text-[10px] text-muted-foreground font-medium">
-                {a.name}
-              </span>
-              {!!a.size && (
-                <span className="text-[9px] text-muted-foreground/60">{formatSize(a.size)}</span>
-              )}
+              <FileIcon className="h-10 w-10 text-muted-foreground" />
+              <div className="text-center">
+                <p className="line-clamp-2 text-xs text-muted-foreground font-medium leading-tight">{a.name}</p>
+                {!!a.size && (
+                  <p className="mt-0.5 text-[11px] text-muted-foreground/60">{formatSize(a.size)}</p>
+                )}
+              </div>
             </button>
           );
         })}
