@@ -9,6 +9,7 @@ import {
   Send, Loader2, Paperclip, ShieldCheck, User,
   Laptop, MapPin, Smartphone, Tablet, Tv, Layers,
 } from 'lucide-react';
+import { AttachmentGallery } from '@/components/ui/attachment-gallery';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -108,27 +109,7 @@ async function uploadFiles(files: AttachedFile[]) {
   return (await res.json()).files as Attachment[];
 }
 
-// ─── Attachment list ──────────────────────────────────────────────────────────
-function AttachmentList({ raw }: { raw: string | null }) {
-  const list = parseAttachments(raw);
-  if (!list.length) return null;
-  return (
-    <div className="mt-3 flex flex-wrap gap-2">
-      {list.map((a) => (
-        <a
-          key={a.url}
-          href={a.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 rounded-md border bg-muted/50 px-2.5 py-1 text-xs hover:bg-muted transition-colors"
-        >
-          <Paperclip className="h-3 w-3" />
-          {a.name}
-        </a>
-      ))}
-    </div>
-  );
-}
+const AttachmentList = ({ raw }: { raw: string | null }) => <AttachmentGallery raw={raw} />;
 
 // ─── Comment bubble ───────────────────────────────────────────────────────────
 function CommentBubble({ response }: { response: Response }) {

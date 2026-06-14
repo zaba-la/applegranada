@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { Send, Loader2, Paperclip, ShieldCheck, User, Laptop, MapPin, Smartphone, Tablet, Tv, Layers } from 'lucide-react';
+import { AttachmentGallery } from '@/components/ui/attachment-gallery';
 import { PayTicketButton } from '@/components/panel/pay-ticket-button';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -93,24 +94,7 @@ async function uploadFiles(files: AttachedFile[]) {
 
 // ─── Attachment list ──────────────────────────────────────────────────────────
 function AttachmentList({ raw }: { raw: string | null }) {
-  const list = parseAttachments(raw);
-  if (!list.length) return null;
-  return (
-    <div className="mt-3 flex flex-wrap gap-2">
-      {list.map((a) => (
-        <a
-          key={a.url}
-          href={a.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 rounded-md border bg-background/50 px-2.5 py-1 text-xs hover:bg-background transition-colors"
-        >
-          <Paperclip className="h-3 w-3" />
-          {a.name}
-        </a>
-      ))}
-    </div>
-  );
+  return <AttachmentGallery raw={raw} />;
 }
 
 // ─── Comment bubble (customer perspective: client=right, admin=left) ──────────
