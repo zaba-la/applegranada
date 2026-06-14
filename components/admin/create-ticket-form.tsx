@@ -242,6 +242,14 @@ export function CreateTicketForm({ customers: initial, locale }: Props) {
   const set = (key: keyof FormState) => (v: string) => setForm((f) => ({ ...f, [key]: v }));
   const selectedCustomer = customers.find((c) => c.id === form.customerId);
 
+  const handleTicketAddress = (result: AddressResult) =>
+    setForm((f) => ({
+      ...f,
+      address: result.address,
+      city: result.city || f.city,
+      postalCode: result.postalCode || f.postalCode,
+    }));
+
   const handleCustomerChange = (value: string) => {
     if (value === '__create__') {
       setShowNewCustomer(true);
@@ -429,27 +437,25 @@ export function CreateTicketForm({ customers: initial, locale }: Props) {
               <p className="text-sm font-medium">Dirección del servicio</p>
               <div className="space-y-1">
                 <Label>Dirección *</Label>
-                <Input
-                  value={form.address}
-                  onChange={(e) => set('address')(e.target.value)}
-                  placeholder="Calle Mayor 12, 2ºA"
-                />
+                <AddressPicker value={form.address} onChange={handleTicketAddress} />
               </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="space-y-1">
-                  <Label>Ciudad</Label>
-                  <Input value={form.city} onChange={(e) => set('city')(e.target.value)} />
+              {(form.city || form.postalCode) && (
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <Label>Ciudad</Label>
+                    <Input value={form.city} onChange={(e) => set('city')(e.target.value)} />
+                  </div>
+                  <div className="space-y-1">
+                    <Label>Código postal</Label>
+                    <Input
+                      value={form.postalCode}
+                      onChange={(e) => set('postalCode')(e.target.value)}
+                      placeholder="18001"
+                      maxLength={5}
+                    />
+                  </div>
                 </div>
-                <div className="space-y-1">
-                  <Label>Código postal</Label>
-                  <Input
-                    value={form.postalCode}
-                    onChange={(e) => set('postalCode')(e.target.value)}
-                    placeholder="18001"
-                    maxLength={5}
-                  />
-                </div>
-              </div>
+              )}
             </div>
           )}
 
