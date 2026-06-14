@@ -5,7 +5,7 @@ import { signOut, useSession } from 'next-auth/react';
 import { useTheme } from 'next-themes';
 import { useLocale } from 'next-intl';
 import { useState, useEffect } from 'react';
-import { Sun, Moon, LogOut } from 'lucide-react';
+import { Sun, Moon, LogOut, Menu } from 'lucide-react';
 import { Logo } from '@/components/logo';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -34,7 +34,7 @@ function ThemeToggle() {
   );
 }
 
-export function AdminNavbar({ role = 'ADMIN' }: { role?: string }) {
+export function AdminNavbar({ role = 'ADMIN', onMenuToggle }: { role?: string; onMenuToggle?: () => void }) {
   const { data: session } = useSession();
   const locale = useLocale();
   const isAdmin = role === 'ADMIN';
@@ -50,16 +50,27 @@ export function AdminNavbar({ role = 'ADMIN' }: { role?: string }) {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background">
-      <div className="flex h-14 w-full items-center justify-between px-6">
-        <Link
-          href={`/${locale}/${isAdmin ? 'admin' : 'panel'}`}
-          className="flex items-center gap-2"
-        >
-          <Logo height={20} />
-          <span className="rounded border px-1.5 py-0.5 text-xs font-medium text-muted-foreground">
-            {isAdmin ? 'Admin' : 'Panel'}
-          </span>
-        </Link>
+      <div className="flex h-14 w-full items-center justify-between px-4 sm:px-6">
+        <div className="flex items-center gap-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="lg:hidden"
+            onClick={onMenuToggle}
+            aria-label="Abrir menú"
+          >
+            <Menu className="h-5 w-5" />
+          </Button>
+          <Link
+            href={`/${locale}/${isAdmin ? 'admin' : 'panel'}`}
+            className="flex items-center gap-2"
+          >
+            <Logo height={20} />
+            <span className="rounded border px-1.5 py-0.5 text-xs font-medium text-muted-foreground">
+              {isAdmin ? 'Admin' : 'Panel'}
+            </span>
+          </Link>
+        </div>
 
         <div className="flex items-center gap-1">
           <ThemeToggle />
