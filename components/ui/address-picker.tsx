@@ -58,6 +58,7 @@ export function AddressPicker({ value, onChange, onRawChange, placeholder, class
   const [mapsReady, setMapsReady] = useState(false);
   const [mapPreview, setMapPreview] = useState<{ lat: number; lng: number } | null>(null);
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [apiError, setApiError] = useState<string | null>(null);
 
   const serviceRef = useRef<any>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -96,13 +97,16 @@ export function AddressPicker({ value, onChange, onRawChange, placeholder, class
       { input: query, types: ['address'], componentRestrictions: { country: 'es' } },
       (results: Prediction[] | null, status: string) => {
         setLoading(false);
+        console.log('[AddressPicker] status:', status, 'results:', results?.length ?? 0);
         if (status === 'OK' && results) {
+          setApiError(null);
           setPredictions(results);
           setOpen(true);
           setActiveIndex(-1);
         } else {
           setPredictions([]);
           setOpen(false);
+          if (status !== 'ZERO_RESULTS') setApiError(status);
         }
       }
     );
@@ -242,9 +246,14 @@ export function AddressPicker({ value, onChange, onRawChange, placeholder, class
         </div>
       )}
 
-      {hasKey && mapsReady && !mapPreview && !open && (
+      {hasKey && mapsReady && !mapPreview && !open && !apiError && (
         <p className="text-xs text-muted-foreground">
           Escribe para buscar y selecciona una opción de la lista.
+        </p>
+      )}
+      {apiError && (
+        <p className="text-xs text-red-500">
+          Error Google Maps: <strong>{apiError}</strong> — abre la consola del navegador para más detalles.
         </p>
       )}
     </div>
