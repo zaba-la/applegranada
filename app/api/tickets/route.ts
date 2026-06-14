@@ -61,6 +61,7 @@ export async function POST(req: Request) {
       city: parsed.data.city,
       postalCode: parsed.data.postalCode,
       scheduledDate: parsed.data.scheduledDate,
+      attachments: body.attachments ? JSON.stringify(body.attachments) : null,
     },
   });
 
