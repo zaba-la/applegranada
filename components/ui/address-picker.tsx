@@ -21,11 +21,17 @@ function loadGoogleMaps(apiKey: string): Promise<void> {
   if (loaderPromise) return loaderPromise;
   loaderPromise = new Promise((resolve, reject) => {
     if ((window as any).google?.maps?.places) { resolve(); return; }
+    // Use callback= so Google calls us only after ALL libraries are ready
+    (window as any).__googleMapsCallback = resolve;
     const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&loading=async`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&callback=__googleMapsCallback`;
     script.async = true;
-    script.onload = () => resolve();
-    script.onerror = () => { loaderPromise = null; reject(new Error('Failed to load Google Maps')); };
+    script.defer = true;
+    script.onerror = () => {
+      loaderPromise = null;
+      delete (window as any).__googleMapsCallback;
+      reject(new Error('Failed to load Google Maps'));
+    };
     document.head.appendChild(script);
   });
   return loaderPromise;
