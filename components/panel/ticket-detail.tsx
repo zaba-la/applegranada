@@ -36,6 +36,7 @@ type Ticket = {
   priority: string;
   deviceType: string | null;
   serviceMode: string;
+  estimatedHours?: number | null;
   address: string | null;
   city: string | null;
   postalCode: string | null;
@@ -200,6 +201,7 @@ export function CustomerTicketDetail({ ticket: initial }: { ticket: Ticket }) {
               ticketId={initial.id}
               ticketCode={initial.ticketCode}
               serviceMode={initial.serviceMode}
+              estimatedHours={initial.estimatedHours}
             />
           )}
           {initial.isPaid && (

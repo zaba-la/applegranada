@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
-import { ChevronLeft, CheckCircle2, Loader2 } from 'lucide-react';
+import { ChevronLeft, CheckCircle2, CreditCard, Loader2, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -55,7 +55,13 @@ export default function NewTicketPage() {
   const [form, setForm] = useState<FormState>(EMPTY);
   const [files, setFiles] = useState<AttachedFile[]>([]);
   const [loading, setLoading] = useState(false);
-  const [done, setDone] = useState<{ ticketCode: string } | null>(null);
+  const [payLoading, setPayLoading] = useState<'stripe' | 'paypal' | null>(null);
+  const [done, setDone] = useState<{
+    ticketId: string;
+    ticketCode: string;
+    estimatedHours: number;
+    serviceMode: 'REMOTE' | 'ON_SITE';
+  } | null>(null);
 
   const set = (key: keyof FormState) => (v: string) =>
     setForm((f) => ({ ...f, [key]: v }));
@@ -91,7 +97,12 @@ export default function NewTicketPage() {
         throw new Error(data.error ?? 'Error al crear el ticket');
       }
       const data = await res.json();
-      setDone({ ticketCode: data.ticketCode });
+      setDone({
+        ticketId: data.id,
+        ticketCode: data.ticketCode,
+        estimatedHours: form.estimatedHours,
+        serviceMode: form.serviceMode,
+      });
     } catch (err) {
       toast.error(err instanceof Error ? err.message : 'Error inesperado');
     } finally {
@@ -100,25 +111,124 @@ export default function NewTicketPage() {
   };
 
   if (done) {
+    const hourlyRate = done.serviceMode === 'ON_SITE' ? 39 : 19;
+    const price = done.estimatedHours * hourlyRate;
+
+    async function handlePayment(method: 'stripe' | 'paypal') {
+      setPayLoading(method);
+      const endpoint =
+        method === 'stripe' ? '/api/payments/ticket' : '/api/payments/paypal/ticket';
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ticketId: done!.ticketId }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok) {
+          window.location.href = data.url;
+        } else {
+          toast.error(data.error ?? 'Error al iniciar el pago');
+          setPayLoading(null);
+        }
+      } catch {
+        toast.error('Error de red al iniciar el pago');
+        setPayLoading(null);
+      }
+    }
+
     return (
-      <div className="max-w-2xl">
+      <div className="max-w-lg space-y-4">
+        {/* Ticket creado */}
         <Card>
-          <CardContent className="py-12 text-center space-y-4">
+          <CardContent className="pt-8 pb-6 text-center space-y-3">
             <CheckCircle2 className="mx-auto h-12 w-12 text-green-500" />
             <div>
               <p className="text-lg font-semibold">¡Ticket creado correctamente!</p>
-              <p className="text-3xl font-bold tracking-widest mt-2">{done.ticketCode}</p>
-              <p className="text-sm text-muted-foreground mt-2">
-                Recibirás un email de confirmación. Nuestro equipo revisará tu solicitud
-                y te contactará en menos de 24 horas.
+              <p className="text-3xl font-bold tracking-widest mt-1">{done.ticketCode}</p>
+              <p className="text-xs text-muted-foreground mt-2">
+                Recibirás un email de confirmación en breve.
               </p>
             </div>
-            <div className="flex justify-center gap-3 pt-2">
-              <Button variant="outline" onClick={() => { setForm(EMPTY); setFiles([]); setDone(null); }}>
-                Crear otro ticket
+          </CardContent>
+        </Card>
+
+        {/* Pago */}
+        <Card>
+          <CardContent className="pt-6 pb-6 space-y-4">
+            <div>
+              <p className="text-base font-semibold">Completa tu pago</p>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                El soporte se activa una vez confirmado el pago.
+              </p>
+            </div>
+
+            {/* Resumen de precio */}
+            <div className="rounded-xl bg-muted/60 px-4 py-3 flex items-end justify-between">
+              <span className="text-sm text-muted-foreground">
+                {done.estimatedHours} hora{done.estimatedHours !== 1 ? 's' : ''} · {hourlyRate} €/hora
+              </span>
+              <span className="text-2xl font-bold">{price} €</span>
+            </div>
+
+            {/* Opciones de pago */}
+            <div className="space-y-2">
+              <button
+                onClick={() => handlePayment('stripe')}
+                disabled={!!payLoading}
+                className="flex w-full items-center gap-3 rounded-xl border bg-muted/20 px-4 py-3.5 text-left transition-colors hover:bg-muted/50 disabled:opacity-60"
+              >
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#635bff]">
+                  <CreditCard className="h-4 w-4 text-white" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium">Tarjeta bancaria</p>
+                  <p className="text-xs text-muted-foreground">Visa, Mastercard, Amex</p>
+                </div>
+                {payLoading === 'stripe' && (
+                  <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+                )}
+              </button>
+
+              <button
+                onClick={() => handlePayment('paypal')}
+                disabled={!!payLoading}
+                className="flex w-full items-center gap-3 rounded-xl border bg-muted/20 px-4 py-3.5 text-left transition-colors hover:bg-muted/50 disabled:opacity-60"
+              >
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#003087]">
+                  <span className="text-[10px] font-extrabold leading-none text-white">PP</span>
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium">PayPal</p>
+                  <p className="text-xs text-muted-foreground">Paga con tu cuenta PayPal</p>
+                </div>
+                {payLoading === 'paypal' && (
+                  <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+                )}
+              </button>
+            </div>
+
+            <div className="flex items-start gap-2 rounded-lg border bg-muted/20 px-3 py-2.5 text-xs text-muted-foreground">
+              <ShieldCheck className="mt-0.5 h-3.5 w-3.5 shrink-0 text-green-600" />
+              <span>Pago 100% seguro. Serás redirigido a la pasarela de pago correspondiente.</span>
+            </div>
+
+            <div className="flex gap-2 pt-1">
+              <Button
+                variant="outline"
+                className="flex-1 text-xs"
+                disabled={!!payLoading}
+                onClick={() => router.push(`/${locale}/panel/tickets/${done!.ticketId}`)}
+              >
+                Pagar más tarde
               </Button>
-              <Button onClick={() => router.push(`/${locale}/panel/tickets`)}>
-                Ver mis tickets
+              <Button
+                variant="outline"
+                className="flex-1 text-xs"
+                disabled={!!payLoading}
+                onClick={() => { setForm(EMPTY); setFiles([]); setDone(null); }}
+              >
+                Crear otro ticket
               </Button>
             </div>
           </CardContent>

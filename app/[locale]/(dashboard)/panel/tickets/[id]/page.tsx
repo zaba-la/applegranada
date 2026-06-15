@@ -7,15 +7,19 @@ import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { CustomerTicketDetail } from '@/components/panel/ticket-detail';
 import { StripeSuccessHandler } from '@/components/panel/stripe-success-handler';
+import { PayPalSuccessHandler } from '@/components/panel/paypal-success-handler';
 
-type Props = { params: { locale: string; id: string }; searchParams: { pago?: string; session_id?: string } };
+type Props = {
+  params: { locale: string; id: string };
+  searchParams: { pago?: string; session_id?: string; paypal?: string; token?: string; ticketId?: string };
+};
 
 export async function generateMetadata({ params }: Props) {
   const ticket = await prisma.ticket.findUnique({ where: { id: params.id } });
   return { title: ticket ? `${ticket.ticketCode} — Mis tickets` : 'Ticket' };
 }
 
-export default async function CustomerTicketDetailPage({ params: { locale, id }, searchParams }: Props) {
+export default async function CustomerTicketDetailPage({ params: { locale, id }, searchParams: sp }: Props) {
   unstable_setRequestLocale(locale);
   const session = await getServerSession(authOptions);
   if (!session) redirect(`/${locale}/login`);
@@ -49,9 +53,12 @@ export default async function CustomerTicketDetailPage({ params: { locale, id },
         </Link>
       </div>
 
-      {/* Handle Stripe success redirect */}
-      {searchParams.pago === 'exitoso' && searchParams.session_id && (
-        <StripeSuccessHandler ticketId={id} sessionId={searchParams.session_id} />
+      {sp.pago === 'exitoso' && sp.session_id && (
+        <StripeSuccessHandler ticketId={id} sessionId={sp.session_id} />
+      )}
+
+      {sp.paypal === 'success' && sp.token && (
+        <PayPalSuccessHandler ticketId={id} orderId={sp.token} />
       )}
 
       <CustomerTicketDetail ticket={{ ...ticket, isPaid }} />
