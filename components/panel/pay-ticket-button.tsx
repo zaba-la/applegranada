@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { CreditCard, Loader2, ShieldCheck } from 'lucide-react';
+import { Loader2, ShieldCheck } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { Button } from '@/components/ui/button';
 import {
@@ -76,8 +76,9 @@ export function PayTicketButton({ ticketId, ticketCode, serviceMode, estimatedHo
 
   return (
     <>
-      <Button onClick={() => setOpen(true)} size="sm">
-        <CreditCard className="mr-2 h-4 w-4" />
+      <Button onClick={() => setOpen(true)} size="sm" className="gap-1.5">
+        <img src="/stripe-mark.svg" alt="Stripe" className="h-3 w-3 brightness-0 invert" />
+        <img src="/paypal-mark.svg" alt="PayPal" className="h-3 w-3 brightness-0 invert mr-1" />
         Pagar ahora
       </Button>
 
