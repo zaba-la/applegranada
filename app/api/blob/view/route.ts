@@ -1,7 +1,14 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 
-const BLOB_HOST_PATTERN = /^https:\/\/[^/]+\.public\.blob\.vercel-storage\.com\//;
+function isSafeBlobUrl(url: string): boolean {
+  try {
+    const { hostname } = new URL(url);
+    return hostname.endsWith('.blob.vercel-storage.com');
+  } catch {
+    return false;
+  }
+}
 
 export async function GET(req: Request) {
   const session = await getServerSession(authOptions);
@@ -9,15 +16,19 @@ export async function GET(req: Request) {
 
   const blobUrl = new URL(req.url).searchParams.get('url') ?? '';
 
-  if (!BLOB_HOST_PATTERN.test(blobUrl)) {
+  if (!isSafeBlobUrl(blobUrl)) {
+    console.warn('[blob/view] URL rechazada:', blobUrl);
     return new Response('URL no permitida', { status: 400 });
   }
 
   const upstream = await fetch(blobUrl);
-  if (!upstream.ok) return new Response('Archivo no encontrado', { status: 404 });
+  if (!upstream.ok) {
+    console.error('[blob/view] fetch failed:', upstream.status, blobUrl);
+    return new Response('Archivo no encontrado', { status: 404 });
+  }
 
   const buffer = await upstream.arrayBuffer();
-  const contentType = upstream.headers.get('content-type') ?? 'application/octet-stream';
+  const contentType = upstream.headers.get('content-type') ?? 'application/pdf';
 
   return new Response(buffer, {
     headers: {

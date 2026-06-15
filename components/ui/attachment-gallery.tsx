@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { FileText, FileIcon, X, Download, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import { PdfThumbnail } from './pdf-thumbnail';
 
 type Attachment = { name: string; url: string; size: number; type: string };
 
@@ -111,21 +112,12 @@ function PdfCard({ a }: { a: Attachment }) {
       className="group relative flex aspect-[4/3] flex-col overflow-hidden rounded-xl border bg-muted shadow-sm hover:shadow-md transition-shadow"
       title={a.name}
     >
-      {/* Static PDF preview */}
-      <div className="relative flex flex-1 flex-col items-center justify-center gap-2 bg-gradient-to-b from-red-50 to-red-100/60 dark:from-red-950/20 dark:to-red-900/10">
-        {/* PDF icon */}
-        <div className="flex h-12 w-10 flex-col items-center justify-center rounded-sm bg-red-600 shadow-sm">
-          <span className="text-[9px] font-bold leading-none tracking-wide text-white">PDF</span>
-        </div>
-        {/* Page lines decoration */}
-        <div className="flex flex-col gap-1 w-16 opacity-40">
-          <div className="h-0.5 rounded-full bg-red-400" />
-          <div className="h-0.5 w-3/4 rounded-full bg-red-400" />
-          <div className="h-0.5 rounded-full bg-red-400" />
-        </div>
+      {/* Real PDF first-page thumbnail */}
+      <div className="relative flex-1 overflow-hidden bg-white">
+        <PdfThumbnail url={pdfViewUrl(a.url)} />
         {/* Hover overlay */}
-        <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/10 transition-colors">
-          <ExternalLink className="h-5 w-5 text-gray-700 opacity-0 group-hover:opacity-100 transition-opacity drop-shadow" />
+        <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/20 transition-colors">
+          <ExternalLink className="h-5 w-5 text-white opacity-0 group-hover:opacity-100 transition-opacity drop-shadow" />
         </div>
       </div>
 
