@@ -244,6 +244,112 @@ export function resetPasswordEmailHtml(params: { name: string; link: string }) {
 </html>`;
 }
 
+export function paymentReminderEmailHtml(params: {
+  customerName: string;
+  ticketCode: string;
+  ticketTitle: string;
+  serviceMode: 'REMOTE' | 'ON_SITE';
+  hourlyRate: number;
+  ticketId: string;
+}) {
+  const { customerName, ticketCode, ticketTitle, serviceMode, hourlyRate, ticketId } = params;
+  const modeLabel = serviceMode === 'REMOTE' ? 'Soporte Remoto' : 'Soporte Presencial';
+  const minLabel = serviceMode === 'REMOTE'
+    ? `${hourlyRate}€/hora · mínimo 1 hora`
+    : `${hourlyRate}€/hora · mínimo 2 horas (${hourlyRate * 2}€)`;
+  const payUrl = `https://applegranada.com/es/panel/tickets/${ticketId}`;
+
+  return `
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#f5f5f5;font-family:system-ui,-apple-system,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f5f5f5;padding:32px 0;">
+    <tr><td align="center">
+      <table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);">
+        <!-- Header -->
+        <tr>
+          <td style="background:#000;padding:20px 32px;text-align:center;">
+            <img src="https://res.cloudinary.com/ddagvoaq2/image/upload/v1781447490/Apple-Granada-logo-white_vq3c81.png"
+                 alt="AppleGranada" height="48" style="display:block;margin:0 auto;height:48px;width:auto;" />
+          </td>
+        </tr>
+        <!-- Body -->
+        <tr>
+          <td style="padding:32px;">
+            <p style="margin:0 0 8px;color:#111;font-size:20px;font-weight:700;">
+              Recordatorio de pago pendiente
+            </p>
+            <p style="margin:0 0 24px;color:#666;font-size:15px;">
+              Hola ${customerName}, te recordamos que tienes una solicitud de soporte técnico
+              pendiente de pago. Para poder iniciar la sesión, necesitamos confirmar el abono.
+            </p>
+
+            <!-- Ticket card -->
+            <table width="100%" cellpadding="0" cellspacing="0" style="background:#f9f9f9;border:1px solid #e5e5e5;border-radius:8px;margin-bottom:24px;">
+              <tr>
+                <td style="padding:20px 24px;">
+                  <p style="margin:0 0 4px;color:#999;font-size:12px;text-transform:uppercase;letter-spacing:.5px;">Código de ticket</p>
+                  <p style="margin:0 0 16px;color:#111;font-size:22px;font-weight:700;letter-spacing:1px;">${ticketCode}</p>
+                  <p style="margin:0 0 4px;color:#999;font-size:12px;text-transform:uppercase;letter-spacing:.5px;">Asunto</p>
+                  <p style="margin:0 0 16px;color:#111;font-size:15px;">${ticketTitle}</p>
+                  <p style="margin:0 0 4px;color:#999;font-size:12px;text-transform:uppercase;letter-spacing:.5px;">Modalidad</p>
+                  <p style="margin:0;color:#111;font-size:15px;">${modeLabel} · ${minLabel}</p>
+                </td>
+              </tr>
+            </table>
+
+            <p style="margin:0 0 24px;color:#444;font-size:15px;">
+              Si ya realizaste el pago, ignora este mensaje. Si tienes alguna duda,
+              escríbenos por WhatsApp y te atendemos al momento.
+            </p>
+
+            <!-- CTA -->
+            <table cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="padding-right:12px;">
+                  <table cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td style="background:#000;border-radius:8px;padding:12px 28px;">
+                        <a href="${payUrl}" style="color:#fff;text-decoration:none;font-size:15px;font-weight:700;">
+                          Pagar ahora
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td>
+                  <table cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td style="border:1px solid #d0d0d0;border-radius:8px;padding:11px 24px;">
+                        <a href="https://wa.me/34644411252?text=Hola%2C+tengo+el+ticket+${ticketCode}"
+                           style="color:#111;text-decoration:none;font-size:15px;font-weight:600;">
+                          WhatsApp
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!-- Footer -->
+        <tr>
+          <td style="padding:20px 32px;border-top:1px solid #f0f0f0;">
+            <p style="margin:0;color:#999;font-size:12px;">
+              soporte@applegranada.com · <a href="tel:+34644411252" style="color:#999;text-decoration:none;">+34 644 41 12 52</a> · Granada<br>
+              © ${new Date().getFullYear()} AppleGranada. Todos los derechos reservados.
+            </p>
+          </td>
+        </tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`;
+}
+
 export function ticketResponseEmailHtml(params: {
   customerName: string;
   ticketCode: string;

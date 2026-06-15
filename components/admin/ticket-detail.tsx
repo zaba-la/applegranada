@@ -8,6 +8,7 @@ import { es } from 'date-fns/locale';
 import {
   Send, Loader2, Paperclip, ShieldCheck, User,
   Laptop, MapPin, Smartphone, Tablet, Tv, Layers,
+  CreditCard, Bell,
 } from 'lucide-react';
 import { AttachmentGallery } from '@/components/ui/attachment-gallery';
 import { Button } from '@/components/ui/button';
@@ -27,6 +28,16 @@ import { cn } from '@/lib/utils';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type Attachment = { name: string; url: string; size: number; type: string };
+
+type Payment = {
+  id: string;
+  amount: number;
+  currency: string;
+  status: string;
+  paymentMethod: string;
+  description: string | null;
+  createdAt: Date | string;
+};
 
 type Response = {
   id: string;
@@ -50,9 +61,11 @@ type Ticket = {
   city: string | null;
   postalCode: string | null;
   attachments: string | null;
+  estimatedHours: number | null;
   createdAt: Date | string;
   customer: { user: { name: string; email: string } };
   responses: Response[];
+  payments: Payment[];
 };
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -89,6 +102,24 @@ const PRIORITY_COLOR: Record<string, string> = {
 
 const PRIORITY_LABEL: Record<string, string> = {
   LOW: 'Baja', MEDIUM: 'Media', HIGH: 'Alta', URGENT: 'Urgente',
+};
+
+const PAYMENT_STATUS_COLOR: Record<string, string> = {
+  PENDING:    'bg-yellow-100 text-yellow-800',
+  PROCESSING: 'bg-blue-100 text-blue-800',
+  COMPLETED:  'bg-green-100 text-green-800',
+  FAILED:     'bg-red-100 text-red-800',
+  REFUNDED:   'bg-slate-100 text-slate-700',
+};
+
+const PAYMENT_STATUS_LABEL: Record<string, string> = {
+  PENDING: 'Pendiente', PROCESSING: 'Procesando',
+  COMPLETED: 'Completado', FAILED: 'Fallido', REFUNDED: 'Reembolsado',
+};
+
+const PAYMENT_METHOD_LABEL: Record<string, string> = {
+  STRIPE: 'Tarjeta', PAYPAL: 'PayPal',
+  BANK_TRANSFER: 'Transferencia', BIZUM: 'Bizum',
 };
 
 function formatTs(d: Date | string) {
@@ -159,9 +190,25 @@ export function TicketDetail({ ticket: initial, locale }: { ticket: Ticket; loca
   const [files, setFiles] = useState<AttachedFile[]>([]);
   const [newStatus, setNewStatus] = useState(initial.status);
   const [sending, setSending] = useState(false);
+  const [sendingReminder, setSendingReminder] = useState(false);
   const [showDropzone, setShowDropzone] = useState(false);
 
   const DeviceIcon = DEVICE_ICON[ticket.deviceType ?? 'MAC'] ?? Laptop;
+  const lastPayment = ticket.payments?.[0] ?? null;
+  const hourlyRate = ticket.serviceMode === 'REMOTE' ? 19 : 39;
+
+  const sendReminder = async () => {
+    setSendingReminder(true);
+    try {
+      const res = await fetch(`/api/admin/tickets/${ticket.id}/payment-reminder`, { method: 'POST' });
+      if (!res.ok) throw new Error('Error al enviar');
+      toast.success('Recordatorio de pago enviado al cliente');
+    } catch {
+      toast.error('Error al enviar el recordatorio');
+    } finally {
+      setSendingReminder(false);
+    }
+  };
 
   const sendResponse = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -274,6 +321,69 @@ export function TicketDetail({ ticket: initial, locale }: { ticket: Ticket; loca
           </CardContent>
         </Card>
       </div>
+
+      {/* Payment card */}
+      <Card>
+        <CardHeader className="pb-2">
+          <div className="flex items-center justify-between">
+            <CardTitle className="flex items-center gap-2 text-sm text-muted-foreground">
+              <CreditCard className="h-4 w-4" />
+              Pago
+            </CardTitle>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={sendReminder}
+              disabled={sendingReminder}
+              className="h-7 gap-1.5 text-xs"
+            >
+              {sendingReminder
+                ? <Loader2 className="h-3 w-3 animate-spin" />
+                : <Bell className="h-3 w-3" />
+              }
+              Enviar recordatorio
+            </Button>
+          </div>
+        </CardHeader>
+        <CardContent>
+          {lastPayment ? (
+            <div className="space-y-2 text-sm">
+              <div className="flex items-center justify-between">
+                <span className="text-muted-foreground">Estado</span>
+                <Badge className={PAYMENT_STATUS_COLOR[lastPayment.status]}>
+                  {PAYMENT_STATUS_LABEL[lastPayment.status] ?? lastPayment.status}
+                </Badge>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-muted-foreground">Importe</span>
+                <span className="font-semibold">{lastPayment.amount.toFixed(2)} {lastPayment.currency}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-muted-foreground">Método</span>
+                <span>{PAYMENT_METHOD_LABEL[lastPayment.paymentMethod] ?? lastPayment.paymentMethod}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-muted-foreground">Fecha</span>
+                <span>{formatTs(lastPayment.createdAt)}</span>
+              </div>
+              {lastPayment.description && (
+                <p className="text-muted-foreground text-xs pt-1">{lastPayment.description}</p>
+              )}
+            </div>
+          ) : (
+            <div className="flex items-center justify-between text-sm">
+              <div className="space-y-0.5">
+                <p className="text-muted-foreground">Sin pagos registrados</p>
+                <p className="text-xs text-muted-foreground">
+                  {ticket.serviceMode === 'REMOTE' ? '19 €/hora · mín. 1 hora' : '39 €/hora · mín. 2 horas'}
+                  {ticket.estimatedHours ? ` · ${ticket.estimatedHours}h contratadas (${(ticket.estimatedHours * hourlyRate).toFixed(0)} €)` : ''}
+                </p>
+              </div>
+              <Badge className="bg-yellow-100 text-yellow-800">Pendiente</Badge>
+            </div>
+          )}
+        </CardContent>
+      </Card>
 
       {/* Original description */}
       <Card>

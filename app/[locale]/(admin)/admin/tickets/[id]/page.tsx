@@ -20,6 +20,7 @@ export default async function AdminTicketDetailPage({ params: { locale, id } }: 
     include: {
       customer: { include: { user: { select: { name: true, email: true } } } },
       responses: { orderBy: { createdAt: 'asc' } },
+      payments: { orderBy: { createdAt: 'desc' } },
     },
   });
 
