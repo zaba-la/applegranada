@@ -79,7 +79,7 @@ export function AdminNavbar({ role = 'ADMIN', onMenuToggle }: { role?: string; o
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="ml-1 rounded-full">
                   <Avatar className="h-8 w-8">
-                    <AvatarFallback className="bg-primary text-primary-foreground text-xs font-semibold">
+                    <AvatarFallback className="bg-foreground text-background text-xs font-semibold">
                       {initials}
                     </AvatarFallback>
                   </Avatar>
