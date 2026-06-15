@@ -96,32 +96,36 @@ function Lightbox({ items, index, onClose }: { items: Attachment[]; index: numbe
 }
 
 // ─── PDF thumbnail card ───────────────────────────────────────────────────────
+function pdfViewUrl(blobUrl: string) {
+  // Serve via proxy to force Content-Disposition: inline (Vercel Blob defaults to attachment)
+  if (blobUrl.startsWith('data:')) return blobUrl;
+  return `/api/blob/view?url=${encodeURIComponent(blobUrl)}`;
+}
+
 function PdfCard({ a }: { a: Attachment }) {
   return (
     <a
-      href={a.url}
+      href={pdfViewUrl(a.url)}
       target="_blank"
       rel="noopener noreferrer"
       className="group relative flex aspect-[4/3] flex-col overflow-hidden rounded-xl border bg-muted shadow-sm hover:shadow-md transition-shadow"
       title={a.name}
     >
-      {/* Scaled iframe preview */}
-      <div className="relative flex-1 overflow-hidden bg-white">
-        <iframe
-          src={a.url}
-          title={a.name}
-          scrolling="no"
-          className="pointer-events-none border-none"
-          style={{
-            width: '500%',
-            height: '500%',
-            transform: 'scale(0.2)',
-            transformOrigin: 'top left',
-          }}
-        />
+      {/* Static PDF preview */}
+      <div className="relative flex flex-1 flex-col items-center justify-center gap-2 bg-gradient-to-b from-red-50 to-red-100/60 dark:from-red-950/20 dark:to-red-900/10">
+        {/* PDF icon */}
+        <div className="flex h-12 w-10 flex-col items-center justify-center rounded-sm bg-red-600 shadow-sm">
+          <span className="text-[9px] font-bold leading-none tracking-wide text-white">PDF</span>
+        </div>
+        {/* Page lines decoration */}
+        <div className="flex flex-col gap-1 w-16 opacity-40">
+          <div className="h-0.5 rounded-full bg-red-400" />
+          <div className="h-0.5 w-3/4 rounded-full bg-red-400" />
+          <div className="h-0.5 rounded-full bg-red-400" />
+        </div>
         {/* Hover overlay */}
-        <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/20 transition-colors">
-          <ExternalLink className="h-6 w-6 text-white opacity-0 group-hover:opacity-100 transition-opacity drop-shadow" />
+        <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/10 transition-colors">
+          <ExternalLink className="h-5 w-5 text-gray-700 opacity-0 group-hover:opacity-100 transition-opacity drop-shadow" />
         </div>
       </div>
 
