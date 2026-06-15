@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
-import { ChevronLeft, CheckCircle2, CreditCard, Loader2, ShieldCheck } from 'lucide-react';
+import { ChevronLeft, CheckCircle2, Loader2, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -179,7 +179,7 @@ export default function NewTicketPage() {
                 className="flex w-full items-center gap-3 rounded-xl border bg-muted/20 px-4 py-3.5 text-left transition-colors hover:bg-muted/50 disabled:opacity-60"
               >
                 <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#635bff]">
-                  <CreditCard className="h-4 w-4 text-white" />
+                  <img src="/stripe-mark.svg" alt="Stripe" className="h-5 w-5" />
                 </div>
                 <div className="flex-1">
                   <p className="text-sm font-medium">Tarjeta bancaria</p>
@@ -196,7 +196,7 @@ export default function NewTicketPage() {
                 className="flex w-full items-center gap-3 rounded-xl border bg-muted/20 px-4 py-3.5 text-left transition-colors hover:bg-muted/50 disabled:opacity-60"
               >
                 <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#003087]">
-                  <span className="text-[10px] font-extrabold leading-none text-white">PP</span>
+                  <img src="/paypal-mark.svg" alt="PayPal" className="h-5 w-5" />
                 </div>
                 <div className="flex-1">
                   <p className="text-sm font-medium">PayPal</p>
