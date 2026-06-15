@@ -16,7 +16,7 @@ export function DashboardLayoutClient({ children }: { children: React.ReactNode 
   return (
     <div className="flex min-h-screen flex-col">
       <AdminNavbar role="CUSTOMER" onMenuToggle={() => setSidebarOpen((v) => !v)} />
-      <div className="flex flex-1 relative">
+      <div className="flex flex-1 relative overflow-hidden">
         {sidebarOpen && (
           <div
             className="fixed inset-0 z-20 bg-black/50 lg:hidden"

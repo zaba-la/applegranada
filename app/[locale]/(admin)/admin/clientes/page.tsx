@@ -28,7 +28,7 @@ export default async function AdminCustomersPage({ params: { locale } }: { param
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold">{t('title')}</h1>
           <p className="text-muted-foreground">{customers.length} clientes registrados</p>

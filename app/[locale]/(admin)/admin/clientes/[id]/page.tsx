@@ -79,7 +79,7 @@ export default async function AdminCustomerDetailPage({ params: { locale, id } }
       </Link>
 
       {/* Header */}
-      <div className="flex flex-wrap items-start justify-between gap-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold">{customer.user.name}</h1>
           <p className="text-muted-foreground text-sm mt-0.5">{customer.user.email}</p>
