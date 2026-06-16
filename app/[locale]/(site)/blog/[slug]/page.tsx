@@ -51,7 +51,6 @@ export default function BlogPostPage({ params: { locale, slug } }: { params: { l
       <FadeIn>
         <div className="relative h-64 md:h-[28rem] w-full overflow-hidden">
           <Image src={post.image} alt="" fill className="object-cover" priority />
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent" />
         </div>
       </FadeIn>
 
