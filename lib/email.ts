@@ -35,9 +35,9 @@ export function inviteEmailHtml(params: { name: string; link: string }) {
     <tr><td align="center">
       <table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);">
         <tr>
-          <td style="background:#000;padding:20px 32px;text-align:center;">
+          <td style="background:#000;padding:16px 32px;text-align:left;">
             <img src="https://res.cloudinary.com/ddagvoaq2/image/upload/v1781593939/soportegranada-blanco_2x_ci0ftm.png"
-                 alt="Soporte Granada" height="48" style="display:block;margin:0 auto;height:48px;width:auto;" />
+                 alt="Soporte Granada" height="32" style="display:block;height:32px;width:auto;" />
           </td>
         </tr>
         <tr>
@@ -104,9 +104,9 @@ export function ticketCreatedEmailHtml(params: {
       <table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);">
         <!-- Header -->
         <tr>
-          <td style="background:#000;padding:20px 32px;text-align:center;">
+          <td style="background:#000;padding:16px 32px;text-align:left;">
             <img src="https://res.cloudinary.com/ddagvoaq2/image/upload/v1781593939/soportegranada-blanco_2x_ci0ftm.png"
-                 alt="Soporte Granada" height="48" style="display:block;margin:0 auto;height:48px;width:auto;" />
+                 alt="Soporte Granada" height="32" style="display:block;height:32px;width:auto;" />
           </td>
         </tr>
         <!-- Body -->
@@ -201,9 +201,9 @@ export function resetPasswordEmailHtml(params: { name: string; link: string }) {
     <tr><td align="center">
       <table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);">
         <tr>
-          <td style="background:#000;padding:20px 32px;text-align:center;">
+          <td style="background:#000;padding:16px 32px;text-align:left;">
             <img src="https://res.cloudinary.com/ddagvoaq2/image/upload/v1781593939/soportegranada-blanco_2x_ci0ftm.png"
-                 alt="Soporte Granada" height="48" style="display:block;margin:0 auto;height:48px;width:auto;" />
+                 alt="Soporte Granada" height="32" style="display:block;height:32px;width:auto;" />
           </td>
         </tr>
         <tr>
@@ -269,9 +269,9 @@ export function paymentReminderEmailHtml(params: {
       <table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);">
         <!-- Header -->
         <tr>
-          <td style="background:#000;padding:20px 32px;text-align:center;">
+          <td style="background:#000;padding:16px 32px;text-align:left;">
             <img src="https://res.cloudinary.com/ddagvoaq2/image/upload/v1781593939/soportegranada-blanco_2x_ci0ftm.png"
-                 alt="Soporte Granada" height="48" style="display:block;margin:0 auto;height:48px;width:auto;" />
+                 alt="Soporte Granada" height="32" style="display:block;height:32px;width:auto;" />
           </td>
         </tr>
         <!-- Body -->
@@ -367,9 +367,9 @@ export function contactFormEmailHtml(params: {
     <tr><td align="center">
       <table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);">
         <tr>
-          <td style="background:#000;padding:20px 32px;text-align:center;">
+          <td style="background:#000;padding:16px 32px;text-align:left;">
             <img src="https://res.cloudinary.com/ddagvoaq2/image/upload/v1781593939/soportegranada-blanco_2x_ci0ftm.png"
-                 alt="Soporte Granada" height="48" style="display:block;margin:0 auto;height:48px;width:auto;" />
+                 alt="Soporte Granada" height="32" style="display:block;height:32px;width:auto;" />
           </td>
         </tr>
         <tr>
@@ -436,9 +436,9 @@ export function ticketResponseEmailHtml(params: {
     <tr><td align="center">
       <table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);">
         <tr>
-          <td style="background:#000;padding:20px 32px;text-align:center;">
+          <td style="background:#000;padding:16px 32px;text-align:left;">
             <img src="https://res.cloudinary.com/ddagvoaq2/image/upload/v1781593939/soportegranada-blanco_2x_ci0ftm.png"
-                 alt="Soporte Granada" height="48" style="display:block;margin:0 auto;height:48px;width:auto;" />
+                 alt="Soporte Granada" height="32" style="display:block;height:32px;width:auto;" />
           </td>
         </tr>
         <tr>
