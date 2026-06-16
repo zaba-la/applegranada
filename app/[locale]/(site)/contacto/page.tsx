@@ -13,19 +13,13 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { PhoneInput } from '@/components/ui/phone-input';
+import { ContactSchema } from '@/lib/schemas';
 
-const schema = z.object({
-  name: z.string().min(2),
-  email: z.string().email(),
-  phone: z.string().optional(),
-  message: z.string().min(10),
-});
-
-type FormData = z.infer<typeof schema>;
+type FormData = z.infer<typeof ContactSchema>;
 
 const WA_NUMBER = '34644411252';
 const WA_LINK = `https://wa.me/${WA_NUMBER}`;
-const EMAIL = 'soporte@applegranada.com';
+const EMAIL = 'soporte@soportegranada.com';
 
 export default function ContactPage() {
   const t = useTranslations('contact');
@@ -33,16 +27,26 @@ export default function ContactPage() {
   const [phone, setPhone] = useState('');
 
   const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm<FormData>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(ContactSchema),
   });
 
-  const onSubmit = async (_data: FormData) => {
+  const onSubmit = async (data: FormData) => {
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1000));
-    toast.success(t('successMsg'));
-    reset();
-    setPhone('');
-    setLoading(false);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error('Request failed');
+      toast.success(t('successMsg'));
+      reset();
+      setPhone('');
+    } catch {
+      toast.error(t('errorMsg'));
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

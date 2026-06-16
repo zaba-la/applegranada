@@ -300,8 +300,8 @@ export class NotificationTriggers {
       customerId,
       type: NotificationType.WELCOME,
       channel,
-      subject: `¡Bienvenido a AppleGranada!`,
-      message: `¡Hola ${customerData.customerName}! Gracias por registrarte en AppleGranada.`,
+      subject: `¡Bienvenido a Soporte Granada!`,
+      message: `¡Hola ${customerData.customerName}! Gracias por registrarte en Soporte Granada.`,
       customerName: customerData.customerName,
       dashboardLink: customerData.dashboardLink,
     });

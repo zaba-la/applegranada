@@ -24,7 +24,7 @@ export async function POST(_req: Request, { params }: { params: { id: string } }
     data: { inviteToken: token, inviteTokenExpiry: expiry },
   });
 
-  const siteUrl = process.env.NEXTAUTH_URL ?? 'https://applegranada.com';
+  const siteUrl = process.env.NEXTAUTH_URL ?? 'https://soportegranada.com';
   const link = `${siteUrl}/es/establecer-password?token=${token}`;
 
   return NextResponse.json({ link });

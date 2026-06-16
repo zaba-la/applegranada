@@ -22,7 +22,7 @@ const testimonials = [
     segment: 'STUDENT',
     initials: 'CR',
     quote:
-      'Llevaba semanas con el Mac lentísimo y sin espacio. En una sesión remota de 40 minutos lo dejaron como nuevo. Nunca había visto Xcode arrancar tan rápido.',
+      'Llevaba semanas con el portátil con Windows lentísimo y sin espacio para mis proyectos de la carrera. En una sesión remota de 40 minutos lo dejaron como nuevo, liberando espacio y optimizando el arranque.',
   },
   {
     name: 'Sofía Navarro',
@@ -32,6 +32,14 @@ const testimonials = [
     quote:
       'Me configuraron todo el software de Adobe después de actualizar macOS. Sabían exactamente qué hacer, nada de respuestas genéricas de foro. Muy profesionales.',
   },
+  {
+    name: 'Pablo Jiménez',
+    role: 'Estudiante de Derecho, UGR',
+    segment: 'STUDENT',
+    initials: 'PJ',
+    quote:
+      'Se me quedó el portátil con Windows pidiendo una actualización justo antes de un examen online. Lo resolvieron por TeamViewer en 20 minutos y llegué a tiempo.',
+  },
   // HOGARES
   {
     name: 'Roberto Sánchez',
@@ -39,7 +47,7 @@ const testimonials = [
     segment: 'HOME',
     initials: 'RS',
     quote:
-      'El Mac que usan mis hijos para hacer los deberes se quedó sin arrancar. Lo arreglaron sin que yo tuviera que entender nada de tecnología. Explicaciones claras y precio honesto.',
+      'El portátil con Windows que usan mis hijos para hacer los deberes se quedó sin arrancar. Lo arreglaron sin que yo tuviera que entender nada de tecnología. Explicaciones claras y precio honesto.',
   },
   {
     name: 'Pilar Torres',
@@ -56,6 +64,14 @@ const testimonials = [
     initials: 'FR',
     quote:
       'Mis hijos me pusieron el plan mensual para que tuviera el Mac siempre a punto. Ahora tengo videollamadas con los nietos sin cortes y las fotos bien organizadas. Feliz.',
+  },
+  {
+    name: 'Mercedes Aguilar',
+    role: 'Madre de tres hijos, Granada capital',
+    segment: 'HOME',
+    initials: 'MA',
+    quote:
+      'El portátil con Windows del salón se llenó de ventanas raras y publicidad. Lo limpiaron en remoto el mismo día y nos explicaron cómo evitar que vuelva a pasar.',
   },
   // PROFESIONALES
   {
@@ -82,6 +98,14 @@ const testimonials = [
     quote:
       'Llevo dos años con el plan mensual y no he tenido ningún problema serio. Cuando algo falla, lo resuelven ese mismo día. No me imagino trabajando sin este respaldo.',
   },
+  {
+    name: 'Marta Delgado',
+    role: 'Gestora administrativa autónoma',
+    segment: 'PROFESSIONAL',
+    initials: 'MD',
+    quote:
+      'Mi portátil con Windows se quedó pillado actualizando justo antes de presentar unos impuestos. Lo resolvieron por TeamViewer esa misma tarde, sin perder ni un archivo.',
+  },
   // EMPRESAS
   {
     name: 'María García',
@@ -97,7 +121,7 @@ const testimonials = [
     segment: 'BUSINESS',
     initials: 'AL',
     quote:
-      'Actualizan y mantienen todos los equipos de la clínica fuera de horario de atención. Cero interrupciones con los pacientes. Lo recomiendo a cualquier negocio con Macs.',
+      'Actualizan y mantienen todos los PCs con Windows de la clínica fuera de horario de atención. Cero interrupciones con los pacientes. Lo recomiendo a cualquier negocio que dependa de su tecnología.',
   },
   {
     name: 'Elena Martínez',
@@ -106,6 +130,14 @@ const testimonials = [
     initials: 'EM',
     quote:
       'Tenemos 12 dispositivos Apple en la agencia. La respuesta es siempre rapidísima y entienden perfectamente lo que necesita una empresa que trabaja con plazos ajustados.',
+  },
+  {
+    name: 'Sergio Molina',
+    role: 'IT Manager, Constructora Alhambra',
+    segment: 'BUSINESS',
+    initials: 'SM',
+    quote:
+      'Migramos 25 portátiles con Windows a Microsoft Intune y ahora configuramos cada equipo nuevo en remoto en menos de una hora. Antes era un caos gestionarlo todo a mano.',
   },
 ];
 
@@ -135,7 +167,7 @@ export function TestimonialsSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-3">Lo que dicen nuestros clientes</h2>
-          <p className="text-muted-foreground">Más de 200 clientes en Granada confían en AppleGranada.</p>
+          <p className="text-muted-foreground">Más de 200 clientes en Granada confían en Soporte Granada.</p>
         </div>
 
         {/* Tabs */}
@@ -156,7 +188,7 @@ export function TestimonialsSection() {
         </div>
 
         {/* Cards */}
-        <div className="grid gap-6 md:grid-cols-3 max-w-5xl mx-auto">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
           {visible.map((t, i) => (
             <FadeIn key={t.name} delay={i * 90}>
             <Card className="flex flex-col h-full">

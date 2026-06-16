@@ -52,7 +52,7 @@ export async function createPayPalOrder(opts: {
         },
       ],
       application_context: {
-        brand_name: 'AppleGranada',
+        brand_name: 'Soporte Granada',
         locale: 'es-ES',
         user_action: 'PAY_NOW',
         return_url: opts.returnUrl,

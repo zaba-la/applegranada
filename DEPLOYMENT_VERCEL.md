@@ -1,6 +1,6 @@
 # Guía de Deployment en Vercel
 
-Esta guía te ayudará a desplegar AppleGranada en Vercel de forma segura y eficiente.
+Esta guía te ayudará a desplegar Soporte Granada en Vercel de forma segura y eficiente.
 
 ## 📋 Requisitos Previos
 
@@ -26,7 +26,7 @@ git push origin main
 2. Inicia sesión con tu cuenta
 3. Haz clic en "New Project"
 4. Selecciona "Import Git Repository"
-5. Busca y selecciona el repositorio `applegranada`
+5. Busca y selecciona el repositorio `soportegranada`
 6. Haz clic en "Import"
 
 ### 3. Configurar Variables de Entorno
@@ -39,7 +39,7 @@ En el panel de Vercel:
 ```
 DATABASE_URL=postgresql://...
 NEXTAUTH_SECRET=tu-secreto-seguro-aqui
-NEXTAUTH_URL=https://applegranada.vercel.app (o tu dominio)
+NEXTAUTH_URL=https://soportegranada.vercel.app (o tu dominio)
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_...
 STRIPE_SECRET_KEY=sk_live_...
 STRIPE_WEBHOOK_SECRET=whsec_...
@@ -47,17 +47,17 @@ NEXT_PUBLIC_PAYPAL_CLIENT_ID=...
 PAYPAL_SECRET_ID=...
 NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=...
 SENDGRID_API_KEY=...
-SENDGRID_FROM_EMAIL=noreply@applegranada.es
+SENDGRID_FROM_EMAIL=noreply@soportegranada.es
 TWILIO_ACCOUNT_SID=...
 TWILIO_AUTH_TOKEN=...
 TWILIO_PHONE_NUMBER=...
-NEXT_PUBLIC_SITE_URL=https://applegranada.vercel.app
+NEXT_PUBLIC_SITE_URL=https://soportegranada.vercel.app
 NODE_ENV=production
 ```
 
 ### 4. Configurar Base de Datos
 
-AppleGranada requiere PostgreSQL. Recomendamos:
+Soporte Granada requiere PostgreSQL. Recomendamos:
 
 #### Opción A: Neon (Recomendado para Vercel)
 
@@ -109,7 +109,7 @@ DATABASE_URL=tu-production-db-url npx prisma migrate deploy
 ### 7. Configurar Dominio Personalizado
 
 1. En Vercel, ve a "Settings" → "Domains"
-2. Añade tu dominio (ej: applegranada.es)
+2. Añade tu dominio (ej: soportegranada.es)
 3. Vercel te dará instrucciones de DNS
 4. Actualiza los DNS en tu proveedor de dominios
 
@@ -145,7 +145,7 @@ Para obtenerlos:
 
 1. Ve a tu dashboard de Stripe
 2. Webhooks → Añadir endpoint
-3. URL: `https://applegranada.vercel.app/api/webhooks/stripe`
+3. URL: `https://soportegranada.vercel.app/api/webhooks/stripe`
 4. Eventos a escuchar:
    - `payment_intent.succeeded`
    - `payment_intent.payment_failed`
@@ -159,7 +159,7 @@ Para obtenerlos:
 1. Ve a [developer.paypal.com](https://developer.paypal.com)
 2. Apps & Credentials
 3. Webhooks → Create Webhook
-4. URL: `https://applegranada.vercel.app/api/webhooks/paypal`
+4. URL: `https://soportegranada.vercel.app/api/webhooks/paypal`
 5. Selecciona los eventos necesarios
 6. Copia el Webhook ID → `PAYPAL_WEBHOOK_ID`
 

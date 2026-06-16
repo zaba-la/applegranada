@@ -1,7 +1,7 @@
 {
   "common": {
-    "appName": "AppleGranada",
-    "tagline": "Software Support Service for the Apple World",
+    "appName": "Soporte Granada",
+    "tagline": "Software Support Service for Mac and PC",
     "nav": {
       "home": "Home",
       "services": "Services",
@@ -38,8 +38,8 @@
   },
   "home": {
     "hero": {
-      "title": "Your Apple, in expert hands.",
-      "subtitle": "Software support for Mac, iPad and iPhone in Granada. We prevent problems before they appear and fix them fast when they do. No queues, no jargon, no lost data."
+      "title": "Your Mac, your PC, in expert hands.",
+      "subtitle": "Software support for Mac, iPad, iPhone, Windows, Microsoft 365 and Surface in Granada. We prevent problems before they appear and fix them fast when they do. No queues, no jargon, no lost data."
     },
     "values": {
       "preventive": {
@@ -51,16 +51,16 @@
         "description": "Something off? We diagnose it, explain what's going on in plain language and fix it. Remote or on-site, keeping you informed every step."
       },
       "specialist": {
-        "title": "Software only, 100% Apple",
-        "description": "We specialise in the Apple ecosystem: macOS, iPadOS and iOS. No generic waiting lists: we speak your language and your devices'."
+        "title": "Apple and Windows specialists",
+        "description": "We master both ecosystems: macOS, iPadOS and iOS, as well as Windows and Microsoft 365. No generic waiting lists: we speak your language and your devices'."
       }
     },
     "segments": {
-      "title": "Whether you have a single MacBook or a fleet of 50 devices, we have a plan for you:",
-      "student": "Students — so your Mac never fails you on deadline or exam day.",
-      "home": "Homes — one Apple expert for the whole family, hassle-free.",
+      "title": "Whether you have a single device or a fleet of 50, we have a plan for you:",
+      "student": "Students — so your Mac or PC never fails you on deadline or exam day.",
+      "home": "Homes — one Apple and Windows expert for the whole family, hassle-free.",
       "professional": "Professionals — your device is your work tool; we keep it ready to go.",
-      "business": "Businesses — managed support for your Apple device fleet."
+      "business": "Businesses — managed support for your Apple and Windows device fleet."
     },
     "cta": {
       "title": "Real support, no hassle.",
@@ -69,12 +69,13 @@
   },
   "services": {
     "title": "Services",
-    "intro": "At AppleGranada we do just one thing, but we do it really well: take care of the software on your Apple devices.",
+    "intro": "At Soporte Granada we do just one thing, but we do it really well: take care of the software on your Apple and Windows devices.",
     "preventive": {
       "title": "Preventive support",
       "description": "Routine maintenance to stop problems before they start.",
       "items": [
         "Safe macOS, iPadOS and iOS updates",
+        "Safe Windows and driver updates",
         "Backup setup and verification",
         "Performance and storage optimisation",
         "Clean-up of junk files and duplicate apps",
@@ -86,13 +87,51 @@
       "title": "Corrective support",
       "description": "When something already fails, we fix it without losing your data.",
       "items": [
-        "Mac running slow, overheating or restarting on its own",
+        "Mac or PC running slow, overheating or restarting on its own",
+        "Blue screens (BSOD) and Windows Update errors",
         "Malware and adware removal",
         "Account and password recovery",
         "Data and photo recovery",
         "Update errors or black screen",
-        "Mail, iCloud and sync setup",
-        "Data migration when switching devices"
+        "Email account setup (POP/IMAP/Exchange), iCloud and OneDrive",
+        "Data migration, even between Mac and PC"
+      ]
+    },
+    "moreTitle": "Beyond maintenance",
+    "moreSubtitle": "We also handle everything that connects to your device.",
+    "software": {
+      "title": "Software and platforms",
+      "description": "We install, configure and troubleshoot the apps you use most, on Mac and PC.",
+      "items": [
+        "Microsoft 365: Word, Excel, PowerPoint, Outlook and Teams",
+        "Google Workspace: Gmail, Drive, Calendar, Meet and Docs",
+        "Adobe Creative Cloud: Photoshop, Illustrator, Premiere, Lightroom",
+        "Figma and Affinity: graphic design and layout tools",
+        "iCloud and OneDrive: sync and backups",
+        "Zoom, Slack and other video call and teamwork tools",
+        "Licences and activations, no duplicates or surprises"
+      ]
+    },
+    "peripherals": {
+      "title": "Peripherals and accessories",
+      "description": "We connect and configure everything around your device so it works right away.",
+      "items": [
+        "Printers and scanners: setup, drivers and network scanning",
+        "Bluetooth devices: mouse, keyboard, headphones and speakers",
+        "External monitors and multi-screen setup",
+        "External drives, USB sticks and memory cards",
+        "Webcams and microphones for video calls",
+        "Graphics tablets and other creative accessories"
+      ]
+    },
+    "networking": {
+      "title": "Networking and connectivity",
+      "description": "We set up your home or office network so all your devices connect without issues.",
+      "items": [
+        "Wireless routers: setup and Wi-Fi extenders",
+        "Wi-Fi cameras and video surveillance",
+        "Local networks (LAN) for sharing files and printers",
+        "Smart home and home automation devices"
       ]
     },
     "modes": "Remote, at your home or office, or at our service point in Granada.",
@@ -378,14 +417,14 @@
     "created": "Created successfully"
   },
   "about": {
-    "title": "About AppleGranada",
-    "intro1": "We are a software technical service specialising exclusively in the Apple ecosystem, based in Granada. We were born out of the frustration of watching Mac, iPhone and iPad users lose hours (and data) because they had no trusted expert to call.",
-    "intro2": "We don't do hardware, don't repair screens, don't sell accessories. Just Apple software, and we do it very well. That means when you call us, you're speaking to someone who truly knows macOS, iOS and iPadOS — not a generic technician who opens the machine and improvises.",
+    "title": "About Soporte Granada",
+    "intro1": "We are a software technical service based in Granada, specialising in the Apple and Microsoft ecosystems. We were born out of the frustration of watching Mac, iPhone, iPad and PC users lose hours (and data) because they had no trusted expert to call.",
+    "intro2": "We don't do hardware, don't repair screens, don't sell accessories. Just software, and we do it very well. That means when you call us, you're speaking to someone who truly knows macOS, iOS, iPadOS and Windows — not a generic technician who opens the machine and improvises.",
     "intro3": "We work remotely via TeamViewer (no need to travel) and on-site at your home or office within Granada and the surrounding area.",
     "valuesTitle": "Our values",
     "values": {
       "honesty": { "title": "Honesty", "description": "We tell you the truth even if it's not what you want to hear. No surprise invoices." },
-      "specialization": { "title": "Specialisation", "description": "Apple only. That lets us know the ecosystem in depth and give you the best service." },
+      "specialization": { "title": "Specialisation", "description": "Apple and Microsoft. That lets us know both ecosystems in depth and give you the best service." },
       "punctuality": { "title": "Punctuality", "description": "We respect your time. We confirm appointments and meet the deadlines we promise." },
       "personal": { "title": "Personal attention", "description": "You have a dedicated contact who knows your devices and your history. No call centres." }
     },
@@ -403,6 +442,7 @@
     "submit": "Send message",
     "submitting": "Sending...",
     "successMsg": "Message sent. We'll get back to you soon.",
+    "errorMsg": "We couldn't send your message. Please try again or message us on WhatsApp.",
     "infoEmail": "Email",
     "infoWhatsapp": "WhatsApp",
     "infoHours": "Monday to Friday, 9:00 – 19:00",

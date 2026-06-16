@@ -1,6 +1,6 @@
-# AppleGranada - Plataforma de Soporte Técnico
+# Soporte Granada - Plataforma de Soporte Técnico
 
-Sitio web corporativo y plataforma de gestión de soporte técnico para dispositivos Apple, con panel de cliente y administración completa.
+Sitio web corporativo y plataforma de gestión de soporte técnico para dispositivos Apple y Windows, con panel de cliente y administración completa.
 
 ## 🚀 Características Principales
 
@@ -47,8 +47,8 @@ Sitio web corporativo y plataforma de gestión de soporte técnico para disposit
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/tu-usuario/applegranada.git
-cd applegranada
+git clone https://github.com/tu-usuario/soportegranada.git
+cd soportegranada
 ```
 
 ### 2. Instalar dependencias
@@ -71,7 +71,7 @@ Edita `.env.local` con tus credenciales:
 
 ```env
 # Database
-DATABASE_URL="postgresql://usuario:contraseña@localhost:5432/applegranada"
+DATABASE_URL="postgresql://usuario:contraseña@localhost:5432/soportegranada"
 
 # Authentication
 NEXTAUTH_SECRET="tu-secreto-seguro-aqui"
@@ -147,7 +147,7 @@ npm start
 ## 📁 Estructura del Proyecto
 
 ```
-applegranada/
+soportegranada/
 ├── app/                    # Next.js App Router
 │   ├── [locale]/          # Rutas por idioma
 │   │   ├── page.tsx       # Home
@@ -226,7 +226,7 @@ applegranada/
 ### Cliente
 - Datos personales
 - Plan asignado
-- Dispositivos Apple
+- Dispositivos Apple y Windows
 
 ### Plan
 - Nombre (ES/EN)
@@ -317,10 +317,10 @@ vercel
 
 ```bash
 # Crear imagen
-docker build -t applegranada .
+docker build -t soportegranada .
 
 # Ejecutar contenedor
-docker run -p 3000:3000 applegranada
+docker run -p 3000:3000 soportegranada
 ```
 
 ### Otros proveedores
@@ -355,13 +355,13 @@ Este proyecto está bajo la licencia MIT. Ver el archivo `LICENSE` para más det
 
 ¿Preguntas o problemas? 
 
-- 📧 Email: hola@applegranada.es
-- 🐛 Issues: [GitHub Issues](https://github.com/tu-usuario/applegranada/issues)
-- 💬 Discusiones: [GitHub Discussions](https://github.com/tu-usuario/applegranada/discussions)
+- 📧 Email: hola@soportegranada.es
+- 🐛 Issues: [GitHub Issues](https://github.com/tu-usuario/soportegranada/issues)
+- 💬 Discusiones: [GitHub Discussions](https://github.com/tu-usuario/soportegranada/discussions)
 
 ## 🙌 Créditos
 
-- Diseño y concepto: AppleGranada
+- Diseño y concepto: Soporte Granada
 - Desarrollado con ❤️ usando Next.js y Tailwind CSS
 
 ---

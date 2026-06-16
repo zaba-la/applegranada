@@ -25,13 +25,13 @@ export async function POST(_req: Request, { params }: { params: { id: string } }
     data: { inviteToken: token, inviteTokenExpiry: expiry },
   });
 
-  const siteUrl = process.env.NEXTAUTH_URL ?? 'https://applegranada.com';
+  const siteUrl = process.env.NEXTAUTH_URL ?? 'https://soportegranada.com';
   const link = `${siteUrl}/es/establecer-password?token=${token}`;
 
   try {
     await sendEmail(
       customer.user.email,
-      'Activa tu cuenta en AppleGranada',
+      'Activa tu cuenta en Soporte Granada',
       inviteEmailHtml({ name: customer.user.name ?? 'Cliente', link })
     );
   } catch (err) {

@@ -26,6 +26,14 @@ export const RegisterSchema = z.object({
   { message: 'Las contraseñas no coinciden', path: ['confirmPassword'] }
 );
 
+// Contact form schema
+export const ContactSchema = z.object({
+  name: z.string().min(2, 'El nombre debe tener al menos 2 caracteres'),
+  email: z.string().email('Email inválido'),
+  phone: z.string().optional(),
+  message: z.string().min(10, 'El mensaje debe tener al menos 10 caracteres'),
+});
+
 // Ticket schemas
 export const CreateTicketSchema = z.object({
   title: z.string().min(5, 'El título debe tener al menos 5 caracteres').max(200, 'El título es demasiado largo'),

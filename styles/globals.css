@@ -158,6 +158,34 @@
   }
 }
 
+/* Infinite logo carousel */
+@keyframes logo-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-logo-scroll {
+  animation: logo-scroll 25s linear infinite;
+}
+
+/* Background image slow zoom-out */
+@keyframes bg-zoom-out {
+  from {
+    transform: scale(1.15);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.animate-bg-zoom {
+  animation: bg-zoom-out 12s ease-out forwards;
+}
+
 /* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;

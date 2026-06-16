@@ -1,19 +1,19 @@
 {
   "common": {
-    "appName": "AppleGranada",
-    "tagline": "Servicio Técnico de Software para el mundo Apple",
+    "appName": "Soporte Granada",
+    "tagline": "Servicio Técnico de Software para Mac y PC",
     "nav": {
       "home": "Inicio",
       "services": "Servicios",
       "plans": "Precios",
-      "about": "Sobre nosotros",
+      "about": "Nosotros",
       "contact": "Contacto",
       "blog": "Blog",
       "login": "Ingresar",
       "logout": "Cerrar sesión",
       "dashboard": "Mi Cuenta",
       "admin": "Administración",
-      "faq": "Preguntas Frecuentes"
+      "faq": "Preguntas"
     },
     "buttons": {
       "bookDiagnosis": "Solicitar soporte",
@@ -38,8 +38,8 @@
   },
   "home": {
     "hero": {
-      "title": "Tu Apple, en manos expertas.",
-      "subtitle": "Servicio técnico de software para Mac, iPad y iPhone en Granada. Prevenimos los problemas antes de que aparezcan y los resolvemos rápido cuando aparecen. Sin colas, sin tecnicismos y sin perder tus datos."
+      "title": "Tu Mac, tu PC, en manos expertas.",
+      "subtitle": "Servicio técnico de software para Mac, iPad, iPhone, Windows, Microsoft 365 y Surface en Granada. Prevenimos los problemas antes de que aparezcan y los resolvemos rápido cuando aparecen. Sin colas, sin tecnicismos y sin perder tus datos."
     },
     "values": {
       "preventive": {
@@ -51,16 +51,16 @@
         "description": "¿Algo no va? Lo diagnosticamos, te explicamos qué pasa en cristiano y lo arreglamos. En remoto o presencial, contigo informado en cada paso."
       },
       "specialist": {
-        "title": "Solo software, 100% Apple",
-        "description": "Somos especialistas en el ecosistema Apple: macOS, iPadOS e iOS. Nada de listas de espera genéricas: hablamos tu idioma y el de tus dispositivos."
+        "title": "Especialistas Apple y Windows",
+        "description": "Dominamos ambos ecosistemas: macOS, iPadOS e iOS, y también Windows y Microsoft 365. Nada de listas de espera genéricas: hablamos tu idioma y el de tus dispositivos."
       }
     },
     "segments": {
-      "title": "Tengas un solo MacBook o una flota de 50 equipos, tenemos un plan a tu medida:",
-      "student": "Estudiantes — que tu Mac no te falle en plena entrega ni en los exámenes.",
-      "home": "Hogares — un experto Apple para toda la familia, sin líos.",
+      "title": "Tengas un solo equipo o una flota de 50, tenemos un plan a tu medida:",
+      "student": "Estudiantes — que tu Mac o tu PC no te falle en plena entrega ni en los exámenes.",
+      "home": "Hogares — un experto en Apple y Windows para toda la familia, sin líos.",
       "professional": "Profesionales — tu equipo es tu herramienta de trabajo; lo mantenemos siempre a punto.",
-      "business": "Empresas — soporte gestionado para tu parque de dispositivos Apple."
+      "business": "Empresas — soporte gestionado para tu parque de dispositivos Apple y Windows."
     },
     "cta": {
       "title": "Soporte real, sin complicaciones.",
@@ -69,12 +69,13 @@
   },
   "services": {
     "title": "Servicios",
-    "intro": "En AppleGranada solo hacemos una cosa, pero la hacemos muy bien: cuidar el software de tus dispositivos Apple.",
+    "intro": "En Soporte Granada solo hacemos una cosa, pero la hacemos muy bien: cuidar el software de tus dispositivos Apple y Windows.",
     "preventive": {
       "title": "Soporte preventivo",
       "description": "Mantenimiento periódico para evitar problemas antes de que ocurran.",
       "items": [
         "Actualizaciones seguras de macOS, iPadOS e iOS",
+        "Actualizaciones seguras de Windows y controladores",
         "Configuración y verificación de copias de seguridad",
         "Optimización del rendimiento y almacenamiento",
         "Limpieza de archivos basura y apps duplicadas",
@@ -86,13 +87,51 @@
       "title": "Soporte correctivo",
       "description": "Cuando algo ya falla, lo resolvemos sin perder tus datos.",
       "items": [
-        "Mac lento, se calienta o se reinicia solo",
+        "Mac o PC lento, se calienta o se reinicia solo",
+        "Pantallazos azules (BSOD) y errores de Windows Update",
         "Eliminación de malware y adware",
         "Recuperación de cuentas y contraseñas",
         "Recuperación de datos y fotos",
         "Errores al actualizar o pantalla negra",
-        "Configuración de correo e iCloud",
-        "Migración de datos"
+        "Configuración de cuentas de correo (POP/IMAP/Exchange), iCloud y OneDrive",
+        "Migración de datos, incluso entre Mac y PC"
+      ]
+    },
+    "moreTitle": "Más allá del mantenimiento",
+    "moreSubtitle": "También nos ocupamos de todo lo que conecta con tu equipo.",
+    "software": {
+      "title": "Software y plataformas",
+      "description": "Instalamos, configuramos y resolvemos problemas con las apps que más usas, en Mac y en PC.",
+      "items": [
+        "Microsoft 365: Word, Excel, PowerPoint, Outlook y Teams",
+        "Google Workspace: Gmail, Drive, Calendar, Meet y Docs",
+        "Adobe Creative Cloud: Photoshop, Illustrator, Premiere, Lightroom",
+        "Figma y Affinity: herramientas de diseño gráfico y maquetación",
+        "iCloud y OneDrive: sincronización y copias de seguridad",
+        "Zoom, Slack y otras herramientas de videollamada y trabajo en equipo",
+        "Licencias y activaciones, sin duplicados ni sustos"
+      ]
+    },
+    "peripherals": {
+      "title": "Periféricos y accesorios",
+      "description": "Conectamos y configuramos todo lo que rodea a tu equipo para que funcione a la primera.",
+      "items": [
+        "Impresoras y escáneres: instalación, drivers y escaneo en red",
+        "Dispositivos Bluetooth: ratón, teclado, auriculares y altavoces",
+        "Monitores externos y configuración multipantalla",
+        "Discos externos, pendrives y tarjetas de memoria",
+        "Webcams y micrófonos para videollamadas",
+        "Tabletas gráficas y otros accesorios creativos"
+      ]
+    },
+    "networking": {
+      "title": "Redes y conectividad",
+      "description": "Configuramos tu red doméstica o de oficina para que todos tus dispositivos se conecten sin problemas.",
+      "items": [
+        "Routers inalámbricos: configuración y repetidores Wi-Fi",
+        "Cámaras Wi-Fi y videovigilancia",
+        "Redes locales (LAN) para compartir archivos e impresoras",
+        "Dispositivos de domótica y hogar inteligente"
       ]
     },
     "modes": "En remoto, en tu domicilio u oficina, o en nuestro punto de servicio en Granada.",
@@ -378,14 +417,14 @@
     "created": "Creado correctamente"
   },
   "about": {
-    "title": "Sobre AppleGranada",
-    "intro1": "Somos un servicio técnico de software especializado exclusivamente en el ecosistema Apple, con sede en Granada. Nació de la frustración de ver cómo usuarios de Mac, iPhone e iPad perdían horas (y datos) por no tener a nadie de confianza a quien llamar.",
-    "intro2": "No hacemos hardware, no reparamos pantallas, no vendemos accesorios. Solo software Apple, y lo hacemos muy bien. Eso significa que cuando nos llamas, estás hablando con alguien que conoce macOS, iOS e iPadOS de verdad, no con un técnico genérico que abre el ordenador e improvisa.",
+    "title": "Sobre Soporte Granada",
+    "intro1": "Somos un servicio técnico de software con sede en Granada, especializado en los ecosistemas Apple y Microsoft. Nació de la frustración de ver cómo usuarios de Mac, iPhone, iPad y PC perdían horas (y datos) por no tener a nadie de confianza a quien llamar.",
+    "intro2": "No hacemos hardware, no reparamos pantallas, no vendemos accesorios. Solo software, y lo hacemos muy bien. Eso significa que cuando nos llamas, estás hablando con alguien que conoce macOS, iOS, iPadOS y Windows de verdad, no con un técnico genérico que abre el ordenador e improvisa.",
     "intro3": "Trabajamos en remoto con TeamViewer (sin necesidad de desplazarte) y de forma presencial en tu domicilio u oficina dentro de Granada y alrededores.",
     "valuesTitle": "Nuestros valores",
     "values": {
       "honesty": { "title": "Honestidad", "description": "Te decimos la verdad aunque no sea lo que quieres oír. Sin sorpresas en la factura." },
-      "specialization": { "title": "Especialización", "description": "Solo Apple. Eso nos permite conocer el ecosistema a fondo y darte el mejor servicio." },
+      "specialization": { "title": "Especialización", "description": "Apple y Microsoft. Eso nos permite conocer ambos ecosistemas a fondo y darte el mejor servicio." },
       "punctuality": { "title": "Puntualidad", "description": "Respetamos tu tiempo. Confirmamos citas y cumplimos los plazos que prometemos." },
       "personal": { "title": "Trato personal", "description": "Tienes un interlocutor fijo que conoce tu equipo y tu historial. Sin call centers." }
     },
@@ -403,6 +442,7 @@
     "submit": "Enviar mensaje",
     "submitting": "Enviando...",
     "successMsg": "Mensaje enviado. Te contactaremos pronto.",
+    "errorMsg": "No se pudo enviar el mensaje. Inténtalo de nuevo o escríbenos por WhatsApp.",
     "infoEmail": "Email",
     "infoWhatsapp": "WhatsApp",
     "infoHours": "Lunes a viernes, 9:00 – 19:00",

@@ -47,7 +47,6 @@ export function Navbar() {
   const altHref = `/${altLocale}${pathnameWithoutLocale}`;
 
   const nav = [
-    { href: `/${locale}`, label: t('nav.home') },
     { href: `/${locale}/servicios`, label: t('nav.services') },
     { href: `/${locale}/precios`, label: t('nav.plans') },
     { href: `/${locale}/sobre-nosotros`, label: t('nav.about') },

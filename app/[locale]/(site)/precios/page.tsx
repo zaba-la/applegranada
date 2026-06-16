@@ -10,7 +10,10 @@ import { FadeIn } from '@/components/fade-in';
 import Link from 'next/link';
 
 export async function generateMetadata() {
-  return { title: 'Precios | AppleGranada' };
+  return {
+    title: 'Precios',
+    description: 'Tarifas claras de soporte técnico para Mac y PC: pago por horas, sin suscripciones ni letra pequeña.',
+  };
 }
 
 const remoteFeatures = [
@@ -29,6 +32,12 @@ const onsiteFeatures = [
   'Informe detallado de lo realizado',
 ];
 
+const complementaryServices = [
+  { name: 'Adobe Creative Cloud', detail: 'Instalación, licencias y optimización', price: 'Desde 39€' },
+  { name: 'Google Workspace', detail: 'Migración y configuración por cuenta', price: 'Desde 39€' },
+  { name: 'Integración Apple ↔ Windows', detail: 'Sincronización iPhone/iPad con tu PC', price: 'Desde 39€' },
+];
+
 export default async function PlansPage({ params: { locale } }: { params: { locale: string } }) {
   unstable_setRequestLocale(locale);
   const session = await getServerSession(authOptions);
@@ -43,7 +52,7 @@ export default async function PlansPage({ params: { locale } }: { params: { loca
         <div className="text-center mb-14">
           <h1 className="text-4xl font-bold mb-4">Precios</h1>
           <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-            Soporte técnico Apple facturado por hora. Sin suscripciones ni letra pequeña.
+            Soporte técnico Apple y Windows facturado por hora. Sin suscripciones ni letra pequeña.
             Pagas exactamente por el tiempo que usas.
           </p>
         </div>
@@ -112,7 +121,7 @@ export default async function PlansPage({ params: { locale } }: { params: { loca
                 </div>
                 <CardTitle className="text-2xl">Hora Presencial</CardTitle>
                 <CardDescription className="text-base">
-                  Un técnico Apple en tu casa u oficina. Mínimo 2 horas.
+                  Un técnico en tu casa u oficina, para Mac o PC. Mínimo 2 horas.
                 </CardDescription>
                 <div className="pt-5">
                   <div className="flex items-end gap-1.5">
@@ -176,7 +185,7 @@ export default async function PlansPage({ params: { locale } }: { params: { loca
                 <p className="font-semibold text-sm">Elige Remoto si…</p>
               </div>
               <ul className="space-y-1.5 text-sm text-muted-foreground">
-                <li>· El Mac arranca y puedes conectarte a internet</li>
+                <li>· El equipo arranca y puedes conectarte a internet</li>
                 <li>· Tienes un problema de software, velocidad o configuración</li>
                 <li>· Estás fuera de Granada o prefieres no recibir visitas</li>
                 <li>· Necesitas ayuda rápida sin esperar cita presencial</li>
@@ -202,6 +211,24 @@ export default async function PlansPage({ params: { locale } }: { params: { loca
               Cuéntanos tu caso y te orientamos sin compromiso.
             </Link>
           </p>
+        </div>
+      </FadeIn>
+
+      {/* Servicios complementarios */}
+      <FadeIn delay={150}>
+        <div className="mt-16 max-w-4xl mx-auto">
+          <Separator className="mb-12" />
+          <h2 className="text-2xl font-semibold text-center mb-2">Servicios complementarios</h2>
+          <p className="text-center text-muted-foreground mb-8">A precio fijo, además del soporte por horas.</p>
+          <div className="grid gap-4 sm:grid-cols-3">
+            {complementaryServices.map((s) => (
+              <div key={s.name} className="bg-muted/40 rounded-xl p-5 text-center">
+                <p className="font-semibold text-sm mb-1">{s.name}</p>
+                <p className="text-xs text-muted-foreground mb-3">{s.detail}</p>
+                <p className="text-lg font-bold">{s.price}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </FadeIn>
     </div>

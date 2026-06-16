@@ -5,7 +5,7 @@ import { FadeIn } from '@/components/fade-in';
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
   const t = await getTranslations({ locale, namespace: 'about' });
-  return { title: `${t('title')} | AppleGranada` };
+  return { title: t('title'), description: t('intro1') };
 }
 
 const valueIcons = { honesty: Heart, specialization: Award, punctuality: Clock, personal: Users };

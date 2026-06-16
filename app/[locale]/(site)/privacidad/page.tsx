@@ -1,7 +1,7 @@
 import { unstable_setRequestLocale } from 'next-intl/server';
 
 export async function generateMetadata() {
-  return { title: 'Política de Privacidad | AppleGranada' };
+  return { title: 'Política de Privacidad' };
 }
 
 export default function PrivacidadPage({ params: { locale } }: { params: { locale: string } }) {
@@ -18,8 +18,8 @@ export default function PrivacidadPage({ params: { locale } }: { params: { local
           <h2 className="text-lg font-semibold mb-3">1. Responsable del tratamiento</h2>
           <p>
             El responsable del tratamiento de los datos personales recogidos a través de{' '}
-            <strong>applegranada.com</strong> es AppleGranada, con domicilio en Granada (España).
-            Contacto: <a href="mailto:soporte@applegranada.com" className="underline">soporte@applegranada.com</a>.
+            <strong>soportegranada.com</strong> es Soporte Granada, con domicilio en Granada (España).
+            Contacto: <a href="mailto:soporte@soportegranada.com" className="underline">soporte@soportegranada.com</a>.
           </p>
         </section>
 
@@ -103,7 +103,7 @@ export default function PrivacidadPage({ params: { locale } }: { params: { local
           <p>
             De acuerdo con el RGPD (UE) 2016/679 y la LOPDGDD (Ley Orgánica 3/2018), el usuario puede
             ejercer en cualquier momento los siguientes derechos enviando un correo a{' '}
-            <a href="mailto:soporte@applegranada.com" className="underline">soporte@applegranada.com</a>:
+            <a href="mailto:soporte@soportegranada.com" className="underline">soporte@soportegranada.com</a>:
           </p>
           <ul className="list-disc pl-5 mt-2 space-y-1">
             <li><strong>Acceso:</strong> obtener confirmación de si se tratan datos y acceder a ellos.</li>
@@ -123,7 +123,7 @@ export default function PrivacidadPage({ params: { locale } }: { params: { local
         <section>
           <h2 className="text-lg font-semibold mb-3">7. Seguridad</h2>
           <p>
-            AppleGranada aplica medidas técnicas y organizativas apropiadas para garantizar un nivel de
+            Soporte Granada aplica medidas técnicas y organizativas apropiadas para garantizar un nivel de
             seguridad adecuado al riesgo: cifrado de contraseñas mediante bcrypt, comunicaciones
             cifradas mediante TLS/HTTPS y acceso restringido a los datos de producción.
           </p>
@@ -135,14 +135,14 @@ export default function PrivacidadPage({ params: { locale } }: { params: { local
             Este sitio utiliza cookies estrictamente necesarias para el funcionamiento de la sesión de
             usuario (autenticación). No se utilizan cookies de rastreo o publicidad de terceros.
             Para más información puede consultar nuestra{' '}
-            <a href="mailto:soporte@applegranada.com" className="underline">política de cookies</a>.
+            <a href="mailto:soporte@soportegranada.com" className="underline">política de cookies</a>.
           </p>
         </section>
 
         <section>
           <h2 className="text-lg font-semibold mb-3">9. Modificaciones</h2>
           <p>
-            AppleGranada puede actualizar esta Política de Privacidad para adaptarla a cambios
+            Soporte Granada puede actualizar esta Política de Privacidad para adaptarla a cambios
             legislativos o del servicio. Se notificará a los usuarios registrados cualquier cambio
             sustancial con al menos 15 días de antelación por correo electrónico.
           </p>

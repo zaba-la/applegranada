@@ -12,43 +12,43 @@ import { FadeIn } from '@/components/fade-in';
 
 export async function generateMetadata() {
   return {
-    title: 'Soporte técnico Apple para empresas en Granada | AppleGranada',
+    title: 'Soporte técnico Apple y Windows para empresas en Granada',
     description:
-      'Gestión y mantenimiento de dispositivos Apple para empresas en Granada. Mac, iPad e iPhone. Sin interrupciones, sin tiempos de inactividad. Soporte remoto y presencial.',
+      'Gestión y mantenimiento de dispositivos Apple y Windows para empresas en Granada. Mac, PC, iPad e iPhone. Sin interrupciones, sin tiempos de inactividad. Soporte remoto y presencial.',
     openGraph: {
-      title: 'Soporte Apple para Empresas en Granada',
-      description: 'Mantenemos todos los Macs de tu empresa funcionando. Soporte técnico Apple gestionado para equipos de trabajo en Granada.',
+      title: 'Soporte Apple y Windows para Empresas en Granada',
+      description: 'Mantenemos todos los Macs y PC de tu empresa funcionando. Soporte técnico gestionado para equipos de trabajo en Granada.',
     },
   };
 }
 
 const problems = [
-  { icon: Users, text: 'El equipo pierde horas cada semana por problemas técnicos con los Macs' },
+  { icon: Users, text: 'El equipo pierde horas cada semana por problemas técnicos con los Macs y los PC' },
   { icon: Settings, text: 'Nuevas incorporaciones sin equipo configurado a tiempo ni acceso a las herramientas' },
   { icon: Shield, text: 'Sin política clara de seguridad, backups ni actualizaciones en la empresa' },
-  { icon: BarChart, text: 'Ningún proveedor conoce a fondo el ecosistema Apple para dar soporte real' },
+  { icon: BarChart, text: 'Ningún proveedor conoce a fondo el ecosistema Apple ni el de Microsoft para dar soporte real' },
 ];
 
 const activities = [
   {
     icon: RefreshCw,
     title: 'Mantenimiento periódico de la flota',
-    desc: 'Actualizamos y mantenemos todos los dispositivos Apple de la empresa fuera del horario laboral para no interrumpir la actividad. Informe de estado de cada equipo.',
+    desc: 'Actualizamos y mantenemos todos los dispositivos Apple y Windows de la empresa fuera del horario laboral para no interrumpir la actividad. Informe de estado de cada equipo.',
   },
   {
     icon: Users,
     title: 'Onboarding de nuevas incorporaciones',
-    desc: 'Configuramos el Mac, las cuentas de empresa, las apps y los accesos de cada nuevo empleado. El equipo listo desde el primer día sin que nadie lo tenga que gestionar internamente.',
+    desc: 'Configuramos el Mac o el PC, las cuentas de empresa, las apps y los accesos de cada nuevo empleado. El equipo listo desde el primer día sin que nadie lo tenga que gestionar internamente.',
   },
   {
     icon: Shield,
     title: 'Política de seguridad y backups',
-    desc: 'Definimos e implementamos copias de seguridad, cifrado de dispositivos, gestión de contraseñas y configuración de privacidad para cumplir con los requisitos de seguridad empresarial.',
+    desc: 'Definimos e implementamos copias de seguridad, cifrado de dispositivos (incluido BitLocker en Windows), gestión centralizada con Microsoft Intune, contraseñas y privacidad para cumplir con los requisitos de seguridad empresarial.',
   },
   {
     icon: Wifi,
     title: 'Soporte técnico para el equipo',
-    desc: 'Canal directo de soporte para los empleados. Cuando alguien tiene un problema con su Mac o iPhone, lo resolvemos en remoto ese mismo día sin que tengan que buscar soluciones por su cuenta.',
+    desc: 'Canal directo de soporte para los empleados. Cuando alguien tiene un problema con su Mac, PC o iPhone, lo resolvemos en remoto ese mismo día sin que tengan que buscar soluciones por su cuenta.',
   },
 ];
 
@@ -63,7 +63,7 @@ const testimonials = [
     name: 'Antonio López',
     role: 'Gerente, Clínica Dental Sonrisa',
     initials: 'AL',
-    quote: 'Actualizan y mantienen todos los equipos de la clínica fuera de horario de atención. Cero interrupciones con los pacientes. Lo recomiendo a cualquier negocio con Macs.',
+    quote: 'Actualizan y mantienen todos los PCs con Windows de la clínica fuera de horario de atención. Cero interrupciones con los pacientes. Lo recomiendo a cualquier negocio que dependa de su tecnología.',
   },
   {
     name: 'Elena Martínez',
@@ -71,12 +71,18 @@ const testimonials = [
     initials: 'EM',
     quote: 'Tenemos 12 dispositivos Apple en la agencia. La respuesta es siempre rapidísima y entienden perfectamente lo que necesita una empresa que trabaja con plazos ajustados.',
   },
+  {
+    name: 'Sergio Molina',
+    role: 'IT Manager, Constructora Alhambra',
+    initials: 'SM',
+    quote: 'Migramos 25 portátiles con Windows a Microsoft Intune y ahora configuramos cada equipo nuevo en remoto en menos de una hora. Antes era un caos gestionarlo todo a mano.',
+  },
 ];
 
 const useCases = [
   { sector: 'Estudios de diseño y agencias', detail: 'Soporte a toda la flota creativa con Adobe CC, Figma y Sketch. Configuración de almacenamiento compartido.' },
   { sector: 'Clínicas y centros médicos', detail: 'Mantenimiento sin interrupciones en horario fuera de consultas. Gestión de equipos en recepción y consulta.' },
-  { sector: 'Despachos y consultoras', detail: 'Microsoft 365, OneDrive, VPN y políticas de seguridad para equipos legales y financieros.' },
+  { sector: 'Despachos y consultoras', detail: 'Microsoft 365, OneDrive, Intune, VPN y políticas de seguridad para equipos legales y financieros.' },
   { sector: 'Comercios y hostelería', detail: 'Configuración y mantenimiento de iPads para gestión, TPV y comunicación interna.' },
 ];
 
@@ -101,10 +107,10 @@ export default function EmpresasPage({ params: { locale } }: { params: { locale:
           <FadeIn>
             <Badge variant="secondary" className="mb-5">Para empresas y equipos</Badge>
             <h1 className="text-4xl md:text-5xl font-bold mb-5 max-w-3xl mx-auto leading-tight">
-              Todos los Macs de tu empresa, funcionando.
+              Todos los equipos de tu empresa, funcionando.
             </h1>
             <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-10">
-              Soporte técnico Apple para empresas en Granada. Mantenemos tu flota de dispositivos
+              Soporte técnico Apple y Windows para empresas en Granada. Mantenemos tu flota de dispositivos
               actualizada y segura para que tu equipo no pierda ni un minuto de trabajo.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -125,9 +131,9 @@ export default function EmpresasPage({ params: { locale } }: { params: { locale:
       <section className="container mx-auto px-4 py-16">
         <FadeIn>
           <h2 className="text-2xl font-semibold mb-2">El coste oculto del soporte técnico sin gestionar</h2>
-          <p className="text-muted-foreground mb-10">Problemas habituales en empresas que no tienen soporte Apple especializado.</p>
+          <p className="text-muted-foreground mb-10">Problemas habituales en empresas que no tienen soporte Apple y Windows especializado.</p>
         </FadeIn>
-        <div className="grid gap-4 sm:grid-cols-2 max-w-3xl">
+        <div className="grid gap-4 sm:grid-cols-2 max-w-3xl mx-auto">
           {problems.map(({ icon: Icon, text }, i) => (
             <FadeIn key={text} delay={i * 70}>
               <div className="flex items-start gap-3 p-4 rounded-xl border bg-background">
@@ -143,8 +149,8 @@ export default function EmpresasPage({ params: { locale } }: { params: { locale:
       <section className="bg-muted/30 py-16">
         <div className="container mx-auto px-4">
           <FadeIn>
-            <h2 className="text-2xl font-semibold mb-2">Soporte técnico Apple para tu empresa</h2>
-            <p className="text-muted-foreground mb-10">Gestión integral del ecosistema Apple para que tu equipo pueda trabajar sin interrupciones.</p>
+            <h2 className="text-2xl font-semibold mb-2">Soporte técnico Apple y Windows para tu empresa</h2>
+            <p className="text-muted-foreground mb-10">Gestión integral de tu flota Apple y Windows para que tu equipo pueda trabajar sin interrupciones.</p>
           </FadeIn>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {activities.map(({ icon: Icon, title, desc }, i) => (
@@ -172,7 +178,7 @@ export default function EmpresasPage({ params: { locale } }: { params: { locale:
           <h2 className="text-2xl font-semibold mb-3">Empresas a las que ayudamos en Granada</h2>
           <p className="text-muted-foreground mb-8">Sectores con los que trabajamos habitualmente.</p>
         </FadeIn>
-        <div className="grid gap-4 sm:grid-cols-2 max-w-4xl">
+        <div className="grid gap-4 sm:grid-cols-2 max-w-4xl mx-auto">
           {useCases.map(({ sector, detail }, i) => (
             <FadeIn key={sector} delay={i * 60}>
               <div className="p-5 rounded-xl border bg-background">
@@ -184,11 +190,11 @@ export default function EmpresasPage({ params: { locale } }: { params: { locale:
         </div>
       </section>
 
-      {/* Por qué AppleGranada */}
+      {/* Por qué Soporte Granada */}
       <section className="bg-muted/30 py-12">
         <div className="container mx-auto px-4 max-w-4xl">
           <FadeIn>
-            <h2 className="text-2xl font-semibold mb-8">Lo que diferencia a AppleGranada para empresas</h2>
+            <h2 className="text-2xl font-semibold mb-8">Lo que diferencia a Soporte Granada para empresas</h2>
           </FadeIn>
           <div className="grid gap-3 sm:grid-cols-2">
             {[
@@ -216,7 +222,7 @@ export default function EmpresasPage({ params: { locale } }: { params: { locale:
           <FadeIn>
             <h2 className="text-2xl font-semibold mb-10 text-center">Empresas de Granada que ya confían en nosotros</h2>
           </FadeIn>
-          <div className="grid gap-6 md:grid-cols-3 max-w-5xl mx-auto">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
             {testimonials.map((t, i) => (
               <FadeIn key={t.name} delay={i * 90}>
                 <Card className="flex flex-col h-full">

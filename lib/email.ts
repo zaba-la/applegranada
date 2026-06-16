@@ -1,6 +1,6 @@
 import { Resend } from 'resend';
 
-export async function sendEmail(to: string, subject: string, html: string) {
+export async function sendEmail(to: string, subject: string, html: string, replyTo?: string) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
     console.warn('[email] RESEND_API_KEY no configurado');
@@ -10,10 +10,11 @@ export async function sendEmail(to: string, subject: string, html: string) {
   const resend = new Resend(apiKey);
 
   const { data, error } = await resend.emails.send({
-    from: 'AppleGranada <soporte@applegranada.com>',
+    from: 'Soporte Granada <soporte@soportegranada.com>',
     to: [to],
     subject,
     html,
+    ...(replyTo ? { replyTo } : {}),
   });
 
   if (error) {
@@ -36,17 +37,17 @@ export function inviteEmailHtml(params: { name: string; link: string }) {
       <table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);">
         <tr>
           <td style="background:#000;padding:20px 32px;text-align:center;">
-            <img src="https://res.cloudinary.com/ddagvoaq2/image/upload/v1781447490/Apple-Granada-logo-white_vq3c81.png"
-                 alt="AppleGranada" height="48" style="display:block;margin:0 auto;height:48px;width:auto;" />
+            <img src="https://res.cloudinary.com/ddagvoaq2/image/upload/v1781593939/soportegranada-blanco_2x_ci0ftm.png"
+                 alt="Soporte Granada" height="48" style="display:block;margin:0 auto;height:48px;width:auto;" />
           </td>
         </tr>
         <tr>
           <td style="padding:32px;">
             <p style="margin:0 0 8px;color:#111;font-size:20px;font-weight:700;">
-              Bienvenido/a a AppleGranada
+              Bienvenido/a a Soporte Granada
             </p>
             <p style="margin:0 0 24px;color:#666;font-size:15px;">
-              Hola ${name}, hemos creado tu cuenta en AppleGranada.<br>
+              Hola ${name}, hemos creado tu cuenta en Soporte Granada.<br>
               Haz clic en el botón para establecer tu contraseña y acceder a tu panel.
             </p>
             <table cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
@@ -66,8 +67,8 @@ export function inviteEmailHtml(params: { name: string; link: string }) {
         <tr>
           <td style="padding:20px 32px;border-top:1px solid #f0f0f0;">
             <p style="margin:0;color:#999;font-size:12px;">
-              soporte@applegranada.com · <a href="tel:+34644411252" style="color:#999;text-decoration:none;">+34 644 41 12 52</a> · Granada<br>
-              © ${new Date().getFullYear()} AppleGranada. Todos los derechos reservados.
+              soporte@soportegranada.com · <a href="tel:+34644411252" style="color:#999;text-decoration:none;">+34 644 41 12 52</a> · Granada<br>
+              © ${new Date().getFullYear()} Soporte Granada. Todos los derechos reservados.
             </p>
           </td>
         </tr>
@@ -92,7 +93,7 @@ export function ticketCreatedEmailHtml(params: {
     serviceMode === 'REMOTE'
       ? `${hourlyRate}€/hora · mínimo 1 hora`
       : `${hourlyRate}€/hora · mínimo 2 horas (${hourlyRate * 2}€)`;
-  const payUrl = `https://applegranada.com/es/panel/tickets/${ticketId}`;
+  const payUrl = `https://soportegranada.com/es/panel/tickets/${ticketId}`;
 
   return `
 <!DOCTYPE html>
@@ -105,8 +106,8 @@ export function ticketCreatedEmailHtml(params: {
         <!-- Header -->
         <tr>
           <td style="background:#000;padding:20px 32px;text-align:center;">
-            <img src="https://res.cloudinary.com/ddagvoaq2/image/upload/v1781447490/Apple-Granada-logo-white_vq3c81.png"
-                 alt="AppleGranada" height="48" style="display:block;margin:0 auto;height:48px;width:auto;" />
+            <img src="https://res.cloudinary.com/ddagvoaq2/image/upload/v1781593939/soportegranada-blanco_2x_ci0ftm.png"
+                 alt="Soporte Granada" height="48" style="display:block;margin:0 auto;height:48px;width:auto;" />
           </td>
         </tr>
         <!-- Body -->
@@ -178,8 +179,8 @@ export function ticketCreatedEmailHtml(params: {
         <tr>
           <td style="padding:20px 32px;border-top:1px solid #f0f0f0;">
             <p style="margin:0;color:#999;font-size:12px;">
-              soporte@applegranada.com · <a href="tel:+34644411252" style="color:#999;text-decoration:none;">+34 644 41 12 52</a> · Granada<br>
-              © ${new Date().getFullYear()} AppleGranada. Todos los derechos reservados.
+              soporte@soportegranada.com · <a href="tel:+34644411252" style="color:#999;text-decoration:none;">+34 644 41 12 52</a> · Granada<br>
+              © ${new Date().getFullYear()} Soporte Granada. Todos los derechos reservados.
             </p>
           </td>
         </tr>
@@ -202,8 +203,8 @@ export function resetPasswordEmailHtml(params: { name: string; link: string }) {
       <table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);">
         <tr>
           <td style="background:#000;padding:20px 32px;text-align:center;">
-            <img src="https://res.cloudinary.com/ddagvoaq2/image/upload/v1781447490/Apple-Granada-logo-white_vq3c81.png"
-                 alt="AppleGranada" height="48" style="display:block;margin:0 auto;height:48px;width:auto;" />
+            <img src="https://res.cloudinary.com/ddagvoaq2/image/upload/v1781593939/soportegranada-blanco_2x_ci0ftm.png"
+                 alt="Soporte Granada" height="48" style="display:block;margin:0 auto;height:48px;width:auto;" />
           </td>
         </tr>
         <tr>
@@ -232,8 +233,8 @@ export function resetPasswordEmailHtml(params: { name: string; link: string }) {
         <tr>
           <td style="padding:20px 32px;border-top:1px solid #f0f0f0;">
             <p style="margin:0;color:#999;font-size:12px;">
-              soporte@applegranada.com · <a href="tel:+34644411252" style="color:#999;text-decoration:none;">+34 644 41 12 52</a> · Granada<br>
-              © ${new Date().getFullYear()} AppleGranada. Todos los derechos reservados.
+              soporte@soportegranada.com · <a href="tel:+34644411252" style="color:#999;text-decoration:none;">+34 644 41 12 52</a> · Granada<br>
+              © ${new Date().getFullYear()} Soporte Granada. Todos los derechos reservados.
             </p>
           </td>
         </tr>
@@ -257,7 +258,7 @@ export function paymentReminderEmailHtml(params: {
   const minLabel = serviceMode === 'REMOTE'
     ? `${hourlyRate}€/hora · mínimo 1 hora`
     : `${hourlyRate}€/hora · mínimo 2 horas (${hourlyRate * 2}€)`;
-  const payUrl = `https://applegranada.com/es/panel/tickets/${ticketId}`;
+  const payUrl = `https://soportegranada.com/es/panel/tickets/${ticketId}`;
 
   return `
 <!DOCTYPE html>
@@ -270,8 +271,8 @@ export function paymentReminderEmailHtml(params: {
         <!-- Header -->
         <tr>
           <td style="background:#000;padding:20px 32px;text-align:center;">
-            <img src="https://res.cloudinary.com/ddagvoaq2/image/upload/v1781447490/Apple-Granada-logo-white_vq3c81.png"
-                 alt="AppleGranada" height="48" style="display:block;margin:0 auto;height:48px;width:auto;" />
+            <img src="https://res.cloudinary.com/ddagvoaq2/image/upload/v1781593939/soportegranada-blanco_2x_ci0ftm.png"
+                 alt="Soporte Granada" height="48" style="display:block;margin:0 auto;height:48px;width:auto;" />
           </td>
         </tr>
         <!-- Body -->
@@ -338,8 +339,68 @@ export function paymentReminderEmailHtml(params: {
         <tr>
           <td style="padding:20px 32px;border-top:1px solid #f0f0f0;">
             <p style="margin:0;color:#999;font-size:12px;">
-              soporte@applegranada.com · <a href="tel:+34644411252" style="color:#999;text-decoration:none;">+34 644 41 12 52</a> · Granada<br>
-              © ${new Date().getFullYear()} AppleGranada. Todos los derechos reservados.
+              soporte@soportegranada.com · <a href="tel:+34644411252" style="color:#999;text-decoration:none;">+34 644 41 12 52</a> · Granada<br>
+              © ${new Date().getFullYear()} Soporte Granada. Todos los derechos reservados.
+            </p>
+          </td>
+        </tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`;
+}
+
+export function contactFormEmailHtml(params: {
+  name: string;
+  email: string;
+  phone?: string;
+  message: string;
+}) {
+  const { name, email, phone, message } = params;
+
+  return `
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#f5f5f5;font-family:system-ui,-apple-system,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f5f5f5;padding:32px 0;">
+    <tr><td align="center">
+      <table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);">
+        <tr>
+          <td style="background:#000;padding:20px 32px;text-align:center;">
+            <img src="https://res.cloudinary.com/ddagvoaq2/image/upload/v1781593939/soportegranada-blanco_2x_ci0ftm.png"
+                 alt="Soporte Granada" height="48" style="display:block;margin:0 auto;height:48px;width:auto;" />
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:32px;">
+            <p style="margin:0 0 8px;color:#111;font-size:20px;font-weight:700;">
+              Nuevo mensaje desde el formulario de contacto
+            </p>
+            <table width="100%" cellpadding="0" cellspacing="0" style="background:#f9f9f9;border:1px solid #e5e5e5;border-radius:8px;margin:16px 0 24px;">
+              <tr>
+                <td style="padding:20px 24px;">
+                  <p style="margin:0 0 4px;color:#999;font-size:12px;text-transform:uppercase;letter-spacing:.5px;">Nombre</p>
+                  <p style="margin:0 0 16px;color:#111;font-size:15px;">${name}</p>
+                  <p style="margin:0 0 4px;color:#999;font-size:12px;text-transform:uppercase;letter-spacing:.5px;">Email</p>
+                  <p style="margin:0 0 16px;color:#111;font-size:15px;">${email}</p>
+                  ${phone ? `<p style="margin:0 0 4px;color:#999;font-size:12px;text-transform:uppercase;letter-spacing:.5px;">Teléfono</p><p style="margin:0 0 16px;color:#111;font-size:15px;">${phone}</p>` : ''}
+                  <p style="margin:0 0 4px;color:#999;font-size:12px;text-transform:uppercase;letter-spacing:.5px;">Mensaje</p>
+                  <p style="margin:0;color:#111;font-size:15px;white-space:pre-wrap;">${message}</p>
+                </td>
+              </tr>
+            </table>
+            <p style="margin:0;color:#666;font-size:13px;">
+              Responde directamente a este correo para contestarle a ${name}.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:20px 32px;border-top:1px solid #f0f0f0;">
+            <p style="margin:0;color:#999;font-size:12px;">
+              soporte@soportegranada.com · <a href="tel:+34644411252" style="color:#999;text-decoration:none;">+34 644 41 12 52</a> · Granada<br>
+              © ${new Date().getFullYear()} Soporte Granada. Todos los derechos reservados.
             </p>
           </td>
         </tr>
@@ -377,8 +438,8 @@ export function ticketResponseEmailHtml(params: {
       <table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);">
         <tr>
           <td style="background:#000;padding:20px 32px;text-align:center;">
-            <img src="https://res.cloudinary.com/ddagvoaq2/image/upload/v1781447490/Apple-Granada-logo-white_vq3c81.png"
-                 alt="AppleGranada" height="48" style="display:block;margin:0 auto;height:48px;width:auto;" />
+            <img src="https://res.cloudinary.com/ddagvoaq2/image/upload/v1781593939/soportegranada-blanco_2x_ci0ftm.png"
+                 alt="Soporte Granada" height="48" style="display:block;margin:0 auto;height:48px;width:auto;" />
           </td>
         </tr>
         <tr>
@@ -427,8 +488,8 @@ export function ticketResponseEmailHtml(params: {
         <tr>
           <td style="padding:20px 32px;border-top:1px solid #f0f0f0;">
             <p style="margin:0;color:#999;font-size:12px;">
-              soporte@applegranada.com · <a href="tel:+34644411252" style="color:#999;text-decoration:none;">+34 644 41 12 52</a> · Granada<br>
-              © ${new Date().getFullYear()} AppleGranada. Todos los derechos reservados.
+              soporte@soportegranada.com · <a href="tel:+34644411252" style="color:#999;text-decoration:none;">+34 644 41 12 52</a> · Granada<br>
+              © ${new Date().getFullYear()} Soporte Granada. Todos los derechos reservados.
             </p>
           </td>
         </tr>

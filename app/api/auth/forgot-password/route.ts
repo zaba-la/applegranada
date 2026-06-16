@@ -25,13 +25,13 @@ export async function POST(req: Request) {
     data: { inviteToken: token, inviteTokenExpiry: expiry },
   });
 
-  const siteUrl = process.env.NEXTAUTH_URL ?? 'https://applegranada.com';
+  const siteUrl = process.env.NEXTAUTH_URL ?? 'https://soportegranada.com';
   const link = `${siteUrl}/es/establecer-password?token=${token}`;
 
   try {
     await sendEmail(
       email,
-      'Recupera tu contraseña — AppleGranada',
+      'Recupera tu contraseña — Soporte Granada',
       resetPasswordEmailHtml({ name: user.name ?? 'Cliente', link })
     );
   } catch (err) {

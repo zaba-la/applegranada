@@ -1,4 +1,4 @@
-# 🚀 Setup Local - AppleGranada
+# 🚀 Setup Local - Soporte Granada
 
 Instrucciones paso a paso para ejecutar el sitio localmente.
 
@@ -34,13 +34,13 @@ docker-compose up -d
 psql postgres
 
 # En la consola de psql:
-CREATE DATABASE applegranada;
-CREATE USER applegranada_user WITH PASSWORD 'tu_password';
-ALTER ROLE applegranada_user SET client_encoding TO 'utf8';
-ALTER ROLE applegranada_user SET default_transaction_isolation TO 'read committed';
-ALTER ROLE applegranada_user SET default_transaction_deferrable TO on;
-ALTER ROLE applegranada_user SET default_timezone TO 'UTC';
-GRANT ALL PRIVILEGES ON DATABASE applegranada TO applegranada_user;
+CREATE DATABASE soportegranada;
+CREATE USER soportegranada_user WITH PASSWORD 'tu_password';
+ALTER ROLE soportegranada_user SET client_encoding TO 'utf8';
+ALTER ROLE soportegranada_user SET default_transaction_isolation TO 'read committed';
+ALTER ROLE soportegranada_user SET default_transaction_deferrable TO on;
+ALTER ROLE soportegranada_user SET default_timezone TO 'UTC';
+GRANT ALL PRIVILEGES ON DATABASE soportegranada TO soportegranada_user;
 \q
 ```
 
@@ -50,7 +50,7 @@ Asegúrate de que tienes los valores correctos en `.env.local`:
 
 ```env
 # Database - Ajusta según tu setup
-DATABASE_URL="postgresql://applegranada_user:tu_password@localhost:5432/applegranada"
+DATABASE_URL="postgresql://soportegranada_user:tu_password@localhost:5432/soportegranada"
 
 # Authentication
 NEXTAUTH_SECRET="tu-clave-super-segura-cambiar-en-produccion"

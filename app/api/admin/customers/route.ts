@@ -50,11 +50,11 @@ export async function POST(req: Request) {
     },
   });
 
-  const siteUrl = process.env.NEXTAUTH_URL ?? 'https://applegranada.com';
+  const siteUrl = process.env.NEXTAUTH_URL ?? 'https://soportegranada.com';
   const link = `${siteUrl}/es/establecer-password?token=${inviteToken}`;
 
   try {
-    await sendEmail(email, 'Bienvenido a AppleGranada — Establece tu contraseña', inviteEmailHtml({ name, link }));
+    await sendEmail(email, 'Bienvenido a Soporte Granada — Establece tu contraseña', inviteEmailHtml({ name, link }));
   } catch (err) {
     console.error('[invite] Email no enviado:', err);
   }

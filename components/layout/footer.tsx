@@ -58,7 +58,11 @@ export async function Footer() {
         <Separator className="my-8" />
 
         <p className="text-sm text-center text-muted-foreground">
-          © {new Date().getFullYear()} AppleGranada. {t('footer.rights')}.
+          © {new Date().getFullYear()} Soporte Granada. {t('footer.rights')}.
+        </p>
+        <p className="text-xs text-center text-muted-foreground/70 mt-2 max-w-2xl mx-auto">
+          Apple, Mac, iPad, iPhone, Microsoft, Windows y Microsoft 365 son marcas registradas de sus respectivos propietarios.
+          Soporte Granada es un servicio técnico independiente, sin afiliación oficial con Apple Inc. ni Microsoft Corporation.
         </p>
       </div>
     </footer>

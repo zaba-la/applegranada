@@ -92,7 +92,7 @@ export const EMAIL_TEMPLATES: Record<NotificationType, {
     template: (data) => `
       <h2>Ticket Cerrado</h2>
       <p>Tu ticket <strong>${data.ticketCode}</strong> ha sido cerrado.</p>
-      <p>Gracias por usar AppleGranada.</p>
+      <p>Gracias por usar Soporte Granada.</p>
     `,
   },
   PLAN_ASSIGNED: {
@@ -149,7 +149,7 @@ export const EMAIL_TEMPLATES: Record<NotificationType, {
       <p>¡Hola ${data.customerName}!</p>
       <p>Hemos recibido tu pago de €${data.amount}.</p>
       <p><strong>Referencia:</strong> ${data.paymentReference}</p>
-      <p>Gracias por tu confianza en AppleGranada.</p>
+      <p>Gracias por tu confianza en Soporte Granada.</p>
     `,
   },
   PAYMENT_FAILED: {
@@ -185,11 +185,11 @@ export const EMAIL_TEMPLATES: Record<NotificationType, {
     `,
   },
   WELCOME: {
-    subject: '¡Bienvenido a AppleGranada!',
+    subject: '¡Bienvenido a Soporte Granada!',
     template: (data) => `
       <h2>Bienvenido</h2>
       <p>¡Hola ${data.customerName}!</p>
-      <p>Gracias por registrarte en AppleGranada.</p>
+      <p>Gracias por registrarte en Soporte Granada.</p>
       <p>Tu cuenta está lista para usar. Accede a tu panel para comenzar.</p>
       <p>Si tienes dudas, no dudes en contactarnos.</p>
     `,
@@ -205,35 +205,35 @@ export const EMAIL_TEMPLATES: Record<NotificationType, {
  */
 export const SMS_TEMPLATES: Record<NotificationType, (data: any) => string> = {
   TICKET_CREATED: (data) =>
-    `AppleGranada: Tu ticket ${data.ticketCode} ha sido creado. Seguimiento: ${data.trackingLink}`,
+    `Soporte Granada: Tu ticket ${data.ticketCode} ha sido creado. Seguimiento: ${data.trackingLink}`,
   TICKET_UPDATED: (data) =>
-    `AppleGranada: Tu ticket ${data.ticketCode} ha sido actualizado. Estado: ${data.newStatus}`,
+    `Soporte Granada: Tu ticket ${data.ticketCode} ha sido actualizado. Estado: ${data.newStatus}`,
   TICKET_RESPONSE: (data) =>
-    `AppleGranada: Nueva respuesta en tu ticket ${data.ticketCode}. Ver: ${data.dashboardLink}`,
+    `Soporte Granada: Nueva respuesta en tu ticket ${data.ticketCode}. Ver: ${data.dashboardLink}`,
   TICKET_RESOLVED: (data) =>
-    `AppleGranada: ✓ Tu ticket ${data.ticketCode} ha sido resuelto.`,
+    `Soporte Granada: ✓ Tu ticket ${data.ticketCode} ha sido resuelto.`,
   TICKET_CLOSED: (data) =>
-    `AppleGranada: Tu ticket ${data.ticketCode} ha sido cerrado.`,
+    `Soporte Granada: Tu ticket ${data.ticketCode} ha sido cerrado.`,
   PLAN_ASSIGNED: (data) =>
-    `AppleGranada: ¡Nuevo plan asignado! ${data.planName}. Detalles: ${data.dashboardLink}`,
+    `Soporte Granada: ¡Nuevo plan asignado! ${data.planName}. Detalles: ${data.dashboardLink}`,
   PLAN_CHANGED: (data) =>
-    `AppleGranada: Tu plan ha cambiado de ${data.oldPlan} a ${data.newPlan}.`,
+    `Soporte Granada: Tu plan ha cambiado de ${data.oldPlan} a ${data.newPlan}.`,
   INVOICE_CREATED: (data) =>
-    `AppleGranada: Factura ${data.invoiceNumber} por €${data.amount}. Vence: ${data.dueDate}`,
+    `Soporte Granada: Factura ${data.invoiceNumber} por €${data.amount}. Vence: ${data.dueDate}`,
   INVOICE_DUE_SOON: (data) =>
-    `AppleGranada: ⏰ Tu factura ${data.invoiceNumber} vence el ${data.dueDate}.`,
+    `Soporte Granada: ⏰ Tu factura ${data.invoiceNumber} vence el ${data.dueDate}.`,
   INVOICE_OVERDUE: (data) =>
-    `AppleGranada: ⚠ Factura ${data.invoiceNumber} vencida. Pago pendiente: €${data.amount}`,
+    `Soporte Granada: ⚠ Factura ${data.invoiceNumber} vencida. Pago pendiente: €${data.amount}`,
   PAYMENT_RECEIVED: (data) =>
-    `AppleGranada: ✓ Pago de €${data.amount} recibido. Ref: ${data.paymentReference}`,
+    `Soporte Granada: ✓ Pago de €${data.amount} recibido. Ref: ${data.paymentReference}`,
   PAYMENT_FAILED: (data) =>
-    `AppleGranada: ⚠ Error en pago. Razón: ${data.failureReason}. Intenta de nuevo.`,
+    `Soporte Granada: ⚠ Error en pago. Razón: ${data.failureReason}. Intenta de nuevo.`,
   SUPPORT_SCHEDULED: (data) =>
-    `AppleGranada: Cita confirmada ${data.scheduledDate} a las ${data.scheduledTime} en ${data.location}`,
+    `Soporte Granada: Cita confirmada ${data.scheduledDate} a las ${data.scheduledTime} en ${data.location}`,
   SUPPORT_REMINDER: (data) =>
-    `AppleGranada: ⏰ Tu cita es mañana a las ${data.scheduledTime}. ${data.location}`,
+    `Soporte Granada: ⏰ Tu cita es mañana a las ${data.scheduledTime}. ${data.location}`,
   WELCOME: (data) =>
-    `AppleGranada: ¡Bienvenido ${data.customerName}! Tu cuenta está lista. ${data.dashboardLink}`,
+    `Soporte Granada: ¡Bienvenido ${data.customerName}! Tu cuenta está lista. ${data.dashboardLink}`,
   PROMOTIONAL: (data) =>
     data.smsContent,
 };

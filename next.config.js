@@ -73,7 +73,7 @@ const nextConfig = {
   },
 
   env: {
-    NEXT_PUBLIC_APP_NAME: 'AppleGranada',
+    NEXT_PUBLIC_APP_NAME: 'Soporte Granada',
   },
 };
 

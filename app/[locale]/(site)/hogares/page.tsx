@@ -14,12 +14,12 @@ import { FadeIn } from '@/components/fade-in';
 
 export async function generateMetadata() {
   return {
-    title: 'Soporte técnico Apple para familias y hogares en Granada | AppleGranada',
+    title: 'Soporte técnico Apple y Windows para familias y hogares en Granada',
     description:
-      'Un experto Apple para toda tu familia. Configuramos dispositivos, recuperamos fotos, gestionamos iCloud y solucionamos cualquier problema de Mac, iPad o iPhone en Granada.',
+      'Un experto Apple y Windows para toda tu familia. Configuramos dispositivos, recuperamos fotos, gestionamos iCloud y OneDrive, y solucionamos cualquier problema de Mac, PC, iPad o iPhone en Granada.',
     openGraph: {
-      title: 'Soporte Apple para Familias y Hogares en Granada',
-      description: 'Mac, iPad e iPhone para toda la familia, siempre funcionando. Soporte remoto y presencial en Granada.',
+      title: 'Soporte Apple y Windows para Familias y Hogares en Granada',
+      description: 'Mac, PC, iPad e iPhone para toda la familia, siempre funcionando. Soporte remoto y presencial en Granada.',
     },
   };
 }
@@ -27,8 +27,8 @@ export async function generateMetadata() {
 const problems = [
   { icon: Camera, text: 'Fotos familiares que no sincronizan o que creías perdidas para siempre' },
   { icon: Home, text: 'El equipo compartido de los niños va lento o tiene problemas al arrancar' },
-  { icon: Users, text: 'Nadie en casa sabe configurar el nuevo Mac, iPhone o iPad' },
-  { icon: HelpCircle, text: 'Contraseñas olvidadas, Apple ID bloqueado o iCloud lleno' },
+  { icon: Users, text: 'Nadie en casa sabe configurar el nuevo Mac, PC, iPhone o iPad' },
+  { icon: HelpCircle, text: 'Contraseñas olvidadas, Apple ID o cuenta Microsoft bloqueada, iCloud u OneDrive llenos' },
 ];
 
 const activities = [
@@ -40,17 +40,17 @@ const activities = [
   {
     icon: RefreshCw,
     title: 'Puesta a punto del equipo familiar',
-    desc: 'Actualizamos macOS de forma segura, liberamos espacio, eliminamos apps obsoletas y dejamos el Mac compartido funcionando rápido y sin problemas.',
+    desc: 'Actualizamos macOS o Windows de forma segura, liberamos espacio, eliminamos apps obsoletas y dejamos el equipo compartido funcionando rápido y sin problemas.',
   },
   {
     icon: Shield,
     title: 'Control parental y seguridad familiar',
-    desc: 'Configuramos el Tiempo de Pantalla de Apple con límites por edad, restricciones de contenido y supervisión. Ideal para que los pequeños usen los dispositivos de forma segura.',
+    desc: 'Configuramos el Tiempo de Pantalla de Apple o Microsoft Family Safety con límites por edad, restricciones de contenido y supervisión. Ideal para que los pequeños usen los dispositivos de forma segura.',
   },
   {
     icon: Wifi,
     title: 'Configuración de nuevos dispositivos',
-    desc: 'Ponemos en marcha el Mac, iPad o iPhone nuevo: transferencia de datos del equipo antiguo, configuración de iCloud, correo, apps habituales y ajustes familiares.',
+    desc: 'Ponemos en marcha el Mac, PC, iPad o iPhone nuevo: transferencia de datos del equipo antiguo, configuración de iCloud u OneDrive, correo, apps habituales y ajustes familiares.',
   },
 ];
 
@@ -59,7 +59,7 @@ const testimonials = [
     name: 'Roberto Sánchez',
     role: 'Padre de familia, Granada capital',
     initials: 'RS',
-    quote: 'El Mac que usan mis hijos para hacer los deberes se quedó sin arrancar. Lo arreglaron sin que yo tuviera que entender nada de tecnología. Explicaciones claras y precio honesto.',
+    quote: 'El portátil con Windows que usan mis hijos para hacer los deberes se quedó sin arrancar. Lo arreglaron sin que yo tuviera que entender nada de tecnología. Explicaciones claras y precio honesto.',
   },
   {
     name: 'Pilar Torres',
@@ -72,6 +72,12 @@ const testimonials = [
     role: 'Jubilado, Albolote',
     initials: 'FR',
     quote: 'Mis hijos me pusieron el soporte para que tuviera el Mac siempre a punto. Ahora tengo videollamadas con los nietos sin cortes y las fotos bien organizadas. Feliz.',
+  },
+  {
+    name: 'Mercedes Aguilar',
+    role: 'Madre de tres hijos, Granada capital',
+    initials: 'MA',
+    quote: 'El portátil con Windows del salón se llenó de ventanas raras y publicidad. Lo limpiaron en remoto el mismo día y nos explicaron cómo evitar que vuelva a pasar.',
   },
 ];
 
@@ -98,10 +104,10 @@ export default async function HogaresPage({ params: { locale } }: { params: { lo
           <FadeIn>
             <Badge variant="secondary" className="mb-5">Para hogares y familias</Badge>
             <h1 className="text-4xl md:text-5xl font-bold mb-5 max-w-3xl mx-auto leading-tight">
-              El experto Apple de tu familia, sin tecnicismos.
+              El experto Apple y Windows de tu familia, sin tecnicismos.
             </h1>
             <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-10">
-              Recuperamos fotos, ponemos a punto el equipo familiar, configuramos iPads e iPhones
+              Recuperamos fotos, ponemos a punto el equipo familiar, configuramos iPads, iPhones, PC y portátiles Windows,
               y solucionamos cualquier problema. En remoto o en tu casa.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -124,7 +130,7 @@ export default async function HogaresPage({ params: { locale } }: { params: { lo
           <h2 className="text-2xl font-semibold mb-2">Situaciones que reconocerás</h2>
           <p className="text-muted-foreground mb-10">Los problemas del día a día con los dispositivos Apple en casa.</p>
         </FadeIn>
-        <div className="grid gap-4 sm:grid-cols-2 max-w-3xl">
+        <div className="grid gap-4 sm:grid-cols-2 max-w-3xl mx-auto">
           {problems.map(({ icon: Icon, text }, i) => (
             <FadeIn key={text} delay={i * 70}>
               <div className="flex items-start gap-3 p-4 rounded-xl border bg-background">
@@ -163,7 +169,7 @@ export default async function HogaresPage({ params: { locale } }: { params: { lo
         </div>
       </section>
 
-      {/* Por qué AppleGranada */}
+      {/* Por qué Soporte Granada */}
       <section className="container mx-auto px-4 py-16 max-w-4xl">
         <FadeIn>
           <h2 className="text-2xl font-semibold mb-8">Por qué confían en nosotros las familias de Granada</h2>
@@ -172,9 +178,9 @@ export default async function HogaresPage({ params: { locale } }: { params: { lo
           {[
             'Soporte presencial a domicilio en Granada y área metropolitana',
             'Explicamos todo en lenguaje sencillo, sin tecnicismos',
-            'Atendemos a toda la familia: Mac, iPad, iPhone y Apple TV',
+            'Atendemos a toda la familia: Mac, PC, iPad, iPhone y Apple TV',
             'Servicio de recuperación de fotos y datos perdidos',
-            'Configuramos iCloud familiar y sincronización entre dispositivos',
+            'Configuramos iCloud, OneDrive y sincronización entre dispositivos',
             'Pago por horas: sin cuotas mensuales ni contratos',
           ].map((item, i) => (
             <FadeIn key={item} delay={i * 50}>
@@ -193,7 +199,7 @@ export default async function HogaresPage({ params: { locale } }: { params: { lo
           <FadeIn>
             <h2 className="text-2xl font-semibold mb-10 text-center">Familias de Granada que ya confían en nosotros</h2>
           </FadeIn>
-          <div className="grid gap-6 md:grid-cols-3 max-w-5xl mx-auto">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
             {testimonials.map((t, i) => (
               <FadeIn key={t.name} delay={i * 90}>
                 <Card className="flex flex-col h-full">

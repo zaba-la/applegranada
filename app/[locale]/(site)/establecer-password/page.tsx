@@ -34,7 +34,7 @@ function SetPasswordForm() {
     return (
       <Card className="w-full max-w-sm">
         <CardContent className="pt-6 text-center text-muted-foreground">
-          Enlace inválido. Solicita una nueva invitación al equipo de AppleGranada.
+          Enlace inválido. Solicita una nueva invitación al equipo de Soporte Granada.
         </CardContent>
       </Card>
     );
@@ -83,7 +83,7 @@ function SetPasswordForm() {
       <CardHeader>
         <CardTitle>Establece tu contraseña</CardTitle>
         <CardDescription>
-          Elige una contraseña segura para acceder a tu cuenta de AppleGranada.
+          Elige una contraseña segura para acceder a tu cuenta de Soporte Granada.
         </CardDescription>
         {userEmail && (
           <div className="flex items-center gap-2 rounded-lg bg-muted/50 border px-3 py-2 mt-2">

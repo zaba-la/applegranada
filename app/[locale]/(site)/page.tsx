@@ -1,16 +1,18 @@
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { getServerSession } from 'next-auth';
+import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, Shield, Wrench, Apple, GraduationCap, Home, Briefcase, Building2 } from 'lucide-react';
+import { ArrowRight, Shield, Wrench, Laptop, GraduationCap, Home, Briefcase, Building2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { FadeIn } from '@/components/fade-in';
 import { TestimonialsSection } from '@/components/testimonials-section';
+import { LogoCarousel } from '@/components/logo-carousel';
 import { authOptions } from '@/lib/auth';
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
   const t = await getTranslations({ locale, namespace: 'home' });
-  return { title: t('hero.title') };
+  return { title: t('hero.title'), description: t('hero.subtitle') };
 }
 
 export default async function HomePage({ params: { locale } }: { params: { locale: string } }) {
@@ -23,7 +25,7 @@ export default async function HomePage({ params: { locale } }: { params: { local
   const values = [
     { key: 'preventive', icon: Shield },
     { key: 'corrective', icon: Wrench },
-    { key: 'specialist', icon: Apple },
+    { key: 'specialist', icon: Laptop },
   ] as const;
 
   const segments = [
@@ -37,25 +39,43 @@ export default async function HomePage({ params: { locale } }: { params: { local
     <>
       {/* Hero */}
       <FadeIn>
-        <section className="container mx-auto px-4 py-24 text-center">
-          <h1 className="text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl mb-6">
-            {t('hero.title')}
-          </h1>
-          <p className="mx-auto max-w-2xl text-lg text-muted-foreground mb-10">
-            {t('hero.subtitle')}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" asChild>
-              <Link href={ticketHref}>
-                {tc('buttons.bookDiagnosis')} <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-            <Button size="lg" variant="outline" asChild>
-              <Link href={`/${locale}/precios`}>{tc('buttons.seePlans')}</Link>
-            </Button>
+        <section className="relative overflow-hidden">
+          <Image
+            src="/images/image1.jpg"
+            alt=""
+            fill
+            priority
+            className="object-cover animate-bg-zoom"
+          />
+          <div className="absolute inset-0 bg-black/65" />
+          <div className="relative container mx-auto px-4 py-24 text-center text-white">
+            <h1 className="text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl mb-6">
+              {t('hero.title')}
+            </h1>
+            <p className="mx-auto max-w-2xl text-lg text-white/80 mb-10">
+              {t('hero.subtitle')}
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" asChild>
+                <Link href={ticketHref}>
+                  {tc('buttons.bookDiagnosis')} <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                asChild
+                className="bg-transparent border-white/40 text-white hover:bg-white/10"
+              >
+                <Link href={`/${locale}/precios`}>{tc('buttons.seePlans')}</Link>
+              </Button>
+            </div>
           </div>
         </section>
       </FadeIn>
+
+      {/* Logo carousel */}
+      <LogoCarousel />
 
       {/* Values */}
       <section className="bg-muted/40 py-20">
@@ -111,15 +131,24 @@ export default async function HomePage({ params: { locale } }: { params: { local
 
       {/* CTA */}
       <FadeIn>
-        <section className="bg-primary text-primary-foreground py-20">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-4">{t('cta.title')}</h2>
-            <p className="text-lg opacity-80 mb-8 max-w-xl mx-auto">{t('cta.subtitle')}</p>
-            <Button size="lg" variant="secondary" asChild>
-              <Link href={ticketHref}>
-                {tc('buttons.talkWithUs')} <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
+        <section className="relative overflow-hidden py-24">
+          <Image
+            src="/images/image2.jpg"
+            alt=""
+            fill
+            className="object-cover object-[65%_30%] animate-bg-zoom"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/10" />
+          <div className="relative container mx-auto px-4">
+            <div className="max-w-md text-left text-white">
+              <h2 className="text-3xl font-bold mb-4">{t('cta.title')}</h2>
+              <p className="text-lg text-white/80 mb-8">{t('cta.subtitle')}</p>
+              <Button size="lg" variant="secondary" asChild>
+                <Link href={ticketHref}>
+                  {tc('buttons.talkWithUs')} <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
           </div>
         </section>
       </FadeIn>

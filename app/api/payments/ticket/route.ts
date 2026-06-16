@@ -36,7 +36,7 @@ export async function POST(req: Request) {
       ?? (ticket.serviceMode === 'ON_SITE' ? 2 : 1);
     const amount = hourlyRate * hours;
 
-    const siteUrl = process.env.NEXTAUTH_URL ?? 'https://applegranada.com';
+    const siteUrl = process.env.NEXTAUTH_URL ?? 'https://soportegranada.com';
     const modeLabel = ticket.serviceMode === 'ON_SITE' ? 'Soporte presencial' : 'Soporte remoto';
     const hoursLabel = `${hours} hora${hours !== 1 ? 's' : ''} · ${hourlyRate}€/hora`;
 

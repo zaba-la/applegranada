@@ -37,7 +37,7 @@ export default async function PlanPage({ params: { locale } }: { params: { local
         <Card>
           <CardContent className="py-8 text-center">
             <p className="text-muted-foreground mb-4">
-              Elige un plan para empezar a disfrutar del soporte AppleGranada
+              Elige un plan para empezar a disfrutar del soporte Soporte Granada
             </p>
             <Button asChild>
               <Link href={`/${locale}/precios`}>

@@ -121,7 +121,7 @@ export function ResendInviteButton({ customerId }: { customerId: string }) {
               {link && (
                 <Button size="sm" variant="outline" className="flex-1" asChild>
                   <a
-                    href={`https://wa.me/?text=${encodeURIComponent('Hola, aquí tienes tu enlace para acceder a AppleGranada: ' + link)}`}
+                    href={`https://wa.me/?text=${encodeURIComponent('Hola, aquí tienes tu enlace para acceder a Soporte Granada: ' + link)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >

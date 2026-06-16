@@ -22,8 +22,8 @@ const categories: Category[] = [
     title: 'Soporte general y servicio',
     faqs: [
       {
-        q: '¿Qué cubre exactamente el soporte de AppleGranada?',
-        a: 'Cubrimos exclusivamente software del ecosistema Apple: macOS, iPadOS e iOS. Incluye mantenimiento preventivo, resolución de problemas, configuraciones, migraciones, recuperación de datos y formación básica en el uso de tus dispositivos.',
+        q: '¿Qué cubre exactamente el soporte de Soporte Granada?',
+        a: 'Cubrimos software de los ecosistemas Apple y Microsoft: macOS, iPadOS, iOS y Windows. Incluye mantenimiento preventivo, resolución de problemas, configuraciones, migraciones, recuperación de datos y formación básica en el uso de tus dispositivos.',
       },
       {
         q: '¿Reparan hardware (pantallas, baterías, puertos)?',
@@ -98,6 +98,31 @@ const categories: Category[] = [
     ],
   },
   {
+    title: 'Windows',
+    faqs: [
+      {
+        q: '¿Por qué mi PC con Windows va tan lento?',
+        a: 'Las causas más comunes son: disco casi lleno, demasiados programas abriéndose al inicio, una instalación con años de archivos temporales, o malware consumiendo recursos sin que lo notes. En una sesión de diagnóstico identificamos la causa exacta y la resolvemos.',
+      },
+      {
+        q: 'Mi PC tiene Windows 10, ¿qué hago ahora?',
+        a: 'Windows 10 dejó de recibir soporte de seguridad en octubre de 2025. Valoramos si tu equipo admite Windows 11 y planificamos la actualización segura con copia de seguridad previa; si no es compatible, te damos alternativas claras y sin presión comercial.',
+      },
+      {
+        q: '¿Necesito instalar un antivirus de pago en Windows 11?',
+        a: 'Para la mayoría de usuarios domésticos, no. Windows 11 incluye Microsoft Defender, una protección sólida y gratuita. Lo importante es mantener Windows actualizado, no duplicar antivirus y tener cuidado con correos y enlaces. Si tu equipo ya está infectado, lo limpiamos a fondo.',
+      },
+      {
+        q: '¿Qué hago si mi PC tiene pantallazos azules (BSOD) o no arranca?',
+        a: 'Puede ser un problema de drivers, una actualización reciente o errores de disco. Antes de traerlo a soporte, anota cuándo ocurre (al abrir una app, al arrancar, etc.) para que el diagnóstico sea más rápido; en muchos casos se resuelve sin perder datos.',
+      },
+      {
+        q: '¿Pueden gestionar varios PCs de mi empresa con Microsoft Intune?',
+        a: 'Sí. Implantamos y administramos Microsoft Intune para gestionar, proteger (cifrado BitLocker) y actualizar todos los equipos de tu empresa desde un único panel, con un punto de contacto único.',
+      },
+    ],
+  },
+  {
     title: 'iPadOS e iPhone',
     faqs: [
       {
@@ -157,7 +182,7 @@ const categories: Category[] = [
     ],
   },
   {
-    title: 'Microsoft 365 (Office) en Mac',
+    title: 'Microsoft 365 (Office)',
     faqs: [
       {
         q: '¿Por qué Word, Excel o PowerPoint se cierran solos en mi Mac?',
@@ -218,7 +243,7 @@ export default function FaqPage() {
         <div className="text-center mb-14">
           <h1 className="text-4xl font-bold mb-4">Preguntas frecuentes</h1>
           <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-            Respuestas a las dudas más habituales sobre nuestro servicio y el ecosistema Apple.
+            Respuestas a las dudas más habituales sobre nuestro servicio y los ecosistemas Apple y Windows.
           </p>
         </div>
       </FadeIn>

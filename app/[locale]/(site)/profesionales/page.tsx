@@ -14,18 +14,18 @@ import { FadeIn } from '@/components/fade-in';
 
 export async function generateMetadata() {
   return {
-    title: 'Soporte técnico Apple para autónomos y profesionales en Granada | AppleGranada',
+    title: 'Soporte técnico Apple y Windows para autónomos y profesionales en Granada',
     description:
-      'Mantén tu Mac, iPad e iPhone siempre a punto. Soporte especializado para autónomos, diseñadores, fotógrafos, arquitectos y profesionales que dependen de Apple para trabajar.',
+      'Mantén tu Mac, PC, iPad e iPhone siempre a punto. Soporte especializado para autónomos, diseñadores, fotógrafos, arquitectos y profesionales que dependen de Apple o Windows para trabajar.',
     openGraph: {
-      title: 'Soporte Apple para Profesionales y Autónomos en Granada',
-      description: 'Tu equipo es tu herramienta. Soporte técnico Apple preventivo y correctivo para profesionales que no pueden permitirse tiempos de inactividad.',
+      title: 'Soporte Apple y Windows para Profesionales y Autónomos en Granada',
+      description: 'Tu equipo es tu herramienta. Soporte técnico Apple y Windows preventivo y correctivo para profesionales que no pueden permitirse tiempos de inactividad.',
     },
   };
 }
 
 const problems = [
-  { icon: Zap, text: 'El Mac falla en medio de un proyecto urgente para un cliente' },
+  { icon: Zap, text: 'El Mac o el PC falla en medio de un proyecto urgente para un cliente' },
   { icon: Database, text: 'Lightroom, Revit, Final Cut o DaVinci van lentos o se cierran solos' },
   { icon: Clock, text: 'Horas perdidas en actualizaciones que salieron mal o en buscar soluciones' },
   { icon: Shield, text: 'Sin copia de seguridad fiable de los proyectos y el trabajo de meses' },
@@ -35,7 +35,7 @@ const activities = [
   {
     icon: RefreshCw,
     title: 'Mantenimiento preventivo',
-    desc: 'Actualizaciones seguras de macOS, limpieza de disco, optimización del sistema y revisión de seguridad. Acordamos la sesión fuera de tu horario de trabajo para no interrumpir.',
+    desc: 'Actualizaciones seguras de macOS o Windows, limpieza de disco, optimización del sistema y revisión de seguridad. Acordamos la sesión fuera de tu horario de trabajo para no interrumpir.',
   },
   {
     icon: Database,
@@ -45,7 +45,7 @@ const activities = [
   {
     icon: Shield,
     title: 'Backup estratégico para proyectos',
-    desc: 'Diseñamos y configuramos un sistema de copias de seguridad a medida: Time Machine, almacenamiento en la nube y copias locales. Tus proyectos, siempre protegidos.',
+    desc: 'Diseñamos y configuramos un sistema de copias de seguridad a medida: Time Machine, OneDrive, almacenamiento en la nube y copias locales. Tus proyectos, siempre protegidos.',
   },
   {
     icon: Wifi,
@@ -73,12 +73,18 @@ const testimonials = [
     initials: 'DF',
     quote: 'Llevo tiempo con su soporte y no he tenido ningún problema serio. Cuando algo falla, lo resuelven ese mismo día. No me imagino trabajando sin este respaldo.',
   },
+  {
+    name: 'Marta Delgado',
+    role: 'Gestora administrativa autónoma',
+    initials: 'MD',
+    quote: 'Mi portátil con Windows se quedó pillado actualizando justo antes de presentar unos impuestos. Lo resolvieron por TeamViewer esa misma tarde, sin perder ni un archivo.',
+  },
 ];
 
 const tools = [
-  'Adobe Creative Cloud', 'Final Cut Pro', 'Logic Pro', 'DaVinci Resolve',
+  'Adobe Creative Cloud', 'Final Cut Pro',
   'Revit / AutoCAD', 'Microsoft 365', 'Google Workspace', 'Lightroom Classic',
-  'Sketch / Figma', 'Xcode', 'SPSS / MATLAB', 'FileMaker',
+  'Sketch / Figma',
 ];
 
 function Stars() {
@@ -107,8 +113,8 @@ export default async function ProfesionalesPage({ params: { locale } }: { params
               Tu herramienta de trabajo, siempre a punto.
             </h1>
             <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-10">
-              Soporte técnico Apple especializado para autónomos, diseñadores, fotógrafos,
-              arquitectos y cualquier profesional que dependa de su Mac para trabajar.
+              Soporte técnico Apple y Windows especializado para autónomos, diseñadores, fotógrafos,
+              arquitectos y cualquier profesional que dependa de su Mac o su PC para trabajar.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Button size="lg" asChild>
@@ -128,9 +134,9 @@ export default async function ProfesionalesPage({ params: { locale } }: { params
       <section className="container mx-auto px-4 py-16">
         <FadeIn>
           <h2 className="text-2xl font-semibold mb-2">Los problemas que te cuestan dinero</h2>
-          <p className="text-muted-foreground mb-10">Cuando el Mac falla, dejas de trabajar. Resolvemos estos problemas antes o cuando ocurren.</p>
+          <p className="text-muted-foreground mb-10">Cuando el equipo falla, dejas de trabajar. Resolvemos estos problemas antes o cuando ocurren.</p>
         </FadeIn>
-        <div className="grid gap-4 sm:grid-cols-2 max-w-3xl">
+        <div className="grid gap-4 sm:grid-cols-2 max-w-3xl mx-auto">
           {problems.map(({ icon: Icon, text }, i) => (
             <FadeIn key={text} delay={i * 70}>
               <div className="flex items-start gap-3 p-4 rounded-xl border bg-background">
@@ -147,7 +153,7 @@ export default async function ProfesionalesPage({ params: { locale } }: { params
         <div className="container mx-auto px-4">
           <FadeIn>
             <h2 className="text-2xl font-semibold mb-2">Cómo mantenemos tu negocio funcionando</h2>
-            <p className="text-muted-foreground mb-10">Servicios de soporte técnico Apple orientados al rendimiento y la continuidad laboral.</p>
+            <p className="text-muted-foreground mb-10">Servicios de soporte técnico Apple y Windows orientados al rendimiento y la continuidad laboral.</p>
           </FadeIn>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {activities.map(({ icon: Icon, title, desc }, i) => (
@@ -184,7 +190,7 @@ export default async function ProfesionalesPage({ params: { locale } }: { params
         </FadeIn>
       </section>
 
-      {/* Por qué AppleGranada */}
+      {/* Por qué Soporte Granada */}
       <section className="bg-muted/30 py-12">
         <div className="container mx-auto px-4 max-w-4xl">
           <FadeIn>
@@ -216,7 +222,7 @@ export default async function ProfesionalesPage({ params: { locale } }: { params
           <FadeIn>
             <h2 className="text-2xl font-semibold mb-10 text-center">Profesionales que ya confían en nosotros</h2>
           </FadeIn>
-          <div className="grid gap-6 md:grid-cols-3 max-w-5xl mx-auto">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
             {testimonials.map((t, i) => (
               <FadeIn key={t.name} delay={i * 90}>
                 <Card className="flex flex-col h-full">

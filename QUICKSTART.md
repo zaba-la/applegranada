@@ -1,14 +1,14 @@
-# 🚀 Iniciación Rápida - AppleGranada
+# 🚀 Iniciación Rápida - Soporte Granada
 
-Una guía rápida para empezar a trabajar con AppleGranada en tu máquina local.
+Una guía rápida para empezar a trabajar con Soporte Granada en tu máquina local.
 
 ## ⚙️ Instalación y Setup
 
 ### 1. Clonar el Repositorio
 
 ```bash
-git clone https://github.com/tu-usuario/applegranada.git
-cd applegranada
+git clone https://github.com/tu-usuario/soportegranada.git
+cd soportegranada
 ```
 
 ### 2. Instalar Dependencias
@@ -26,7 +26,7 @@ cp .env.example .env.local
 Edita `.env.local` con tus valores locales:
 
 ```env
-DATABASE_URL="postgresql://localhost/applegranada"
+DATABASE_URL="postgresql://localhost/soportegranada"
 NEXTAUTH_SECRET="dev-secret-key-change-in-production"
 NEXTAUTH_URL="http://localhost:3000"
 ```
@@ -50,7 +50,7 @@ npx prisma migrate dev --name init
 ```bash
 # Crear BD (macOS con Homebrew)
 brew services start postgresql
-createdb applegranada
+createdb soportegranada
 
 # Ejecutar migraciones
 npx prisma migrate dev --name init
@@ -67,7 +67,7 @@ Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
 ## 📁 Estructura del Proyecto
 
 ```
-applegranada/
+soportegranada/
 ├── app/                      # Next.js App Router
 │   ├── [locale]/             # Rutas dinámicas por idioma (es, en)
 │   │   ├── page.tsx          # Página de inicio

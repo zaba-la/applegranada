@@ -3,12 +3,12 @@ import '@/styles/globals.css';
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | AppleGranada',
-    default: 'AppleGranada — Servicio Técnico de Software Apple en Granada',
+    template: '%s | Soporte Granada',
+    default: 'Soporte Granada — Servicio Técnico de Software Apple y Windows en Granada',
   },
   description:
-    'Servicio técnico de software para Mac, iPad e iPhone en Granada. Soporte preventivo y correctivo. Sin colas, sin perder tus datos.',
-  keywords: ['apple', 'mac', 'iphone', 'ipad', 'soporte técnico', 'granada', 'software'],
+    'Servicio técnico de software para Mac, iPad, iPhone, Windows, Microsoft 365 y Surface en Granada. Soporte preventivo y correctivo. Sin colas, sin perder tus datos.',
+  keywords: ['apple', 'mac', 'iphone', 'ipad', 'windows', 'microsoft 365', 'soporte técnico', 'granada', 'software'],
   icons: {
     icon: '/favicon.png',
     apple: '/favicon.png',
